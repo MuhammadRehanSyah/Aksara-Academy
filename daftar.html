@@ -63,10 +63,10 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div class="w" style="padding-top:28px"><a class="btn o" href="index.html" style="padding:8px 16px;font-size:14px">← Kembali ke Halaman Utama</a></div>
 
 <section style="padding-top:32px"><div class="w"><div class="c"><h2>Cara Mendaftar</h2><p class="sub">Tiga langkah singkat.</p></div>
-<div class="grid"><div class="card"><div class="num">1</div><h3>Follow Instagram</h3><p>Follow @aksaracademy, ini wajib.</p></div><div class="card"><div class="num">2</div><h3>Isi Formulir</h3><p>Lengkapi data diri dan pilih program.</p></div><div class="card"><div class="num">3</div><h3>Kirim via WhatsApp</h3><p>Data terkirim ke admin untuk dikonfirmasi.</p></div></div></div></section>
+<div class="grid"><div class="card"><div class="num">1</div><h3>Follow Instagram</h3><p>Follow @aksaracademy, ini wajib.</p></div><div class="card"><div class="num">2</div><h3>Isi Formulir</h3><p>Lengkapi data diri dan pilih program.</p></div><div class="card"><div class="num">3</div><h3>Kirim Pendaftaran</h3><p>Data tersimpan dan admin menerima notifikasi.</p></div></div></div></section>
 
 <section id="daftar"><div class="w"><div class="reg">
-<div class="side"><h3>Form Pendaftaran</h3><p>Isi data dengan benar agar mudah kami hubungi.</p><ul><li>Kolom bertanda * wajib diisi</li><li>Wajib sudah follow Instagram Aksara Academy</li><li>Akun TikTok dan Twitter boleh dikosongkan</li></ul></div>
+<div class="side"><h3>Form Pendaftaran</h3><p>Isi data dengan benar agar mudah kami hubungi.</p><ul><li>Kolom bertanda * wajib diisi</li><li>Wajib sudah follow Instagram Aksara Academy</li><li>Akun TikTok dan Twitter boleh dikosongkan</li><li>Pas foto dipakai untuk sertifikat</li></ul></div>
 <div class="card"><form id="f" novalidate>
 <div><label for="nama">Nama Lengkap *</label><input id="nama" autocomplete="name"></div>
 <div class="row"><div><label for="tmp">Tempat Lahir *</label><input id="tmp"></div><div><label for="tgl">Tanggal Lahir *</label><input id="tgl" type="date"></div></div>
@@ -77,8 +77,11 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div style="margin-top:14px"><label for="ig">Username Instagram kamu *</label><input id="ig" placeholder="@username"></div>
 <div class="radio"><label><input type="radio" name="fol" value="Sudah Follow"> Sudah Follow</label><label><input type="radio" name="fol" value="Belum Follow"> Belum Follow</label></div>
 <div class="err" id="e_fol">Kamu harus sudah follow Instagram Aksara Academy untuk mendaftar.</div></div>
-<div><label for="prog">Program yang diikuti *</label><select id="prog"><option value="">Pilih program</option><option>Intensive Microsoft Office For Academic &amp; Career Readiness</option></select></div>
+<div><label for="prog">Program yang diikuti *</label><select id="prog"><option value="">Pilih program</option><option value="4b326836-7cb0-4e83-bc1f-fae72c58f443">Intensive Microsoft Office For Academic &amp; Career Readiness</option></select></div>
+<div><label for="foto">Pas Foto *</label><input id="foto" type="file" accept="image/*"><div class="err" id="e_foto">Pas foto wajib diunggah (file gambar).</div></div>
 <div class="err" id="e_all">Mohon lengkapi semua kolom wajib.</div>
+<div class="err" id="e_kirim"></div>
+<div id="ok_kirim" style="display:none;color:var(--green);font-weight:700;font-size:14px">Pendaftaran terkirim. Terima kasih, data kamu sudah kami terima.</div>
 <button class="btn" type="submit">Kirim Pendaftaran</button></form></div>
 </div></div></section>
 </main>
@@ -92,13 +95,36 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <script>
 try{document.getElementById('cl').onclick=function(){document.getElementById('pop').classList.add('x')};
 var $=function(i){return document.getElementById(i)},f=$('f');
+var SB_URL='https://byatfncncimmwqwfduid.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5YXRmbmNuY2ltbXdxd2ZkdWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NjY5NjAsImV4cCI6MjExMDQ0Mjk2MH0.GDGTCq6yraap41so1Ul84Bg5Lz6ZrkR8Awo7p-OW4aA';
+var SB_H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY};
+fetch(SB_URL+'/rest/v1/programs?select=id,name&is_active=eq.true&order=name',{headers:SB_H}).then(function(r){return r.ok?r.json():[]}).then(function(rows){
+if(!rows||!rows.length)return;
+var s=$('prog'),cur=s.value;s.innerHTML='<option value="">Pilih program</option>';
+rows.forEach(function(p){var o=document.createElement('option');o.value=p.id;o.textContent=p.name;s.appendChild(o)});
+if(cur)s.value=cur;
+}).catch(function(){});
 f.addEventListener('submit',function(e){e.preventDefault();
 var ok=['nama','tmp','tgl','alamat','wa_no','ig','prog'].every(function(i){return $(i).value.trim()});
 var fol=(f.querySelector('input[name=fol]:checked')||{}).value;
-$('e_all').classList.toggle('show',!ok);$('e_fol').classList.toggle('show',fol!=='Sudah Follow');
-if(!ok||fol!=='Sudah Follow')return;
-var m='PENDAFTARAN AKSARA ACADEMY\nNama: '+$('nama').value+'\nTTL: '+$('tmp').value+', '+$('tgl').value+'\nAlamat: '+$('alamat').value+'\nWhatsApp: '+$('wa_no').value+'\nInstagram: '+$('ig').value+'\nTikTok: '+($('tt').value||'-')+'\nTwitter: '+($('tw').value||'-')+'\nStatus Follow IG: '+fol+'\nProgram: '+$('prog').value;
-window.open('https://wa.me/6285179523129?text='+encodeURIComponent(m),'_blank')})}catch(e){}
+var file=$('foto').files[0]||null;
+var fotoOk=!!file&&file.type.indexOf('image/')===0;
+$('e_all').classList.toggle('show',!ok);$('e_fol').classList.toggle('show',fol!=='Sudah Follow');$('e_foto').classList.toggle('show',!fotoOk);
+if(!ok||fol!=='Sudah Follow'||!fotoOk)return;
+var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Mengirim...';
+$('e_kirim').classList.remove('show');$('ok_kirim').style.display='none';
+var ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+var path='pendaftar/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext;
+fetch(SB_URL+'/storage/v1/object/pas-foto/'+path,{method:'POST',headers:Object.assign({},SB_H,{'Content-Type':file.type}),body:file}).then(function(r){
+if(!r.ok)throw new Error('Foto gagal diunggah.');
+return fetch(SB_URL+'/rest/v1/registrations',{method:'POST',headers:Object.assign({},SB_H,{'Content-Type':'application/json','Prefer':'return=minimal'}),body:JSON.stringify({program_id:$('prog').value,full_name:$('nama').value.trim(),birth_place:$('tmp').value.trim(),birth_date:$('tgl').value,address:$('alamat').value.trim(),whatsapp_number:$('wa_no').value.trim(),instagram_username:$('ig').value.trim(),tiktok_username:$('tt').value.trim()||null,twitter_username:$('tw').value.trim()||null,follow_status:fol,photo_path:path})});
+}).then(function(r){
+if(!r.ok)throw new Error('Pendaftaran gagal terkirim.');
+$('ok_kirim').style.display='block';f.reset();
+}).catch(function(err){
+$('e_kirim').textContent=(err&&err.message)||'Terjadi kesalahan. Silakan coba lagi.';$('e_kirim').classList.add('show');
+}).finally(function(){btn.disabled=false;btn.textContent='Kirim Pendaftaran';});
+})}catch(e){}
+
 </script>
 </body>
 </html>
