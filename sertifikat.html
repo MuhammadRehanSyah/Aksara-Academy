@@ -587,42 +587,14 @@
             <!-- banner geometris hijau/emas -->
             <div class="cert-banner" aria-hidden="true">
               <svg viewBox="0 0 1000 230" preserveAspectRatio="none">
-                <defs>
-                  <!-- Motif batik kawung tone-on-tone untuk bidang emas
-                       pita header: lingkaran-lingkaran saling berpotongan
-                       (pola kawung klasik) digambar dengan garis emas
-                       lebih gelap di atas dasar emas yang sama, kontras
-                       rendah supaya halus dan tetap profesional. Pola
-                       hanya terlihat pada segitiga emas di kiri dan kanan
-                       logo; segitiga hijau di tengah menutupinya. Berlaku
-                       sama di template potret dan landscape karena
-                       keduanya memakai banner yang sama. -->
-                  <pattern id="batikGold" width="84" height="84" patternUnits="userSpaceOnUse">
-                    <g fill="none" stroke="#8F6D12" stroke-width="2.4" opacity=".40">
-                      <circle cx="0" cy="0" r="30"/>
-                      <circle cx="84" cy="0" r="30"/>
-                      <circle cx="0" cy="84" r="30"/>
-                      <circle cx="84" cy="84" r="30"/>
-                      <circle cx="42" cy="42" r="30"/>
-                    </g>
-                    <g fill="none" stroke="#E9CE6B" stroke-width="1.5" opacity=".30">
-                      <circle cx="0" cy="0" r="20"/>
-                      <circle cx="84" cy="0" r="20"/>
-                      <circle cx="0" cy="84" r="20"/>
-                      <circle cx="84" cy="84" r="20"/>
-                      <circle cx="42" cy="42" r="20"/>
-                    </g>
-                    <g fill="#8F6D12" opacity=".40">
-                      <path d="M42 35 L49 42 L42 49 L35 42 Z"/>
-                      <circle cx="0" cy="42" r="3.2"/>
-                      <circle cx="84" cy="42" r="3.2"/>
-                      <circle cx="42" cy="0" r="3.2"/>
-                      <circle cx="42" cy="84" r="3.2"/>
-                    </g>
-                  </pattern>
-                </defs>
+                <!-- Pita header klasik: segitiga emas bersih tanpa motif
+                     batik. Ornamennya hanya garis emas halus — garis
+                     ganda sejajar mengikuti tepi miring segitiga dan
+                     aksen belah ketupat kecil di tengah bidang emas —
+                     elegan, timeless, dan tidak mengganggu logo maupun
+                     teks. Berlaku sama di template potret dan landscape
+                     karena keduanya memakai banner yang sama. -->
                 <rect x="0" y="0" width="1000" height="230" fill="#C9A227"/>
-                <rect x="0" y="0" width="1000" height="230" fill="url(#batikGold)"/>
                 <polygon points="0,0 1000,0 500,230" fill="#0A3B2E"/>
                 <polygon points="215,0 500,0 415,150" fill="#114E3B" opacity=".85"/>
                 <polygon points="500,0 785,0 585,150" fill="#072A20" opacity=".75"/>
@@ -631,6 +603,25 @@
                 <polygon points="570,0 670,0 620,95" fill="#D4AF37" opacity=".22"/>
                 <polyline points="0,0 500,230" fill="none" stroke="#E7C65B" stroke-width="9"/>
                 <polyline points="1000,0 500,230" fill="none" stroke="#E7C65B" stroke-width="9"/>
+                <!-- Ornamen garis emas halus pada bidang emas kiri/kanan:
+                     dua garis tipis sejajar tepi miring, diimbangi aksen
+                     klasik kecil (belah ketupat + titik) di tengah bidang. -->
+                <g fill="none" stroke-linecap="round">
+                  <polyline points="26,6 492,218" stroke="#F3DFA0" stroke-width="3" opacity=".55"/>
+                  <polyline points="52,8 486,206" stroke="#8F6D12" stroke-width="2" opacity=".38"/>
+                  <polyline points="974,6 508,218" stroke="#F3DFA0" stroke-width="3" opacity=".55"/>
+                  <polyline points="948,8 514,206" stroke="#8F6D12" stroke-width="2" opacity=".38"/>
+                </g>
+                <g opacity=".5">
+                  <path d="M150 62 L162 78 L150 94 L138 78 Z" fill="none" stroke="#F3DFA0" stroke-width="2.5"/>
+                  <circle cx="150" cy="78" r="3" fill="#F3DFA0"/>
+                  <circle cx="150" cy="44" r="2.4" fill="#F3DFA0"/>
+                  <circle cx="150" cy="112" r="2.4" fill="#F3DFA0"/>
+                  <path d="M850 62 L862 78 L850 94 L838 78 Z" fill="none" stroke="#F3DFA0" stroke-width="2.5"/>
+                  <circle cx="850" cy="78" r="3" fill="#F3DFA0"/>
+                  <circle cx="850" cy="44" r="2.4" fill="#F3DFA0"/>
+                  <circle cx="850" cy="112" r="2.4" fill="#F3DFA0"/>
+                </g>
               </svg>
             </div>
             <!-- ornamen bawah -->
