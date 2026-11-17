@@ -255,9 +255,52 @@
   .sign-degree{font-size:2.25cqw;font-weight:600;color:#33463c;margin-top:.35cqw;white-space:nowrap;letter-spacing:.01em;text-decoration:underline;text-underline-offset:.6cqw;text-decoration-thickness:.2cqw;text-decoration-color:var(--gold)}
   .sign-title{font-family:system-ui,sans-serif;font-size:2.05cqw;color:#5c6b63;margin-top:.45cqw;letter-spacing:.02em}
   .cert-caption{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center;line-height:1.55;max-width:640px}
+  .cert-caption.wide{max-width:940px}
 
-  /* ---------- Cetak: hanya sertifikat, A4 potret ---------- */
-  @page{size:A4 portrait;margin:0}
+  /* ---------- Sertifikat LANDSCAPE (program tanpa nilai) ----------
+     Template kedua pada elemen sertifikat yang sama: kelas
+     .is-landscape mengubah rasio menjadi A4 landscape (297:210) dan
+     memadatkan seluruh elemen dengan bahasa desain yang sama —
+     banner hijau/emas, bingkai emas, logo header, watermark logo
+     samar di tengah, foto 3x4, dan blok tanda tangan direktur.
+     Tabel nilai tidak dirender sama sekali pada template ini. */
+  .cert-frame-outer.is-landscape{max-width:940px}
+  #cert.is-landscape{aspect-ratio:1.4142/1}
+  #cert.is-landscape .cert-border-outer{inset:1cqw;border-width:.32cqw}
+  #cert.is-landscape .cert-border-inner{inset:1.85cqw;border-width:.14cqw}
+  #cert.is-landscape .cert-banner{height:13.5cqw}
+  #cert.is-landscape .cert-orn-bottom{height:5.5cqw}
+  #cert.is-landscape .cert-inner{padding:0 6cqw 2.6cqw}
+  #cert.is-landscape .logo-plaque{margin-top:1.5cqw;width:11.5cqw;border-width:.28cqw;border-radius:1cqw;padding:.5cqw;box-shadow:0 1cqw 2.6cqw rgba(7,42,32,.28)}
+  #cert.is-landscape .logo-placeholder{font-size:1.3cqw;padding:1.8cqw 2.2cqw;margin:2.2cqw 0;border-width:.18cqw}
+  #cert.is-landscape .coop-line{font-size:1.35cqw;margin-top:.6cqw}
+  #cert.is-landscape .cert-title{font-size:4.6cqw;margin-top:.35cqw}
+  #cert.is-landscape .dots-rule{margin-top:.55cqw;border-top-width:.35cqw}
+  #cert.is-landscape .cert-number{font-size:1.55cqw;margin-top:.55cqw}
+  #cert.is-landscape .id-rows{margin-top:.85cqw}
+  #cert.is-landscape .id-row{margin-top:.35cqw}
+  #cert.is-landscape .statement{font-size:1.65cqw;line-height:1.45;margin-top:.9cqw;width:90%}
+  #cert.is-landscape .cert-watermark{width:34cqw;top:53%}
+  #cert.is-landscape .cert-footer{margin-bottom:.5cqw;padding-top:.7cqw;gap:2.5cqw}
+  #cert.is-landscape .photo-frame{width:10cqw;margin-left:4.5cqw}
+  #cert.is-landscape .photo-box{width:10cqw;height:13.33cqw;border-width:.25cqw}
+  #cert.is-landscape .photo-empty{font-size:1.2cqw}
+  #cert.is-landscape .sign-block{transform:translateX(-1.2cqw)}
+  #cert.is-landscape .sign-place{font-size:1.7cqw}
+  #cert.is-landscape .sign-org{font-size:1.25cqw;margin-top:.3cqw}
+  #cert.is-landscape .sign-stack{height:7cqw;width:30cqw;margin-top:.1cqw}
+  #cert.is-landscape .cap-slot{left:4.2cqw;width:8cqw}
+  #cert.is-landscape .cap-placeholder{width:6.6cqw;height:6.6cqw;font-size:1.3cqw;border-width:.2cqw}
+  #cert.is-landscape .sign-slot{width:10.5cqw;height:7cqw;left:calc(50% - 1cqw)}
+  #cert.is-landscape .sign-placeholder{font-size:1.2cqw;padding:1.2cqw 2cqw;border-width:.16cqw}
+  #cert.is-landscape .sign-name{font-size:1.6cqw;margin-top:.2cqw}
+  #cert.is-landscape .sign-degree{font-size:1.45cqw;margin-top:.2cqw;text-underline-offset:.38cqw;text-decoration-thickness:.13cqw}
+  #cert.is-landscape .sign-title{font-size:1.3cqw;margin-top:.3cqw}
+
+  /* ---------- Cetak: hanya sertifikat, A4 mengikuti template ----------
+     Aturan @page tinggal di elemen <style id="printPageStyle"> dan
+     diganti lewat JavaScript mengikuti template yang tampil, supaya
+     orientasi cetak selalu sama dengan orientasi sertifikat. */
   @media print{
     body{background:#fff}
     .no-print{display:none !important}
@@ -266,8 +309,10 @@
     .cert-stage{display:block}
     .cert-frame-outer{box-shadow:none;padding:0;border-radius:0;max-width:none;width:auto}
     #cert{width:210mm;height:297mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body.cert-landscape #cert{width:297mm;height:210mm}
   }
 </style>
+<style id="printPageStyle">@page{size:A4 portrait;margin:0}</style>
 </head>
 <body>
 
@@ -508,14 +553,14 @@
         <div class="actions">
           <button type="button" class="btn-primary" id="btnPdf">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
-            Unduh PDF (A4 Potret)
+            <span id="btnPdfLabel">Unduh PDF (A4 Potret)</span>
           </button>
           <button type="button" class="btn-secondary" id="btnPng">Unduh sebagai Gambar (PNG)</button>
           <button type="button" class="btn-secondary" id="btnReset">Kosongkan Formulir</button>
           <p class="dl-msg" id="dlMsg" role="status"></p>
         </div>
 
-        <p class="note">Catatan: logo bawaan Pilar Aksara Nusantara, cap/stempel, dan tanda tangan direktur sudah tertanam permanen di sertifikat. Foto, logo pengganti, cap, dan tanda tangan pengganti yang diunggah hanya tampil selama halaman ini dibuka, jadi perlu diunggah ulang pada kunjungan berikutnya. File PDF dibuat langsung dari pratinjau sertifikat dalam ukuran A4 potret, siap dicetak.</p>
+        <p class="note">Catatan: logo bawaan Pilar Aksara Nusantara, cap/stempel, dan tanda tangan direktur sudah tertanam permanen di sertifikat. Foto, logo pengganti, cap, dan tanda tangan pengganti yang diunggah hanya tampil selama halaman ini dibuka, jadi perlu diunggah ulang pada kunjungan berikutnya. File PDF dibuat langsung dari pratinjau sertifikat dalam ukuran A4 mengikuti templatenya — potret untuk program dengan nilai, landscape untuk program tanpa nilai — siap dicetak. Template berganti otomatis mengikuti data sertifikat yang dipilih: data dengan nilai memakai template potret lengkap dengan tabel Nilai dan Grade, data tanpa nilai memakai template landscape tanpa nilai.</p>
       </aside>
 
       <!-- ======= SERTIFIKAT ======= -->
@@ -576,7 +621,13 @@
                 </div>
               </div>
 
-              <p class="statement"><span class="stmt-line">Atas Keberhasilannya</span><span class="stmt-line">Menyelesaikan program pelatihan</span><span class="stmt-line prog">&ldquo;<span id="cProgram">Nama Program</span>&rdquo;</span><span class="stmt-line">dan berhak mendapatkan Nilai <span class="stmt-grade" id="cTotalGrade">—</span></span></p>
+              <p class="statement" id="statementPortrait"><span class="stmt-line">Atas Keberhasilannya</span><span class="stmt-line">Menyelesaikan program pelatihan</span><span class="stmt-line prog">&ldquo;<span id="cProgram">Nama Program</span>&rdquo;</span><span class="stmt-line">dan berhak mendapatkan Nilai <span class="stmt-grade" id="cTotalGrade">—</span></span></p>
+
+              <!-- Kalimat penyelesaian template landscape: empat baris
+                   dengan pola yang sama, tanpa menyebut nilai sama
+                   sekali — tampil hanya bila data sertifikat tidak
+                   punya nilai. -->
+              <p class="statement" id="statementLandscape" hidden><span class="stmt-line">Atas Keberhasilannya</span><span class="stmt-line">Menyelesaikan program pelatihan</span><span class="stmt-line prog">&ldquo;<span id="cProgramL">Nama Program</span>&rdquo;</span><span class="stmt-line">dan berhak menerima sertifikat ini sebagai tanda penyelesaian</span></p>
 
               <table class="scores-table" id="scoresTable" aria-label="Tabel nilai sertifikat">
                 <thead>
@@ -642,7 +693,7 @@
             </div>
           </div>
         </div>
-        <p class="cert-caption no-print">Pratinjau sertifikat — A4 potret (tegak), mengikuti desain sertifikat sebelumnya. Mencetak dari browser hanya mengeluarkan lembar sertifikatnya saja.</p>
+        <p class="cert-caption no-print" id="certCaption">Pratinjau sertifikat — A4 potret (tegak), mengikuti desain sertifikat sebelumnya. Mencetak dari browser hanya mengeluarkan lembar sertifikatnya saja.</p>
       </section>
 
     </div>
@@ -664,7 +715,7 @@
     <div class="participant-actions no-print">
       <button type="button" class="btn-primary" id="btnPdfP">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
-        Unduh PDF (A4 Potret)
+        <span id="btnPdfPLabel">Unduh PDF (A4 Potret)</span>
       </button>
       <button type="button" class="btn-secondary" id="btnPngP">Unduh sebagai Gambar (PNG)</button>
       <p class="dl-msg" id="dlMsgP" role="status"></p>
@@ -799,6 +850,10 @@
       }
     }
     syncNomor();
+    /* Pilihan nomor dikosongkan (mis. program diganti): tidak ada lagi
+       data sertifikat yang tampil, jadi template kembali ke bawaan
+       potret sampai data berikutnya dipilih. */
+    if (!fNomor.value && selectedHasScores !== null) { selectedHasScores = null; applyTemplate(); }
   }
   /* Pencarian peserta hanya dari program + nomor sertifikat: nomor yang
      dipilih menentukan seluruh data peserta. */
@@ -950,11 +1005,63 @@
 
   /* ================= Filter -> sertifikat ================= */
   function syncProgram(){
-    $("cProgram").textContent = selProgram.value !== "" ? selProgram.value : "Nama Program";
+    var name = selProgram.value !== "" ? selProgram.value : "Nama Program";
+    $("cProgram").textContent = name;
+    $("cProgramL").textContent = name;
   }
   function syncNomor(){
     var v = fNomor.value.trim();
     $("cNumber").textContent = v !== "" ? v : "—";
+  }
+
+  /* ================= Pemilihan template otomatis =================
+     Satu halaman, dua template, dipilih dari DATA sertifikat yang
+     tampil — bukan dari isian panel:
+       - data PUNYA nilai (Word/Excel/PowerPoint terisi) -> template
+         potret yang sudah ada, lengkap dengan tabel Nilai dan Grade;
+       - data TIDAK punya nilai sama sekali -> template landscape
+         A4 tanpa nilai: tanpa tabel Nilai dan Grade, kalimat
+         penyelesaian tanpa menyebut nilai.
+     selectedHasScores menyimpan keputusan itu dari data peserta yang
+     dipilih (true = ada nilai, false = tanpa nilai, null = belum ada
+     data yang dipilih -> bawaan potret). Karena keputusan datang
+     dari data, mengubah kolom nilai di panel tidak pernah mengganti
+     template: pada data tanpa nilai, kontrol nilai tidak memengaruhi
+     hasil sertifikat landscape sama sekali. */
+  var selectedHasScores = null;
+  var currentTemplate = "portrait";
+  function pesertaHasScores(p){
+    if (!p) return null;
+    function present(v){ return v !== null && v !== undefined && String(v).trim() !== ""; }
+    return present(p.word) || present(p.excel) || present(p.ppt);
+  }
+  function applyTemplate(){
+    var isLand = selectedHasScores === false;
+    currentTemplate = isLand ? "landscape" : "portrait";
+    var cert = $("cert");
+    cert.classList.toggle("is-landscape", isLand);
+    $("certFrameOuter").classList.toggle("is-landscape", isLand);
+    cert.setAttribute("aria-label", isLand ? "Pratinjau sertifikat pelatihan landscape tanpa nilai" : "Pratinjau sertifikat pelatihan potret");
+    $("statementPortrait").hidden = isLand;
+    $("statementLandscape").hidden = !isLand;
+    /* Tabel nilai hanya ada di template potret; di template
+       landscape tidak ditampilkan sama sekali, apa pun keadaan
+       kotak centang nilai dan isian kolom nilainya. */
+    $("scoresTable").style.display = isLand ? "none" : ($("chkScores").checked ? "" : "none");
+    var pdfLabel = isLand ? "Unduh PDF (A4 Landscape)" : "Unduh PDF (A4 Potret)";
+    if ($("btnPdfLabel")) $("btnPdfLabel").textContent = pdfLabel;
+    if ($("btnPdfPLabel")) $("btnPdfPLabel").textContent = pdfLabel;
+    var cap = $("certCaption");
+    if (cap) {
+      cap.classList.toggle("wide", isLand);
+      cap.textContent = isLand
+        ? "Pratinjau sertifikat — A4 landscape (mendatar), tanpa tabel nilai, untuk program tanpa nilai. Mencetak dari browser hanya mengeluarkan lembar sertifikatnya saja."
+        : "Pratinjau sertifikat — A4 potret (tegak), mengikuti desain sertifikat sebelumnya. Mencetak dari browser hanya mengeluarkan lembar sertifikatnya saja.";
+    }
+    var ps = $("printPageStyle");
+    if (ps) ps.textContent = "@page{size:A4 " + (isLand ? "landscape" : "portrait") + ";margin:0}";
+    document.body.classList.toggle("cert-landscape", isLand);
+    refitIdLines();
   }
   /* Blok identitas (nama dan TTL, tanpa label) memakai ukuran dasar
      yang sama; bila salah satu nilai terlalu panjang untuk sebaris,
@@ -974,11 +1081,15 @@
     var basePx = baseCqw * certW / 100;
     var newPx = basePx * (avail / full) * 0.99;
     var newCqw = newPx * 100 / certW;
-    return newCqw < 1.5 ? 1.5 : newCqw;
+    var minCqw = baseCqw < 2 ? 1.0 : 1.5;
+    return newCqw < minCqw ? minCqw : newCqw;
   }
   function refitIdLines(){
     var nameEl = $("cName"), ttlEl = $("cTTL");
-    var size = Math.min(fittedCqw(nameEl, ID_BASE_CQW), fittedCqw(ttlEl, ID_BASE_CQW));
+    /* Ukuran dasar identitas mengikuti template: lebih kecil di
+       landscape karena lembarnya lebih pendek. */
+    var base = currentTemplate === "landscape" ? 1.95 : ID_BASE_CQW;
+    var size = Math.min(fittedCqw(nameEl, base), fittedCqw(ttlEl, base));
     var s = size.toFixed(2) + "cqw";
     nameEl.style.fontSize = s;
     ttlEl.style.fontSize = s;
@@ -996,6 +1107,10 @@
   function tryAutofill(){
     var p = findPeserta();
     if (!p) return;
+    /* Template ditentukan di sini, dari nilai pada data peserta ini,
+       sebelum isian apa pun disalin ke panel. */
+    selectedHasScores = pesertaHasScores(p);
+    applyTemplate();
     if (normProg(selProgram.value) !== normProg(p.program)) { selProgram.value = ensureProgramOption(p.program); syncProgram(); refreshNomorList(); }
     if (fNomor.value.trim() !== p.nomor) { fNomor.value = p.nomor; syncNomor(); }
     fNama.value = p.nama; syncNama();
@@ -1038,7 +1153,9 @@
     return "E";
   }
   function fmt(n){ return (Math.round(n*100)/100).toString().replace(".", ","); }
-  function fmtTotal(n){ return (Math.round(n*10)/10).toFixed(1).replace(".", ","); }
+  /* Total tampil sebagai bilangan bulat: rata-rata desimal dibulatkan
+     half-up ke bilangan bulat terdekat (cth. 90,7 -> 91). */
+  function fmtTotal(n){ return Math.round(n).toString(); }
   function syncScores(){
     var vals = [], complete = true;
     scoreIds.forEach(function(id, i){
@@ -1051,9 +1168,10 @@
     });
     if (complete && vals.length === 3) {
       var total = (vals[0]+vals[1]+vals[2])/3;
+      var totalRounded = Math.round(total);
       $("sTotal").textContent = fmtTotal(total);
-      $("gTotal").textContent = gradeOf(total);
-      $("cTotalGrade").textContent = gradeOf(total);
+      $("gTotal").textContent = gradeOf(totalRounded);
+      $("cTotalGrade").textContent = gradeOf(totalRounded);
     } else {
       $("sTotal").textContent = "—";
       $("gTotal").textContent = "—";
@@ -1062,7 +1180,9 @@
   }
   scoreIds.forEach(function(id){ $(id).addEventListener("input", syncScores); });
   $("chkScores").addEventListener("change", function(){
-    $("scoresTable").style.display = this.checked ? "" : "none";
+    /* Di template landscape tabel nilai tidak pernah tampil, apa pun
+       keadaan kotak centang ini. */
+    $("scoresTable").style.display = (currentTemplate !== "landscape" && this.checked) ? "" : "none";
   });
 
   /* ================= Teks sertifikat ================= */
@@ -1258,7 +1378,8 @@
     $("inDirector").value = "Muhammad Rehan Syah, S.AB., C.PS., C.MPS., C.FTR";
     $("inDirTitle").value = "Direktur PT Pilar Aksara Nusantara";
     $("chkScores").checked = true;
-    $("scoresTable").style.display = "";
+    selectedHasScores = null;
+    applyTemplate();
     $("chkSign").checked = true;
     $("chkCap").checked = true;
     applySignVisibility(); applyCapVisibility();
@@ -1295,13 +1416,18 @@
   }
   function downloadPdf(msg){
     msg.textContent = "Menyiapkan PDF…";
+    /* Orientasi dan ukuran halaman mengikuti template yang sedang
+       tampil: potret 210x297 untuk template potret, landscape
+       297x210 untuk template landscape. Gambar PNG memakai kanvas
+       yang sama, jadi orientasinya otomatis mengikuti template. */
+    var isLand = currentTemplate === "landscape";
     renderCanvas(function(canvas){
       try{
         var jsPDF = window.jspdf.jsPDF;
-        var pdf = new jsPDF({orientation:"portrait", unit:"mm", format:"a4"});
-        pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, 210, 297);
+        var pdf = new jsPDF({orientation: isLand ? "landscape" : "portrait", unit:"mm", format:"a4"});
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, isLand ? 297 : 210, isLand ? 210 : 297);
         pdf.save(fileBase() + ".pdf");
-        msg.textContent = "PDF sertifikat terunduh (A4 potret).";
+        msg.textContent = isLand ? "PDF sertifikat terunduh (A4 landscape)." : "PDF sertifikat terunduh (A4 potret).";
       }catch(e){ msg.textContent = "Gagal membuat PDF — coba unduh sebagai gambar (PNG)."; }
     }, function(){ msg.textContent = "Gagal membuat PDF — periksa koneksi lalu coba lagi."; });
   }
@@ -1416,7 +1542,7 @@
   });
 
   /* Keadaan awal */
-  syncProgram(); syncNomor(); syncNama(); syncTtl(); syncScores(); refreshNomorList();
+  syncProgram(); syncNomor(); syncNama(); syncTtl(); syncScores(); refreshNomorList(); applyTemplate();
   window.addEventListener("resize", refitIdLines);
   if (typeof ResizeObserver !== "undefined") {
     new ResizeObserver(function(){ refitIdLines(); }).observe($("cert"));
