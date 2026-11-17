@@ -584,43 +584,52 @@
       <section class="cert-stage" id="editorStage">
         <div class="cert-frame-outer" id="certFrameOuter">
           <div id="cert" role="img" aria-label="Pratinjau sertifikat pelatihan potret">
-            <!-- banner geometris hijau/emas -->
+            <!-- banner pita mengalir hijau/emas -->
             <div class="cert-banner" aria-hidden="true">
               <svg viewBox="0 0 1000 230" preserveAspectRatio="none">
-                <!-- Pita header klasik: segitiga emas bersih tanpa motif
-                     batik. Ornamennya hanya garis emas halus — garis
-                     ganda sejajar mengikuti tepi miring segitiga dan
-                     aksen belah ketupat kecil di tengah bidang emas —
-                     elegan, timeless, dan tidak mengganggu logo maupun
-                     teks. Berlaku sama di template potret dan landscape
+                <!-- Pita header klasik premium: bidang utama hijau tua
+                     tempat logo header diblend di tengah atas. Dari
+                     sudut kiri atas mengalir pita-pita bergelombang
+                     berlapis berselang-seling emas dan hijau, masing-
+                     masing ditepi garis emas tipis terang, lalu menutup
+                     di tepi bawah dengan gelombang emas berlapis yang
+                     mengalir naik ke kanan. Di sudut kanan atas ada
+                     ornamen flourish emas tipis yang elegan — sulur
+                     spiral, daun kecil, dan titik. Tanpa segitiga
+                     geometris dan tanpa emblem tambahan apa pun.
+                     Berlaku sama di template potret dan landscape
                      karena keduanya memakai banner yang sama. -->
-                <rect x="0" y="0" width="1000" height="230" fill="#C9A227"/>
-                <polygon points="0,0 1000,0 500,230" fill="#0A3B2E"/>
-                <polygon points="215,0 500,0 415,150" fill="#114E3B" opacity=".85"/>
-                <polygon points="500,0 785,0 585,150" fill="#072A20" opacity=".75"/>
-                <polygon points="415,150 585,150 500,230" fill="#0E4634" opacity=".9"/>
-                <polygon points="330,0 430,0 380,95" fill="#D4AF37" opacity=".28"/>
-                <polygon points="570,0 670,0 620,95" fill="#D4AF37" opacity=".22"/>
-                <polyline points="0,0 500,230" fill="none" stroke="#E7C65B" stroke-width="9"/>
-                <polyline points="1000,0 500,230" fill="none" stroke="#E7C65B" stroke-width="9"/>
-                <!-- Ornamen garis emas halus pada bidang emas kiri/kanan:
-                     dua garis tipis sejajar tepi miring, diimbangi aksen
-                     klasik kecil (belah ketupat + titik) di tengah bidang. -->
-                <g fill="none" stroke-linecap="round">
-                  <polyline points="26,6 492,218" stroke="#F3DFA0" stroke-width="3" opacity=".55"/>
-                  <polyline points="52,8 486,206" stroke="#8F6D12" stroke-width="2" opacity=".38"/>
-                  <polyline points="974,6 508,218" stroke="#F3DFA0" stroke-width="3" opacity=".55"/>
-                  <polyline points="948,8 514,206" stroke="#8F6D12" stroke-width="2" opacity=".38"/>
+                <rect x="0" y="0" width="1000" height="230" fill="#0A3B2E"/>
+                <path d="M0,230 L0,192 C240,216 480,224 720,198 C850,184 940,162 1000,140 L1000,230 Z" fill="#072A20" opacity=".5"/>
+                <!-- Gelombang emas berlapis di tepi bawah pita -->
+                <path d="M0,230 L0,164 C180,188 380,202 580,196 C760,191 900,168 1000,144 L1000,230 Z" fill="#BE8217"/>
+                <path d="M0,230 L0,178 C180,200 380,214 580,208 C760,203 900,182 1000,158 L1000,230 Z" fill="#C9A227"/>
+                <path d="M0,178 C180,200 380,214 580,208 C760,203 900,182 1000,158" fill="none" stroke="#F3DFA0" stroke-width="3" opacity=".8"/>
+                <!-- Pita-pita mengalir berlapis dari sudut kiri atas -->
+                <path d="M0,0 H388 C296,14 200,45 134,90 C84,124 34,172 0,226 Z" fill="#D4AF37"/>
+                <path d="M0,0 H322 C244,12 162,40 106,80 C64,108 24,148 0,192 Z" fill="#072A20"/>
+                <path d="M0,0 H254 C190,10 124,34 78,66 C46,90 16,120 0,152 Z" fill="#C9A227"/>
+                <path d="M0,0 H186 C138,8 90,26 56,50 C32,68 10,90 0,112 Z" fill="#0E4634"/>
+                <!-- Garis tepi emas tipis di tepi bawah tiap pita -->
+                <g fill="none" stroke="#F7E7A8" stroke-width="3" opacity=".9">
+                  <path d="M388,0 C296,14 200,45 134,90 C84,124 34,172 0,226"/>
+                  <path d="M322,0 C244,12 162,40 106,80 C64,108 24,148 0,192"/>
+                  <path d="M254,0 C190,10 124,34 78,66 C46,90 16,120 0,152"/>
+                  <path d="M186,0 C138,8 90,26 56,50 C32,68 10,90 0,112"/>
                 </g>
-                <g opacity=".5">
-                  <path d="M150 62 L162 78 L150 94 L138 78 Z" fill="none" stroke="#F3DFA0" stroke-width="2.5"/>
-                  <circle cx="150" cy="78" r="3" fill="#F3DFA0"/>
-                  <circle cx="150" cy="44" r="2.4" fill="#F3DFA0"/>
-                  <circle cx="150" cy="112" r="2.4" fill="#F3DFA0"/>
-                  <path d="M850 62 L862 78 L850 94 L838 78 Z" fill="none" stroke="#F3DFA0" stroke-width="2.5"/>
-                  <circle cx="850" cy="78" r="3" fill="#F3DFA0"/>
-                  <circle cx="850" cy="44" r="2.4" fill="#F3DFA0"/>
-                  <circle cx="850" cy="112" r="2.4" fill="#F3DFA0"/>
+                <!-- Flourish emas tipis di sudut kanan atas -->
+                <g fill="none" stroke="#E7C65B" stroke-linecap="round" opacity=".95">
+                  <path stroke-width="3" d="M988,30 C940,20 884,22 848,40 C820,54 812,76 826,88 C838,98 856,92 856,78 C856,66 844,60 836,66"/>
+                  <path stroke-width="3" d="M972,16 C984,56 980,100 958,124 C942,141 918,140 910,124 C903,110 914,96 928,100 C940,103 942,118 934,126"/>
+                  <path stroke-width="2.2" d="M988,62 C954,52 920,56 898,74 C882,87 884,104 896,108 C906,111 914,102 909,93"/>
+                  <path stroke-width="2.2" d="M948,34 C936,42 934,56 942,64 C949,71 960,67 960,58 C960,51 953,47 948,51"/>
+                </g>
+                <g fill="#E7C65B" opacity=".95">
+                  <circle cx="884" cy="122" r="3.2"/>
+                  <circle cx="818" cy="34" r="2.4"/>
+                  <circle cx="944" cy="144" r="2.6"/>
+                  <path d="M866,48 C874,38 888,34 898,38 C894,48 884,54 874,54 C868,53 865,51 866,48 Z"/>
+                  <path d="M932,70 C942,76 948,88 946,99 C936,97 928,88 927,78 C927,72 929,69 932,70 Z"/>
                 </g>
               </svg>
             </div>
