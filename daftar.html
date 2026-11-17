@@ -84,6 +84,8 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div style="margin-top:14px"><label for="ig">Username Instagram kamu *</label><input id="ig" placeholder="@username"></div>
 <div class="radio"><label><input type="radio" name="fol" value="Sudah Follow"> Sudah Follow</label><label><input type="radio" name="fol" value="Belum Follow"> Belum Follow</label></div>
 <div class="err" id="e_fol">Kamu harus sudah follow Instagram Aksara Academy untuk mendaftar.</div></div>
+<div class="ig" style="margin-top:14px"><b>Instagram pribadi penyelenggara</b><p>Boleh follow, boleh tidak — tidak wajib untuk mendaftar.</p><a class="btn n" target="_blank" rel="noopener" href="https://www.instagram.com/muhrehansyah_">Buka Instagram @muhrehansyah_</a>
+<div class="radio"><label><input type="radio" name="fol2" value="Sudah Follow"> Sudah Follow</label><label><input type="radio" name="fol2" value="Belum Follow"> Belum Follow</label></div></div>
 <div><label for="prog">Program yang diikuti *</label><select id="prog"><option value="">Pilih program</option><option value="4b326836-7cb0-4e83-bc1f-fae72c58f443">Intensive Microsoft Office For Academic &amp; Career Readiness</option></select></div>
 <div><label for="inst">Asal Institusi/Organisasi *</label><select id="inst"><option value="">Pilih asal institusi/organisasi</option><option value="Individu">Individu</option><option value="Karya Salemba Empat">Karya Salemba Empat</option><option value="Himpunan Mahasiswa HI UIR">Himpunan Mahasiswa HI UIR</option></select></div>
 <div><label for="foto">Pas Foto *</label><input id="foto" type="file" accept="image/*"><div class="err" id="e_foto">Pas foto wajib diunggah (file gambar).</div></div>
@@ -115,6 +117,7 @@ f.addEventListener('submit',function(e){e.preventDefault();
 var ok=['nama','tmp','tgl','alamat','email','wa_no','ig','prog','inst'].every(function(i){return $(i).value.trim()})&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim());
 var waOk=/^(\+62|62|0)8\d{7,12}$/.test($('wa_no').value.trim().replace(/[\s\-]/g,''));
 var fol=(f.querySelector('input[name=fol]:checked')||{}).value;
+var fol2=(f.querySelector('input[name=fol2]:checked')||{}).value||null;
 var file=$('foto').files[0]||null;
 var fotoOk=!!file&&file.type.indexOf('image/')===0;
 $('e_all').classList.toggle('show',!ok);$('e_wa').classList.toggle('show',!waOk);$('e_fol').classList.toggle('show',fol!=='Sudah Follow');$('e_foto').classList.toggle('show',!fotoOk);
@@ -125,7 +128,7 @@ var ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'
 var path='pendaftar/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext;
 fetch(SB_URL+'/storage/v1/object/pas-foto/'+path,{method:'POST',headers:Object.assign({},SB_H,{'Content-Type':file.type}),body:file}).then(function(r){
 if(!r.ok)throw new Error('Foto gagal diunggah.');
-return fetch(SB_URL+'/rest/v1/registrations',{method:'POST',headers:Object.assign({},SB_H,{'Content-Type':'application/json','Prefer':'return=minimal'}),body:JSON.stringify({program_id:$('prog').value,full_name:$('nama').value.trim(),birth_place:$('tmp').value.trim(),birth_date:$('tgl').value,address:$('alamat').value.trim(),email:$('email').value.trim(),whatsapp_number:$('wa_no').value.trim(),instagram_username:$('ig').value.trim(),tiktok_username:$('tt').value.trim()||null,twitter_username:$('tw').value.trim()||null,follow_status:fol,institution:$('inst').value,photo_path:path})});
+return fetch(SB_URL+'/rest/v1/registrations',{method:'POST',headers:Object.assign({},SB_H,{'Content-Type':'application/json','Prefer':'return=minimal'}),body:JSON.stringify({program_id:$('prog').value,full_name:$('nama').value.trim(),birth_place:$('tmp').value.trim(),birth_date:$('tgl').value,address:$('alamat').value.trim(),email:$('email').value.trim(),whatsapp_number:$('wa_no').value.trim(),instagram_username:$('ig').value.trim(),tiktok_username:$('tt').value.trim()||null,twitter_username:$('tw').value.trim()||null,follow_status:fol,follow_status_personal:fol2,institution:$('inst').value,photo_path:path})});
 }).then(function(r){
 if(!r.ok)throw new Error('Pendaftaran gagal terkirim.');
 $('ok_kirim').style.display='block';f.reset();

@@ -28,7 +28,7 @@ input:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 4px rgba(21,86,
 .err{color:#d32f2f;font-size:13px;margin-top:6px;display:none;font-weight:600}.show{display:block}
 .ok{color:var(--green);font-size:14px;margin-top:10px;display:none;font-weight:700}.ok.show{display:block}
 .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
 th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
 th{background:var(--bg);font-size:13px;white-space:nowrap}
 tr:last-child td{border-bottom:0}
@@ -63,8 +63,8 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <p class="sub">Pendaftar dari formulir website, terbaru di atas. Pilih "Buat Sertifikat" untuk mengubah pendaftar menjadi entri sertifikat.</p>
 <div class="rowbar"><span id="count" style="color:var(--muted);font-size:14px"></span><span class="sp"></span><button class="btn o s" id="btnRefresh" type="button">Muat Ulang</button><button class="btn o s" id="btnLogout" type="button">Keluar</button></div>
 <div class="tblwrap"><table>
-<thead><tr><th>Foto</th><th>Nama</th><th>Program</th><th>Asal Institusi</th><th>Email</th><th>WhatsApp</th><th>Terdaftar</th><th>Sertifikat</th><th></th></tr></thead>
-<tbody id="rows"><tr><td colspan="9" style="color:var(--muted)">Memuat…</td></tr></tbody>
+<thead><tr><th>Foto</th><th>Nama</th><th>Program</th><th>Asal Institusi</th><th>Email</th><th>WhatsApp</th><th>Follow IG Pribadi</th><th>Terdaftar</th><th>Sertifikat</th><th></th></tr></thead>
+<tbody id="rows"><tr><td colspan="10" style="color:var(--muted)">Memuat…</td></tr></tbody>
 </table></div>
 <div class="err" id="e_list"></div>
 
@@ -111,7 +111,7 @@ if(msg){$('e_pw').classList.add('show')}else{$('e_pw').classList.remove('show')}
 
 function loadList(){
 $('e_list').classList.remove('show');
-$('rows').innerHTML='<tr><td colspan="9" style="color:var(--muted)">Memuat…</td></tr>';
+$('rows').innerHTML='<tr><td colspan="10" style="color:var(--muted)">Memuat…</td></tr>';
 callFn({password:pw,action:'list'}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!Array.isArray(res.body.rows)){throw new Error((res.body&&res.body.error)||'Gagal memuat daftar pendaftar.')}
@@ -119,13 +119,13 @@ currentRows=res.body.rows;
 $('gate').style.display='none';$('main').style.display='block';
 $('count').textContent=res.body.rows.length+' pendaftar';
 var tb=$('rows');tb.innerHTML='';
-if(!res.body.rows.length){tb.innerHTML='<tr><td colspan="9" style="color:var(--muted)">Belum ada pendaftar.</td></tr>';return}
+if(!res.body.rows.length){tb.innerHTML='<tr><td colspan="10" style="color:var(--muted)">Belum ada pendaftar.</td></tr>';return}
 res.body.rows.forEach(function(r){
 var tr=document.createElement('tr');
 var tdF=document.createElement('td');
 if(r.photo_path){var a=document.createElement('a');a.href=SB_URL+'/storage/v1/object/public/pas-foto/'+r.photo_path;a.target='_blank';a.rel='noopener';var im=document.createElement('img');im.src=a.href;im.alt='Pas foto';im.loading='lazy';a.appendChild(im);tdF.appendChild(a)}else{tdF.textContent='-'}
 tr.appendChild(tdF);
-[['full_name'],['program_name'],['institution'],['email'],['whatsapp_number']].forEach(function(k){
+[['full_name'],['program_name'],['institution'],['email'],['whatsapp_number'],['follow_status_personal']].forEach(function(k){
 var td=document.createElement('td');td.textContent=esc(r[k[0]])||'-';tr.appendChild(td);
 });
 var tdW=document.createElement('td');tdW.textContent=fmtWhen(r.created_at);tr.appendChild(tdW);
@@ -135,7 +135,7 @@ tb.appendChild(tr);
 });
 }).catch(function(err){
 $('e_list').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_list').classList.add('show');
-$('rows').innerHTML='<tr><td colspan="9" style="color:var(--muted)">Gagal memuat.</td></tr>';
+$('rows').innerHTML='<tr><td colspan="10" style="color:var(--muted)">Gagal memuat.</td></tr>';
 });
 }
 
