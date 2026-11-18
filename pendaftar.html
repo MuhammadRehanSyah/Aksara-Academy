@@ -225,6 +225,7 @@ $('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
 loadList();
 }).catch(function(err){
 $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
+loadList();
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Ulang Kode'});
 }
 $('btnSendCodes').onclick=function(){
@@ -241,6 +242,7 @@ $('ok_codes').textContent=msg;$('ok_codes').classList.add('show');
 loadList();
 }).catch(function(err){
 $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');
+loadList();
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Semua Peserta'});
 };
 
@@ -258,6 +260,7 @@ $('ok_codePanel').classList.add('show');
 loadList();
 }).catch(function(err){
 $('e_codePanel').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codePanel').classList.add('show');
+loadList();
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Email'});
 };
 
