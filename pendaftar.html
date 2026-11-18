@@ -36,6 +36,11 @@ td img{width:44px;height:58px;object-fit:cover;border-radius:8px;display:block}
 .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(31,138,70,.12);color:var(--green)}
 .badge.no{background:rgba(217,165,33,.18);color:#8a6a00}
 .grid2{display:grid;gap:16px;grid-template-columns:1fr 1fr}.grid3{display:grid;gap:16px;grid-template-columns:1fr 1fr 1fr}
+.convertWrap{display:grid;gap:20px;grid-template-columns:1fr}@media(min-width:821px){.convertWrap.hasPanel{grid-template-columns:1fr 290px}}
+.codePanel{border:2px solid var(--gold);border-radius:16px;padding:18px;background:var(--surface);height:fit-content}
+.codePanel .lb{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.codePanel .cd{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:30px;font-weight:800;letter-spacing:.05em;margin:6px 0 8px;word-break:break-all}
+.codePanel .mt{font-size:14px;color:var(--muted);margin-bottom:8px}.codePanel .ml{font-size:14px;margin-bottom:14px}
 .rowbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
 .rowbar .sp{flex:1}
 footer{background:var(--surface);border-top:1px solid var(--line);text-align:center;color:var(--muted);padding:32px 20px 60px;font-size:14px}
@@ -72,6 +77,8 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div class="card" id="convertCard" style="display:none;margin-top:24px">
 <h3 style="margin:0 0 4px">Buat Sertifikat</h3>
 <p class="sub" id="convertWho" style="margin-bottom:16px"></p>
+<div class="convertWrap" id="convertWrap">
+<div>
 <div class="grid2">
 <div><label for="c_no">Nomor Sertifikat *</label><input id="c_no" placeholder="014/SERT-MO/PAN/XI/2026"></div>
 <div><label for="c_date">Tanggal Sertifikat *</label><input id="c_date" type="date"></div>
@@ -86,6 +93,17 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div class="ok" id="ok_convert"></div>
 <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="btnConvert" type="button">Simpan Sertifikat</button><button class="btn o" id="btnCancelConvert" type="button">Batal</button></div>
 </div>
+<div class="codePanel" id="codePanel" style="display:none">
+<div class="lb">Kode Unik Sertifikat</div>
+<div class="cd" id="codePanelCode">-</div>
+<div class="mt" id="codePanelMeta"></div>
+<div class="ml" id="codePanelMail"></div>
+<button class="btn g s" id="btnSendCodePanel" type="button">Kirim Kode ke Email</button>
+<div class="err" id="e_codePanel"></div>
+<div class="ok" id="ok_codePanel"></div>
+</div>
+</div>
+</div>
 </div></section>
 </main>
 <footer>© 2026 Aksara Academy · Pilar Aksara Nusantara</footer>
@@ -96,7 +114,7 @@ var SB_URL='https://byatfncncimmwqwfduid.supabase.co',SB_KEY='eyJhbGciOiJIUzI1Ni
 var FN_URL=SB_URL+'/functions/v1/kelola-pendaftar';
 var $=function(i){return document.getElementById(i)};
 var pw=sessionStorage.getItem('penyelenggara_pw')||'';
-var currentRows=[],convertId=null;
+var currentRows=[],convertId=null,panelCertNo=null,panelEmail='';
 
 function esc(s){return String(s==null?'':s)}
 function fmtWhen(iso){try{return new Date(iso).toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}catch(e){return iso||'-'}}
@@ -144,7 +162,9 @@ $('rows').innerHTML='<tr><td colspan="11" style="color:var(--muted)">Gagal memua
 }
 
 function openConvert(r){
-convertId=r.id;
+convertId=r.id;panelCertNo=null;panelEmail=r.email||'';
+$('codePanel').style.display='none';$('convertWrap').classList.remove('hasPanel');
+$('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
 $('convertWho').textContent=r.full_name+' — '+r.program_name;
 $('c_no').value='';$('c_date').value=new Date().toISOString().slice(0,10);
 $('c_word').value='';$('c_excel').value='';$('c_ppt').value='';
@@ -179,13 +199,16 @@ var btn=$('btnConvert');btn.disabled=true;btn.textContent='Menyimpan…';
 callFn({password:pw,action:'convert',registration_id:convertId,certificate_number:no,certificate_date:dt,scores:{word:$('c_word').value,excel:$('c_excel').value,ppt:$('c_ppt').value}}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal menyimpan sertifikat.')}
-var msg='Sertifikat '+res.body.certificate_number+' tersimpan.';
-if(res.body.access_code){msg+=' Kode unik: '+res.body.access_code+'.'}
-if(res.body.email_status==='sent'){msg+=' Email pemberitahuan terkirim ke peserta.'}
-else if(res.body.email_status==='failed'){msg+=' Email pemberitahuan GAGAL terkirim'+(res.body.email_error?': '+res.body.email_error:'')+'. Kode di atas bisa dikirim manual.'}
-else{msg+=' Pendaftar tidak punya alamat email, kirim kode di atas secara manual.'}
-$('ok_convert').textContent=msg;
+$('ok_convert').textContent='Sertifikat '+res.body.certificate_number+' tersimpan.';
 $('ok_convert').classList.add('show');
+panelCertNo=res.body.certificate_number;
+$('codePanelCode').textContent=res.body.access_code||'-';
+$('codePanelMeta').textContent=res.body.certificate_number;
+if(res.body.email_status==='sent'){$('codePanelMail').textContent='Email pemberitahuan terkirim ke '+(panelEmail||'peserta')+'.';$('btnSendCodePanel').style.display=''}
+else if(res.body.email_status==='failed'){$('codePanelMail').textContent='Email pemberitahuan GAGAL terkirim'+(res.body.email_error?': '+res.body.email_error:'')+'. Tekan tombol di bawah untuk mencoba lagi.';$('btnSendCodePanel').style.display=''}
+else{$('codePanelMail').textContent='Pendaftar tidak punya alamat email — kirim kode ini secara manual.';$('btnSendCodePanel').style.display='none'}
+$('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
+$('codePanel').style.display='block';$('convertWrap').classList.add('hasPanel');
 loadList();
 }).catch(function(err){
 $('e_convert').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_convert').classList.add('show');
@@ -219,6 +242,23 @@ loadList();
 }).catch(function(err){
 $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Semua Peserta'});
+};
+
+$('btnSendCodePanel').onclick=function(){
+if(!panelCertNo){return}
+var btn=$('btnSendCodePanel');btn.disabled=true;btn.textContent='Mengirim…';
+$('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
+callFn({password:pw,action:'resend',certificate_number:panelCertNo}).then(function(res){
+if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
+if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim kode.')}
+if(res.body.access_code){$('codePanelCode').textContent=res.body.access_code}
+$('codePanelMail').textContent='Email pemberitahuan terkirim ke '+res.body.email+'.';
+$('ok_codePanel').textContent='Kode terkirim ke '+res.body.email+'.';
+$('ok_codePanel').classList.add('show');
+loadList();
+}).catch(function(err){
+$('e_codePanel').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codePanel').classList.add('show');
+}).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Email'});
 };
 
 if(pw){loadList()}else{showGate(false)}
