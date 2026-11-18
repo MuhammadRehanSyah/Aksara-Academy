@@ -366,7 +366,7 @@
       </div>
       <div class="choice-head">
         <h1>Sertifikat Pelatihan</h1>
-        <p>Pilih akses Anda untuk melanjutkan. Peserta dapat melihat sertifikatnya dengan nomor sertifikat, penyelenggara masuk dengan password untuk mengelola desain sertifikat.</p>
+        <p>Pilih akses Anda untuk melanjutkan. Peserta dapat melihat sertifikatnya dengan kode unik, penyelenggara masuk dengan password untuk mengelola desain sertifikat.</p>
       </div>
       <div class="choice-grid">
         <button type="button" class="choice-card participant-card" id="chooseParticipant" aria-describedby="chooseParticipantDesc">
@@ -374,7 +374,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-2 7 5.5-3 5.5 3-2-7"/></svg>
           </span>
           <span class="choice-title">Peserta</span>
-          <span class="choice-desc" id="chooseParticipantDesc">Masukkan nomor sertifikat Anda, lalu sertifikat Anda langsung tampil dan siap diunduh sebagai PDF atau gambar.</span>
+          <span class="choice-desc" id="chooseParticipantDesc">Masukkan kode unik dari email Anda, lalu sertifikat Anda langsung tampil dan siap diunduh sebagai PDF atau gambar.</span>
           <span class="choice-cta">Masuk sebagai Peserta</span>
         </button>
         <button type="button" class="choice-card" id="chooseOrganizer">
@@ -422,12 +422,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-2 7 5.5-3 5.5 3-2-7"/></svg>
       </div>
       <h1>Khusus Peserta</h1>
-      <p>Masukkan nomor sertifikat Anda untuk melihat dan mengunduh sertifikat Anda sendiri.</p>
-      <label for="pNomor">NOMOR SERTIFIKAT</label>
-      <input class="cert-input" id="pNomor" type="text" inputmode="text" autocomplete="off" placeholder="cth. 005" aria-describedby="pErr">
+      <p>Masukkan kode unik yang dikirim ke email Anda untuk melihat dan mengunduh sertifikat Anda sendiri.</p>
+      <label for="pNomor">KODE UNIK SERTIFIKAT</label>
+      <input class="cert-input" id="pNomor" type="text" inputmode="text" autocomplete="off" placeholder="cth. ABCD-1234" aria-describedby="pErr">
       <div class="err" id="pErr" role="alert"></div>
       <button class="btn-gate btn-participant" type="submit" id="btnParticipant">Lihat Sertifikat Saya</button>
-      <p class="gate-note">Boleh nomor singkat (5 atau 005) atau nomor lengkap (005/SERT-MO/PAN/X/2026). Hanya sertifikat dengan nomor itu yang ditampilkan.</p>
+      <p class="gate-note">Kode unik dikirim ke email Anda saat sertifikat terbit. Huruf besar/kecil tidak berpengaruh, dan tanda hubung (-) boleh tidak diketik.</p>
     </form>
    </div>
   </section>
@@ -1518,28 +1518,28 @@
   pForm.addEventListener("submit", function(e){
     e.preventDefault();
     if (participantBusy) return;
-    var num = leadingNumber(pNomor.value.trim());
-    if (num == null) {
-      showParticipantError("Masukkan nomor sertifikat Anda terlebih dahulu, misalnya 005.");
+    var code = pNomor.value.trim();
+    if (!code) {
+      showParticipantError("Masukkan kode unik Anda terlebih dahulu, misalnya ABCD-1234.");
       pNomor.focus();
       return;
     }
-    var padded = String(num);
-    while (padded.length < 3) padded = "0" + padded;
     participantBusy = true;
     btnParticipant.disabled = true;
     btnParticipant.textContent = "Mencari sertifikat…";
     pErr.classList.remove("show");
-    var url = SUPABASE_URL + "/rest/v1/certificates?select=certificate_number,full_name,birth_place_date,program,certificate_date,status,cert_score_word,cert_score_excel,cert_score_ppt,photo_path&certificate_number=like." + encodeURIComponent(padded + "*");
-    fetch(url, { headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON } })
-      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-      .then(function(rows){
-        var match = null;
-        (rows || []).forEach(function(r){ if (!match && leadingNumber(r.certificate_number) === num) match = r; });
-        if (!match) {
-          showParticipantError("Nomor sertifikat tidak ditemukan. Periksa kembali nomor pada sertifikat Anda, lalu coba lagi.");
+    fetch(SUPABASE_URL + "/functions/v1/kelola-pendaftar", {
+      method: "POST",
+      headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON, "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "verify", code: code })
+    })
+      .then(function(r){ return r.json().then(function(j){ return { status: r.status, body: j }; }); })
+      .then(function(res){
+        if (res.status !== 200 || !res.body || !res.body.certificate) {
+          showParticipantError((res.body && res.body.error) || "Kode tidak ditemukan. Periksa kembali kode pada email Anda, lalu coba lagi.");
           return;
         }
+        var match = res.body.certificate;
         var p = {
           program: match.program || "",
           nomor: match.certificate_number || "",

@@ -61,10 +61,11 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <section id="main" style="display:none"><div class="w">
 <h2>Daftar Pendaftar</h2>
 <p class="sub">Pendaftar dari formulir website, terbaru di atas. Pilih "Buat Sertifikat" untuk mengubah pendaftar menjadi entri sertifikat.</p>
-<div class="rowbar"><span id="count" style="color:var(--muted);font-size:14px"></span><span class="sp"></span><button class="btn o s" id="btnRefresh" type="button">Muat Ulang</button><button class="btn o s" id="btnLogout" type="button">Keluar</button></div>
+<div class="rowbar"><span id="count" style="color:var(--muted);font-size:14px"></span><span class="sp"></span><button class="btn g s" id="btnSendCodes" type="button">Kirim Kode ke Semua Peserta</button><button class="btn o s" id="btnRefresh" type="button">Muat Ulang</button><button class="btn o s" id="btnLogout" type="button">Keluar</button></div>
+<div class="ok" id="ok_codes"></div><div class="err" id="e_codes"></div>
 <div class="tblwrap"><table>
-<thead><tr><th>Foto</th><th>Nama</th><th>Program</th><th>Asal Institusi</th><th>Email</th><th>WhatsApp</th><th>Follow IG Pribadi</th><th>Terdaftar</th><th>Sertifikat</th><th></th></tr></thead>
-<tbody id="rows"><tr><td colspan="10" style="color:var(--muted)">Memuat…</td></tr></tbody>
+<thead><tr><th>Foto</th><th>Nama</th><th>Program</th><th>Asal Institusi</th><th>Email</th><th>WhatsApp</th><th>Follow IG Pribadi</th><th>Terdaftar</th><th>Sertifikat</th><th>Kode Unik</th><th></th></tr></thead>
+<tbody id="rows"><tr><td colspan="11" style="color:var(--muted)">Memuat…</td></tr></tbody>
 </table></div>
 <div class="err" id="e_list"></div>
 
@@ -111,7 +112,7 @@ if(msg){$('e_pw').classList.add('show')}else{$('e_pw').classList.remove('show')}
 
 function loadList(){
 $('e_list').classList.remove('show');
-$('rows').innerHTML='<tr><td colspan="10" style="color:var(--muted)">Memuat…</td></tr>';
+$('rows').innerHTML='<tr><td colspan="11" style="color:var(--muted)">Memuat…</td></tr>';
 callFn({password:pw,action:'list'}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!Array.isArray(res.body.rows)){throw new Error((res.body&&res.body.error)||'Gagal memuat daftar pendaftar.')}
@@ -119,7 +120,7 @@ currentRows=res.body.rows;
 $('gate').style.display='none';$('main').style.display='block';
 $('count').textContent=res.body.rows.length+' pendaftar';
 var tb=$('rows');tb.innerHTML='';
-if(!res.body.rows.length){tb.innerHTML='<tr><td colspan="10" style="color:var(--muted)">Belum ada pendaftar.</td></tr>';return}
+if(!res.body.rows.length){tb.innerHTML='<tr><td colspan="11" style="color:var(--muted)">Belum ada pendaftar.</td></tr>';return}
 res.body.rows.forEach(function(r){
 var tr=document.createElement('tr');
 var tdF=document.createElement('td');
@@ -130,12 +131,15 @@ var td=document.createElement('td');td.textContent=esc(r[k[0]])||'-';tr.appendCh
 });
 var tdW=document.createElement('td');tdW.textContent=fmtWhen(r.created_at);tr.appendChild(tdW);
 var tdS=document.createElement('td');var b=document.createElement('span');b.className='badge'+(r.has_certificate?'':' no');b.textContent=r.has_certificate?'Sudah ada':'Belum';tdS.appendChild(b);tr.appendChild(tdS);
-var tdA=document.createElement('td');var btn=document.createElement('button');btn.className='btn s';btn.type='button';btn.textContent='Buat Sertifikat';btn.onclick=function(){openConvert(r)};tdA.appendChild(btn);tr.appendChild(tdA);
+var tdK=document.createElement('td');tdK.style.fontFamily='monospace';tdK.style.fontWeight='700';tdK.textContent=r.access_code||'-';tr.appendChild(tdK);
+var tdA=document.createElement('td');var btn=document.createElement('button');btn.className='btn s';btn.type='button';btn.textContent='Buat Sertifikat';btn.onclick=function(){openConvert(r)};tdA.appendChild(btn);
+if(r.has_certificate&&r.certificate_number){var btnR=document.createElement('button');btnR.className='btn o s';btnR.type='button';btnR.textContent='Kirim Ulang Kode';btnR.style.marginLeft='8px';btnR.onclick=function(){resendCode(r,btnR)};tdA.appendChild(btnR)}
+tr.appendChild(tdA);
 tb.appendChild(tr);
 });
 }).catch(function(err){
 $('e_list').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_list').classList.add('show');
-$('rows').innerHTML='<tr><td colspan="10" style="color:var(--muted)">Gagal memuat.</td></tr>';
+$('rows').innerHTML='<tr><td colspan="11" style="color:var(--muted)">Gagal memuat.</td></tr>';
 });
 }
 
@@ -175,12 +179,46 @@ var btn=$('btnConvert');btn.disabled=true;btn.textContent='Menyimpan…';
 callFn({password:pw,action:'convert',registration_id:convertId,certificate_number:no,certificate_date:dt,scores:{word:$('c_word').value,excel:$('c_excel').value,ppt:$('c_ppt').value}}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal menyimpan sertifikat.')}
-$('ok_convert').textContent='Sertifikat '+res.body.certificate_number+' tersimpan. Pendaftar kini bisa membukanya di halaman sertifikat.';
+var msg='Sertifikat '+res.body.certificate_number+' tersimpan.';
+if(res.body.access_code){msg+=' Kode unik: '+res.body.access_code+'.'}
+if(res.body.email_status==='sent'){msg+=' Email pemberitahuan terkirim ke peserta.'}
+else if(res.body.email_status==='failed'){msg+=' Email pemberitahuan GAGAL terkirim'+(res.body.email_error?': '+res.body.email_error:'')+'. Kode di atas bisa dikirim manual.'}
+else{msg+=' Pendaftar tidak punya alamat email, kirim kode di atas secara manual.'}
+$('ok_convert').textContent=msg;
 $('ok_convert').classList.add('show');
 loadList();
 }).catch(function(err){
 $('e_convert').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_convert').classList.add('show');
 }).finally(function(){btn.disabled=false;btn.textContent='Simpan Sertifikat'});
+};
+
+function resendCode(r,btn){
+btn.disabled=true;btn.textContent='Mengirim…';
+callFn({password:pw,action:'resend',certificate_number:r.certificate_number}).then(function(res){
+if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
+if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim ulang.')}
+$('ok_codes').textContent='Kode untuk '+r.full_name+' terkirim ulang ke '+res.body.email+'.';
+$('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
+loadList();
+}).catch(function(err){
+$('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
+}).finally(function(){btn.disabled=false;btn.textContent='Kirim Ulang Kode'});
+}
+$('btnSendCodes').onclick=function(){
+if(!confirm('Kirim kode unik ke semua peserta yang sertifikatnya belum punya kode? Email hanya dikirim ke yang belum punya kode.')){return}
+var btn=$('btnSendCodes');btn.disabled=true;btn.textContent='Mengirim…';
+$('ok_codes').classList.remove('show');$('e_codes').classList.remove('show');
+callFn({password:pw,action:'send_codes'}).then(function(res){
+if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
+if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim kode.')}
+var failed=res.body.results.filter(function(x){return x.status==='email_gagal'||x.status==='gagal_buat_kode'});
+var msg='Selesai: '+res.body.sent+' email terkirim, '+res.body.skipped+' dilewati (sudah punya kode / tanpa email), '+res.body.failed+' gagal.';
+if(failed.length){msg+=' Gagal: '+failed.map(function(x){return x.full_name}).join(', ')+'.'}
+$('ok_codes').textContent=msg;$('ok_codes').classList.add('show');
+loadList();
+}).catch(function(err){
+$('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');
+}).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Semua Peserta'});
 };
 
 if(pw){loadList()}else{showGate(false)}
