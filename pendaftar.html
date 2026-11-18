@@ -35,6 +35,8 @@ tr:last-child td{border-bottom:0}
 td img{width:44px;height:58px;object-fit:cover;border-radius:8px;display:block}
 .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(31,138,70,.12);color:var(--green)}
 .badge.no{background:rgba(217,165,33,.18);color:#8a6a00}
+.badge.warn{background:rgba(217,165,33,.18);color:#8a6a00}
+.badge.bad{background:rgba(211,47,47,.12);color:#d32f2f}
 .grid2{display:grid;gap:16px;grid-template-columns:1fr 1fr}.grid3{display:grid;gap:16px;grid-template-columns:1fr 1fr 1fr}
 .convertWrap{display:grid;gap:20px;grid-template-columns:1fr}@media(min-width:821px){.convertWrap.hasPanel{grid-template-columns:1fr 290px}}
 .codePanel{border:2px solid var(--gold);border-radius:16px;padding:18px;background:var(--surface);height:fit-content}
@@ -149,9 +151,9 @@ var td=document.createElement('td');td.textContent=esc(r[k[0]])||'-';tr.appendCh
 });
 var tdW=document.createElement('td');tdW.textContent=fmtWhen(r.created_at);tr.appendChild(tdW);
 var tdS=document.createElement('td');var b=document.createElement('span');b.className='badge'+(r.has_certificate?'':' no');b.textContent=r.has_certificate?'Sudah ada':'Belum';tdS.appendChild(b);tr.appendChild(tdS);
-var tdK=document.createElement('td');tdK.style.fontFamily='monospace';tdK.style.fontWeight='700';tdK.textContent=r.access_code||'-';tr.appendChild(tdK);
+var tdK=document.createElement('td');if(r.access_code){var cd=document.createElement('div');cd.style.fontFamily='monospace';cd.style.fontWeight='700';cd.textContent=r.access_code;tdK.appendChild(cd);var st=document.createElement('div');st.style.marginTop='6px';var sb=document.createElement('span');var es=r.email_status||'belum_dikirim';sb.className='badge'+(es==='terkirim'?'':(es==='gagal'?' bad':' warn'));sb.textContent=es==='terkirim'?'Terkirim':(es==='gagal'?'Gagal':'Belum dikirim');st.appendChild(sb);tdK.appendChild(st)}else{tdK.textContent='-'}tr.appendChild(tdK);
 var tdA=document.createElement('td');var btn=document.createElement('button');btn.className='btn s';btn.type='button';btn.textContent='Buat Sertifikat';btn.onclick=function(){openConvert(r)};tdA.appendChild(btn);
-if(r.has_certificate&&r.certificate_number){var btnR=document.createElement('button');btnR.className='btn o s';btnR.type='button';btnR.textContent='Kirim Ulang Kode';btnR.style.marginLeft='8px';btnR.onclick=function(){resendCode(r,btnR)};tdA.appendChild(btnR)}
+if(r.has_certificate&&r.certificate_number){var btnR=document.createElement('button');btnR.className='btn o s';btnR.type='button';btnR.textContent=r.email_status==='terkirim'?'Kirim Ulang Kode':'Kirim Kode';btnR.style.marginLeft='8px';btnR.onclick=function(){resendCode(r,btnR)};tdA.appendChild(btnR)}
 tr.appendChild(tdA);
 tb.appendChild(tr);
 });
@@ -216,17 +218,18 @@ $('e_convert').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_convert
 };
 
 function resendCode(r,btn){
+var lbl=btn.textContent;
 btn.disabled=true;btn.textContent='Mengirim…';
 callFn({password:pw,action:'resend',certificate_number:r.certificate_number}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim ulang.')}
-$('ok_codes').textContent='Kode untuk '+r.full_name+' terkirim ulang ke '+res.body.email+'.';
+$('ok_codes').textContent='Kode untuk '+r.full_name+(r.email_status==='terkirim'?' terkirim ulang ke ':' terkirim ke ')+res.body.email+'.';
 $('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
 loadList();
 }).catch(function(err){
 $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
 loadList();
-}).finally(function(){btn.disabled=false;btn.textContent='Kirim Ulang Kode'});
+}).finally(function(){btn.disabled=false;btn.textContent=lbl});
 }
 $('btnSendCodes').onclick=function(){
 if(!confirm('Kirim kode unik ke semua peserta yang sertifikatnya belum punya kode? Email hanya dikirim ke yang belum punya kode.')){return}
