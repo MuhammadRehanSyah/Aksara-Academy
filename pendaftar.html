@@ -85,6 +85,7 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <div><label for="c_no">Nomor Sertifikat *</label><input id="c_no" placeholder="014/SERT-MO/PAN/XI/2026"></div>
 <div><label for="c_date">Tanggal Sertifikat *</label><input id="c_date" type="date"></div>
 </div>
+<p style="color:var(--muted);font-size:13px;margin:8px 0 0" id="issuedInfo"></p>
 <div class="grid3" style="margin-top:16px">
 <div><label for="c_word">Nilai Word</label><input id="c_word" type="number" min="0" max="100" step="0.01" placeholder="Kosongkan bila tanpa nilai"></div>
 <div><label for="c_excel">Nilai Excel</label><input id="c_excel" type="number" min="0" max="100" step="0.01" placeholder="Kosongkan bila tanpa nilai"></div>
@@ -93,7 +94,7 @@ footer{background:var(--surface);border-top:1px solid var(--line);text-align:cen
 <p style="color:var(--muted);font-size:14px;margin:10px 0 0">Isi ketiga nilai untuk sertifikat bernilai (potret), atau kosongkan ketiganya untuk sertifikat tanpa nilai (landscape).</p>
 <div class="err" id="e_convert"></div>
 <div class="ok" id="ok_convert"></div>
-<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="btnConvert" type="button">Simpan Sertifikat</button><button class="btn o" id="btnCancelConvert" type="button">Batal</button></div>
+<div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="btnConvert" type="button">Simpan Sertifikat</button><button class="btn g" id="btnSendCodeForm" type="button" style="display:none">Kirim Kode ke Email</button><button class="btn o" id="btnCancelConvert" type="button">Batal</button></div>
 </div>
 <div class="codePanel" id="codePanel" style="display:none">
 <div class="lb">Kode Unik Sertifikat</div>
@@ -116,7 +117,7 @@ var SB_URL='https://byatfncncimmwqwfduid.supabase.co',SB_KEY='eyJhbGciOiJIUzI1Ni
 var FN_URL=SB_URL+'/functions/v1/kelola-pendaftar';
 var $=function(i){return document.getElementById(i)};
 var pw=sessionStorage.getItem('penyelenggara_pw')||'';
-var currentRows=[],convertId=null,panelCertNo=null,panelEmail='';
+var currentRows=[],convertId=null,panelCertNo=null,panelEmail='',issuedNumbers=[],nextNumbers={};
 
 function esc(s){return String(s==null?'':s)}
 function fmtWhen(iso){try{return new Date(iso).toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}catch(e){return iso||'-'}}
@@ -136,7 +137,7 @@ $('rows').innerHTML='<tr><td colspan="11" style="color:var(--muted)">Memuat…</
 callFn({password:pw,action:'list'}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!Array.isArray(res.body.rows)){throw new Error((res.body&&res.body.error)||'Gagal memuat daftar pendaftar.')}
-currentRows=res.body.rows;
+currentRows=res.body.rows;issuedNumbers=res.body.issued_numbers||[];nextNumbers=res.body.next_numbers||{};
 $('gate').style.display='none';$('main').style.display='block';
 $('count').textContent=res.body.rows.length+' pendaftar';
 var tb=$('rows');tb.innerHTML='';
@@ -144,7 +145,7 @@ if(!res.body.rows.length){tb.innerHTML='<tr><td colspan="11" style="color:var(--
 res.body.rows.forEach(function(r){
 var tr=document.createElement('tr');
 var tdF=document.createElement('td');
-if(r.photo_path){var a=document.createElement('a');a.href=SB_URL+'/storage/v1/object/public/pas-foto/'+r.photo_path;a.target='_blank';a.rel='noopener';var im=document.createElement('img');im.src=a.href;im.alt='Pas foto';im.loading='lazy';a.appendChild(im);tdF.appendChild(a)}else{tdF.textContent='-'}
+var ph=r.photo_path?{b:'pas-foto',p:r.photo_path}:(r.cert_photo_path?{b:'foto-sertifikat',p:r.cert_photo_path}:null);if(ph){var a=document.createElement('a');a.href=SB_URL+'/storage/v1/object/public/'+ph.b+'/'+ph.p;a.target='_blank';a.rel='noopener';var im=document.createElement('img');im.src=a.href;im.alt='Pas foto';im.loading='lazy';a.appendChild(im);tdF.appendChild(a)}else{tdF.textContent='-'}
 tr.appendChild(tdF);
 [['full_name'],['program_name'],['institution'],['email'],['whatsapp_number'],['follow_status_personal']].forEach(function(k){
 var td=document.createElement('td');td.textContent=esc(r[k[0]])||'-';tr.appendChild(td);
@@ -154,6 +155,7 @@ var tdS=document.createElement('td');var b=document.createElement('span');b.clas
 var tdK=document.createElement('td');if(r.access_code){var cd=document.createElement('div');cd.style.fontFamily='monospace';cd.style.fontWeight='700';cd.textContent=r.access_code;tdK.appendChild(cd);var st=document.createElement('div');st.style.marginTop='6px';var sb=document.createElement('span');var es=r.email_status||'belum_dikirim';sb.className='badge'+(es==='terkirim'?'':(es==='gagal'?' bad':' warn'));sb.textContent=es==='terkirim'?'Terkirim':(es==='gagal'?'Gagal':'Belum dikirim');st.appendChild(sb);tdK.appendChild(st)}else{tdK.textContent='-'}tr.appendChild(tdK);
 var tdA=document.createElement('td');var btn=document.createElement('button');btn.className='btn s';btn.type='button';btn.textContent='Buat Sertifikat';btn.onclick=function(){openConvert(r)};tdA.appendChild(btn);
 if(r.has_certificate&&r.certificate_number){var btnR=document.createElement('button');btnR.className='btn o s';btnR.type='button';btnR.textContent=r.email_status==='terkirim'?'Kirim Ulang Kode':'Kirim Kode';btnR.style.marginLeft='8px';btnR.onclick=function(){resendCode(r,btnR)};tdA.appendChild(btnR)}
+var btnD=document.createElement('button');btnD.className='btn o s';btnD.type='button';btnD.textContent='Hapus';btnD.style.marginLeft='8px';btnD.style.color='#d32f2f';btnD.onclick=function(){deleteRow(r,btnD)};tdA.appendChild(btnD);
 tr.appendChild(tdA);
 tb.appendChild(tr);
 });
@@ -168,7 +170,10 @@ convertId=r.id;panelCertNo=null;panelEmail=r.email||'';
 $('codePanel').style.display='none';$('convertWrap').classList.remove('hasPanel');
 $('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
 $('convertWho').textContent=r.full_name+' — '+r.program_name;
-$('c_no').value='';$('c_date').value=new Date().toISOString().slice(0,10);
+$('c_no').value=nextNumbers[r.program_name]||'';
+$('issuedInfo').textContent=issuedNumbers.length?('Nomor yang sudah terbit ('+issuedNumbers.length+'): '+issuedNumbers.join(', ')+'. Nomor di atas terisi otomatis, boleh diubah.'):'Belum ada nomor sertifikat yang terbit.';
+var bsf0=$('btnSendCodeForm');if(bsf0){bsf0.style.display='none'}
+$('c_date').value=new Date().toISOString().slice(0,10);
 $('c_word').value='';$('c_excel').value='';$('c_ppt').value='';
 $('e_convert').classList.remove('show');$('ok_convert').classList.remove('show');
 $('convertCard').style.display='block';
@@ -209,6 +214,7 @@ $('codePanelMeta').textContent=res.body.certificate_number;
 if(res.body.email_status==='sent'){$('codePanelMail').textContent='Email pemberitahuan terkirim ke '+(panelEmail||'peserta')+'.';$('btnSendCodePanel').style.display=''}
 else if(res.body.email_status==='failed'){$('codePanelMail').textContent='Email pemberitahuan GAGAL terkirim'+(res.body.email_error?': '+res.body.email_error:'')+'. Tekan tombol di bawah untuk mencoba lagi.';$('btnSendCodePanel').style.display=''}
 else{$('codePanelMail').textContent='Pendaftar tidak punya alamat email — kirim kode ini secara manual.';$('btnSendCodePanel').style.display='none'}
+var bsf2=$('btnSendCodeForm');if(bsf2){bsf2.style.display=$('btnSendCodePanel').style.display}
 $('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
 $('codePanel').style.display='block';$('convertWrap').classList.add('hasPanel');
 loadList();
@@ -225,6 +231,25 @@ if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGat
 if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim ulang.')}
 $('ok_codes').textContent='Kode untuk '+r.full_name+(r.email_status==='terkirim'?' terkirim ulang ke ':' terkirim ke ')+res.body.email+'.';
 $('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
+loadList();
+}).catch(function(err){
+$('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
+loadList();
+}).finally(function(){btn.disabled=false;btn.textContent=lbl});
+}
+function deleteRow(r,btn){
+var msg='Hapus data '+r.full_name+'?';
+if(r.has_certificate&&r.certificate_number){msg+=' Sertifikat '+r.certificate_number+' dan kode uniknya juga akan dihapus.'}
+msg+=' Tindakan ini tidak bisa dibatalkan.';
+if(!confirm(msg)){return}
+var lbl=btn.textContent;
+btn.disabled=true;btn.textContent='Menghapus…';
+callFn({password:pw,action:'delete',registration_id:r.id}).then(function(res){
+if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
+if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal menghapus data.')}
+$('ok_codes').textContent='Data '+r.full_name+(res.body.certificate_number?' beserta sertifikat '+res.body.certificate_number:'')+' sudah dihapus.';
+$('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
+$('convertCard').style.display='none';convertId=null;
 loadList();
 }).catch(function(err){
 $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
@@ -249,9 +274,9 @@ loadList();
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Semua Peserta'});
 };
 
-$('btnSendCodePanel').onclick=function(){
+function sendPanelCode(){
 if(!panelCertNo){return}
-var btn=$('btnSendCodePanel');btn.disabled=true;btn.textContent='Mengirim…';
+var btn=this;btn.disabled=true;btn.textContent='Mengirim…';
 $('e_codePanel').classList.remove('show');$('ok_codePanel').classList.remove('show');
 callFn({password:pw,action:'resend',certificate_number:panelCertNo}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
@@ -265,7 +290,9 @@ loadList();
 $('e_codePanel').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codePanel').classList.add('show');
 loadList();
 }).finally(function(){btn.disabled=false;btn.textContent='Kirim Kode ke Email'});
-};
+}
+$('btnSendCodePanel').onclick=sendPanelCode;
+$('btnSendCodeForm').onclick=sendPanelCode;
 
 if(pw){loadList()}else{showGate(false)}
 }catch(e){}
