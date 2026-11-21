@@ -30,6 +30,7 @@ input:focus{outline:0;border-color:var(--navy2);box-shadow:0 0 0 4px rgba(21,86,
 .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
 th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+.tblwrap th:first-child,.tblwrap td:first-child{position:sticky;left:0;background:var(--surface);z-index:1;box-shadow:1px 0 0 var(--line)}
 th{background:var(--bg);font-size:13px;white-space:nowrap}
 tr:last-child td{border-bottom:0}
 td img{width:44px;height:58px;object-fit:cover;border-radius:8px;display:block}
@@ -213,6 +214,7 @@ panelCertNo=res.body.certificate_number;
 $('codePanelCode').textContent=res.body.access_code||'-';
 $('codePanelMeta').textContent=res.body.certificate_number;
 if(res.body.email_status==='sent'){$('codePanelMail').textContent='Email pemberitahuan terkirim ke '+(panelEmail||'peserta')+'.';$('btnSendCodePanel').style.display=''}
+else if(res.body.email_status==='belum_dikirim'){$('codePanelMail').textContent='Kode sudah dibuat dan siap dikirim. Tekan tombol di bawah untuk mengirim kode ke email peserta.';$('btnSendCodePanel').style.display=''}
 else if(res.body.email_status==='failed'){$('codePanelMail').textContent='Email pemberitahuan GAGAL terkirim'+(res.body.email_error?': '+res.body.email_error:'')+'. Tekan tombol di bawah untuk mencoba lagi.';$('btnSendCodePanel').style.display=''}
 else{$('codePanelMail').textContent='Pendaftar tidak punya alamat email — kirim kode ini secara manual.';$('btnSendCodePanel').style.display='none'}
 var bsf2=$('btnSendCodeForm');if(bsf2){bsf2.style.display=$('btnSendCodePanel').style.display}
