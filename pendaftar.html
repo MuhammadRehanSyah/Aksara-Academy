@@ -157,6 +157,7 @@ var tdS=document.createElement('td');var b=document.createElement('span');b.clas
 var tdK=document.createElement('td');if(r.access_code){var cd=document.createElement('div');cd.style.fontFamily='monospace';cd.style.fontWeight='700';cd.textContent=r.access_code;tdK.appendChild(cd);var st=document.createElement('div');st.style.marginTop='6px';var sb=document.createElement('span');var es=r.email_status||'belum_dikirim';sb.className='badge'+(es==='terkirim'?'':(es==='gagal'?' bad':' warn'));sb.textContent=es==='terkirim'?'Terkirim':(es==='gagal'?'Gagal':'Belum dikirim');st.appendChild(sb);tdK.appendChild(st)}else{tdK.textContent='-'}tr.appendChild(tdK);
 var tdA=document.createElement('td');var btn=document.createElement('button');btn.className='btn s';btn.type='button';btn.textContent='Buat Sertifikat';btn.onclick=function(){openConvert(r)};tdA.appendChild(btn);
 if(r.has_certificate&&r.certificate_number){var btnR=document.createElement('button');btnR.className='btn o s';btnR.type='button';btnR.textContent=r.email_status==='terkirim'?'Kirim Ulang Kode':'Kirim Kode';btnR.style.marginLeft='8px';btnR.onclick=function(){resendCode(r,btnR)};tdA.appendChild(btnR)}
+if(r.has_certificate&&r.certificate_number){var btnC=document.createElement('button');btnC.className='btn o s';btnC.type='button';btnC.textContent='Hapus Sertifikat';btnC.style.marginLeft='8px';btnC.style.color='#b26a00';btnC.onclick=function(){deleteCert(r,btnC)};tdA.appendChild(btnC)}
 var btnD=document.createElement('button');btnD.className='btn o s';btnD.type='button';btnD.textContent='Hapus';btnD.style.marginLeft='8px';btnD.style.color='#d32f2f';btnD.onclick=function(){deleteRow(r,btnD)};tdA.appendChild(btnD);
 tr.appendChild(tdA);
 tb.appendChild(tr);
@@ -240,8 +241,25 @@ $('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').c
 loadList();
 }).finally(function(){btn.disabled=false;btn.textContent=lbl});
 }
+function deleteCert(r,btn){
+var msg='Hapus sertifikat '+r.certificate_number+' milik '+r.full_name+'? Kode uniknya juga ikut terhapus. Data pendaftarannya tetap ada, jadi sertifikat bisa dibuat ulang.';
+if(!confirm(msg)){return}
+var lbl=btn.textContent;
+btn.disabled=true;btn.textContent='Menghapus…';
+callFn({password:pw,action:'delete_certificate',certificate_number:r.certificate_number}).then(function(res){
+if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
+if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal menghapus sertifikat.')}
+$('ok_codes').textContent='Sertifikat '+res.body.certificate_number+' ('+r.full_name+') sudah dihapus. Pendaftarannya tetap ada — tekan Buat Sertifikat untuk membuat ulang.';
+$('ok_codes').classList.add('show');$('e_codes').classList.remove('show');
+$('convertCard').style.display='none';convertId=null;
+loadList();
+}).catch(function(err){
+$('e_codes').textContent=(err&&err.message)||'Terjadi kesalahan.';$('e_codes').classList.add('show');$('ok_codes').classList.remove('show');
+loadList();
+}).finally(function(){btn.disabled=false;btn.textContent=lbl});
+}
 function deleteRow(r,btn){
-var msg='Hapus data '+r.full_name+'?';
+var msg='Hapus SELURUH data '+r.full_name+' termasuk pendaftarannya?';
 if(r.has_certificate&&r.certificate_number){msg+=' Sertifikat '+r.certificate_number+' dan kode uniknya juga akan dihapus.'}
 msg+=' Tindakan ini tidak bisa dibatalkan.';
 if(!confirm(msg)){return}
