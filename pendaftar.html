@@ -260,14 +260,14 @@ loadList();
 }).finally(function(){btn.disabled=false;btn.textContent=lbl});
 }
 $('btnSendCodes').onclick=function(){
-if(!confirm('Kirim kode unik ke semua peserta yang sertifikatnya belum punya kode? Email hanya dikirim ke yang belum punya kode.')){return}
+if(!confirm('Kirim kode unik ke semua peserta yang kodenya belum terkirim? Email hanya dikirim ke yang belum terkirim.')){return}
 var btn=$('btnSendCodes');btn.disabled=true;btn.textContent='Mengirim…';
 $('ok_codes').classList.remove('show');$('e_codes').classList.remove('show');
 callFn({password:pw,action:'send_codes'}).then(function(res){
 if(res.status===401){pw='';sessionStorage.removeItem('penyelenggara_pw');showGate(true);return}
 if(res.status!==200||!res.body||!res.body.ok){throw new Error((res.body&&res.body.error)||'Gagal mengirim kode.')}
 var failed=res.body.results.filter(function(x){return x.status==='email_gagal'||x.status==='gagal_buat_kode'});
-var msg='Selesai: '+res.body.sent+' email terkirim, '+res.body.skipped+' dilewati (sudah punya kode / tanpa email), '+res.body.failed+' gagal.';
+var msg='Selesai: '+res.body.sent+' email terkirim, '+res.body.skipped+' dilewati (sudah terkirim / tanpa email), '+res.body.failed+' gagal.';
 if(failed.length){msg+=' Gagal: '+failed.map(function(x){return x.full_name}).join(', ')+'.'}
 $('ok_codes').textContent=msg;$('ok_codes').classList.add('show');
 loadList();
