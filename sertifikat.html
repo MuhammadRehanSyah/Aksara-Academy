@@ -408,7 +408,7 @@
       <input id="pw" type="password" inputmode="numeric" autocomplete="off" placeholder="••••••" aria-describedby="pwErr">
       <div class="err" id="pwErr">Password salah. Coba lagi.</div>
       <button class="btn-gate" type="submit">Buka Halaman Sertifikat</button>
-      <p class="gate-note">Ini password sederhana sebagai pembatas biasa di halaman statis — bukan kunci pengaman data. Data peserta dimuat dari database setelah password benar.</p>
+      <p class="gate-note">Kata sandi diperiksa di server dan tidak tertulis di halaman ini. Data peserta dimuat dari database setelah kata sandi benar.</p>
     </form>
 
     <form class="gate" id="participantForm" autocomplete="off">
@@ -783,7 +783,6 @@
   function $(id){ return document.getElementById(id); }
 
   /* ================= Gerbang password ================= */
-  var PASSWORD = "654312";
   var gateForm = $("gateForm"), gateWrap = $("gateWrap"), editor = $("editor");
   var choiceWrap = $("choiceWrap"), gateGrid = $("gateGrid"), participantFormEl = $("participantForm");
   var pw = $("pw"), pwErr = $("pwErr");
@@ -820,21 +819,46 @@
   if (backEditor) backEditor.addEventListener("click", function(){ pw.value = ""; showChoice(); });
   gateForm.addEventListener("submit", function(e){
     e.preventDefault();
-    if (pw.value.trim() === PASSWORD) {
-      if (choiceWrap) choiceWrap.style.display = "none";
-      gateWrap.style.display = "none";
-      editor.classList.add("open");
-      loadPrograms();
-      loadCertificates();
-      requestAnimationFrame(function(){ refitIdLines(); });
-      window.scrollTo({top:0, behavior:"smooth"});
-    } else {
-      pwErr.classList.add("show");
-      gateForm.classList.remove("shake");
-      void gateForm.offsetWidth;
-      gateForm.classList.add("shake");
-      pw.select();
-    }
+    var val = pw.value;
+    if (!val) { pwErr.textContent = "Password salah. Coba lagi."; pwErr.classList.add("show"); pw.select(); return; }
+    var btn = gateForm.querySelector(".btn-gate");
+    if (btn) { btn.disabled = true; btn.textContent = "Memeriksa…"; }
+    pwErr.classList.remove("show");
+    /* Kata sandi TIDAK lagi dibandingkan di halaman ini — dikirim ke
+       server (Edge Function kelola-pendaftar, aksi admin_verify) dan
+       diperiksa di sana dengan secret ADMIN_PASSWORD. */
+    fetch(SUPABASE_URL + "/functions/v1/kelola-pendaftar", {
+      method: "POST",
+      headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON, "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "admin_verify", password: val })
+    })
+      .then(function(r){ return r.json().then(function(j){ return { status: r.status, body: j }; }); })
+      .then(function(res){
+        if (res.status === 200 && res.body && res.body.ok) {
+          if (choiceWrap) choiceWrap.style.display = "none";
+          gateWrap.style.display = "none";
+          editor.classList.add("open");
+          loadPrograms();
+          loadCertificates();
+          requestAnimationFrame(function(){ refitIdLines(); });
+          window.scrollTo({top:0, behavior:"smooth"});
+        } else if (res.status === 401) {
+          pwErr.textContent = "Password salah. Coba lagi.";
+          pwErr.classList.add("show");
+          gateForm.classList.remove("shake");
+          void gateForm.offsetWidth;
+          gateForm.classList.add("shake");
+          pw.select();
+        } else {
+          pwErr.textContent = (res.body && res.body.error) || "Gagal memeriksa. Coba lagi.";
+          pwErr.classList.add("show");
+        }
+      })
+      .catch(function(){
+        pwErr.textContent = "Gagal memeriksa. Periksa koneksi, lalu coba lagi.";
+        pwErr.classList.add("show");
+      })
+      .finally(function(){ if (btn) { btn.disabled = false; btn.textContent = "Buka Halaman Sertifikat"; } });
   });
   pw.addEventListener("input", function(){ pwErr.classList.remove("show"); });
 
