@@ -873,8 +873,6 @@ try{var pop=document.getElementById('pop');if(sessionStorage.getItem('wa_pop_see
       var SB_URL='https://byatfncncimmwqwfduid.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5YXRmbmNuY2ltbXdxd2ZkdWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4NjY5NjAsImV4cCI6MjExMDQ0Mjk2MH0.GDGTCq6yraap41so1Ul84Bg5Lz6ZrkR8Awo7p-OW4aA';
       fetch(SB_URL+'/rest/v1/programs?select=id,name,description,materials&is_active=eq.true&order=name',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}).then(function(r){return r.ok?r.json():[]}).then(function(rows){
       if(!rows||!rows.length)return;
-      /* Program Word IAT (27-28 Nov 2026): sementara hardcode di sini karena insert anon ke tabel programs ditolak RLS (42501). Pindahkan ke tabel programs bila sudah ada akses tulis, agar muncul juga di pendaftar (pembuatan sertifikat). */
-      rows.push({name:'Intensive Microsoft Word for Academic Writing & Career Readiness',description:'Pelatihan Microsoft Word untuk peserta HMPS IAT UIN Suska Riau — Jumat–Sabtu, 27–28 November 2026. Dua hari fokus hanya pada Microsoft Word: menyusun dokumen akademik yang rapi dan terstruktur, dari format dasar sampai daftar isi otomatis dan catatan kaki.',materials:'Styles & Heading untuk struktur dokumen\nDaftar Isi Otomatis (Table of Contents)\nFootnote & Sitasi karya ilmiah\nMakalah akademik utuh dari kerangka sampai selesai'});
       var g=document.getElementById('programGrid');if(!g)return;
       g.innerHTML='';
       rows.forEach(function(p){
