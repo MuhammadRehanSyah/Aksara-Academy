@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Form Pendaftaran Kelas Gratis — Aksara Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --green: #0e3b2e;
+        --green-deep: #082a20;
+        --green-mid: #14532d;
+        --green-soft: #e7f0ea;
+        --green-tint: #f2f7f3;
+        --gold: #d4af37;
+        --gold-deep: #a8861d;
+        --gold-soft: #faf3da;
+        --ink: #17251f;
+        --ink-soft: #43554c;
+        --paper: #ffffff;
+        --page: #f6f8f6;
+        --line: #d9e2db;
+        --danger: #b3261e;
+        --danger-bg: #fdecea;
+        --slot-bg: #fdf6dd;
+        --slot-line: #c9a227;
+        --shadow: 0 10px 30px rgba(14, 59, 46, 0.10);
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --green: #7fc8a9;
+          --green-deep: #0b2e23;
+          --green-mid: #9fd8bd;
+          --green-soft: #14352a;
+          --green-tint: #10291f;
+          --gold: #d4af37;
+          --gold-deep: #e3c766;
+          --gold-soft: #2c2712;
+          --ink: #eef4f0;
+          --ink-soft: #b7c8be;
+          --paper: #122019;
+          --page: #0a1511;
+          --line: #274435;
+          --danger: #ff9d94;
+          --danger-bg: #3a1713;
+          --slot-bg: #2c2712;
+          --slot-line: #a8861d;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: var(--page);
+        color: var(--ink);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--green); }
+      @media (prefers-color-scheme: dark) { a { color: var(--green-mid); } }
+
+      /* ---------- Draft banner ---------- */
+      .draft-banner {
+        background: var(--green-deep);
+        color: #f4eeda;
+        font-size: 0.82rem;
+        text-align: center;
+        padding: 0.55rem 1rem;
+      }
+      .draft-banner strong { color: var(--gold); letter-spacing: 0.06em; }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        background: linear-gradient(180deg, var(--paper) 0%, var(--green-tint) 55%, var(--green-soft) 100%);
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 2.4rem 1.25rem 2rem;
+      }
+      .hero .brand {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+        margin: 0 0 0.6rem;
+      }
+      .hero h1 {
+        font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+        line-height: 1.15;
+        margin: 0 0 0.7rem;
+        font-weight: 800;
+        color: var(--green-deep);
+        max-width: 22ch;
+      }
+      @media (prefers-color-scheme: dark) { .hero h1 { color: var(--ink); } }
+      .hero h1 .gratis { color: var(--gold-deep); }
+      .hero p.lead {
+        margin: 0 0 1.2rem;
+        color: var(--ink-soft);
+        max-width: 62ch;
+        font-size: 1.02rem;
+      }
+      .trust-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+      .trust-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.42rem 0.85rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .trust-chip svg { flex: none; }
+      .trust-chip b { color: var(--green); }
+      @media (prefers-color-scheme: dark) { .trust-chip b { color: var(--green-mid); } }
+
+      /* ---------- Layout ---------- */
+      .layout {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 1.8rem 1.25rem 3rem;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 1.6rem;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: minmax(0, 1fr); }
+      }
+
+      /* ---------- Form card ---------- */
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+      form.card { padding: 0; overflow: hidden; }
+      .step {
+        padding: 1.5rem 1.6rem 1.7rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .step:last-of-type { border-bottom: none; }
+      @media (max-width: 560px) { .step { padding: 1.25rem 1.1rem 1.4rem; } }
+      .step-head {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 0.35rem;
+      }
+      .step-num {
+        width: 34px; height: 34px; flex: none;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        display: grid; place-items: center;
+        font-weight: 800; font-size: 0.95rem;
+      }
+      @media (prefers-color-scheme: dark) { .step-num { background: var(--green-soft); color: var(--green-mid); } }
+      .step-head h2 { font-size: 1.12rem; margin: 0; font-weight: 800; }
+      .step-desc { color: var(--ink-soft); font-size: 0.92rem; margin: 0 0 1.1rem 2.7rem; }
+      @media (max-width: 560px) { .step-desc { margin-left: 0; } }
+
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .grid-birth { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      @media (max-width: 560px) { .grid2, .grid-birth { grid-template-columns: 1fr; } }
+      .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+      .field:last-child { margin-bottom: 0; }
+      label.lbl { font-weight: 700; font-size: 0.92rem; }
+      label.lbl .req { color: var(--danger); }
+      label.lbl .opt { color: var(--ink-soft); font-weight: 500; font-size: 0.82rem; }
+      .hint { font-size: 0.82rem; color: var(--ink-soft); margin: 0; }
+      input[type="text"], input[type="email"], input[type="tel"], input[type="date"],
+      input[type="file"], select, textarea {
+        font: inherit;
+        font-size: 0.98rem;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        padding: 0.62rem 0.8rem;
+        min-height: 46px;
+        width: 100%;
+      }
+      textarea { min-height: 84px; resize: vertical; }
+      input:focus, select:focus, textarea:focus {
+        outline: 3px solid rgba(212, 175, 55, 0.45);
+        outline-offset: 1px;
+        border-color: var(--gold-deep);
+      }
+      input.invalid, select.invalid { border-color: var(--danger); background: var(--danger-bg); }
+      .err-msg { display: none; color: var(--danger); font-size: 0.83rem; font-weight: 600; margin: 0; }
+      .err-msg.show { display: block; }
+
+      .photo-note {
+        display: flex; gap: 0.7rem; align-items: flex-start;
+        border: 1.5px solid var(--line); border-radius: 10px;
+        background: var(--green-tint);
+        padding: 0.75rem 0.9rem;
+      }
+      .photo-note svg { flex: none; margin-top: 0.15rem; }
+      .photo-note p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+      .photo-note p strong { color: var(--ink); }
+
+      /* Follow IG rows */
+      .follow-row {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
+        margin-bottom: 0.8rem;
+        flex-wrap: wrap;
+      }
+      .follow-row .ig-info { flex: 1 1 180px; min-width: 0; }
+      .follow-row .ig-info b { display: block; font-size: 0.98rem; }
+      .follow-row .ig-info span { color: var(--ink-soft); font-size: 0.85rem; }
+      .btn-follow {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        background: var(--green); color: #fff;
+        text-decoration: none; font-weight: 700; font-size: 0.9rem;
+        border-radius: 10px; padding: 0.6rem 1rem; min-height: 44px;
+      }
+      @media (prefers-color-scheme: dark) { .btn-follow { background: var(--green-soft); color: var(--green-mid); } }
+      .check-line {
+        display: flex; align-items: flex-start; gap: 0.65rem;
+        padding: 0.55rem 0.2rem;
+        cursor: pointer;
+        min-height: 44px;
+      }
+      .check-line input[type="checkbox"] {
+        width: 22px; height: 22px; flex: none;
+        margin-top: 0.1rem;
+        accent-color: #0e3b2e;
+      }
+      .check-line span { font-size: 0.93rem; }
+      .follow-status {
+        font-size: 0.87rem; font-weight: 600;
+        border-radius: 10px; padding: 0.6rem 0.85rem; margin-top: 0.4rem;
+        background: var(--gold-soft); color: var(--gold-deep);
+        border: 1px dashed var(--slot-line);
+      }
+      .follow-status.done { background: var(--green-soft); color: var(--green); border-style: solid; border-color: var(--line); }
+      @media (prefers-color-scheme: dark) { .follow-status.done { color: var(--green-mid); } }
+
+      /* Jenis kelas radio cards */
+      .track-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-bottom: 1rem; }
+      @media (max-width: 560px) { .track-picker { grid-template-columns: 1fr; } }
+      .track-option { position: relative; }
+      .track-option input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+      .track-face {
+        display: block; height: 100%;
+        border: 2px solid var(--line);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .track-face .t-name { font-weight: 800; font-size: 1.02rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+      .track-face .t-price { font-size: 1.35rem; font-weight: 800; color: var(--green); margin: 0.25rem 0; }
+      @media (prefers-color-scheme: dark) { .track-face .t-price { color: var(--green-mid); } }
+      .track-face .t-desc { font-size: 0.87rem; color: var(--ink-soft); margin: 0; }
+      .track-option input:checked + .track-face { border-color: var(--green); background: var(--green-tint); }
+      .track-option input:focus-visible + .track-face { outline: 3px solid rgba(212,175,55,.5); outline-offset: 2px; }
+      .track-face.track-single { border-color: var(--gold); background: var(--gold-soft); cursor: default; }
+      .badge-free {
+        background: var(--gold); color: #231d04;
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em;
+        padding: 0.18rem 0.5rem; border-radius: 999px;
+      }
+
+      /* Slot isian (menunggu keputusan Bos) */
+      .slot {
+        display: inline-block;
+        background: var(--slot-bg);
+        border: 1.5px dashed var(--slot-line);
+        color: var(--gold-deep);
+        border-radius: 8px;
+        padding: 0.12rem 0.55rem;
+        font-weight: 700; font-size: 0.88em;
+        white-space: normal;
+      }
+      select option.slot-opt { color: var(--gold-deep); }
+
+      .terms-panel {
+        border: 1.5px solid var(--gold);
+        background: var(--gold-soft);
+        border-radius: 12px;
+        padding: 1rem 1.15rem;
+        margin-top: 0.4rem;
+      }
+      .terms-panel h3 { margin: 0 0 0.5rem; font-size: 0.98rem; font-weight: 800; }
+      .terms-panel ul { margin: 0; padding-left: 1.15rem; }
+      .terms-panel li { margin-bottom: 0.45rem; font-size: 0.92rem; }
+      .terms-panel li:last-child { margin-bottom: 0; }
+      .terms-panel .fixed { font-weight: 600; }
+      .hidden { display: none !important; }
+
+      /* Submit area */
+      .submit-area { padding: 1.4rem 1.6rem 1.6rem; background: var(--green-tint); }
+      @media (max-width: 560px) { .submit-area { padding: 1.2rem 1.1rem 1.4rem; } }
+      .btn-submit {
+        width: 100%;
+        font: inherit; font-weight: 800; font-size: 1.05rem;
+        background: var(--green); color: #fff;
+        border: none; border-radius: 12px;
+        padding: 0.95rem 1.2rem; min-height: 54px;
+        cursor: pointer;
+        transition: transform 0.12s ease, opacity 0.15s ease;
+      }
+      .btn-submit:active { transform: scale(0.98); }
+      .btn-submit[disabled] { opacity: 0.45; cursor: not-allowed; }
+      @media (prefers-color-scheme: dark) { .btn-submit { background: #1d5c46; } }
+      .submit-note { font-size: 0.85rem; color: var(--ink-soft); text-align: center; margin: 0.8rem 0 0; }
+      .form-alert {
+        display: none;
+        border-radius: 10px; padding: 0.8rem 1rem;
+        font-size: 0.92rem; font-weight: 600; margin-bottom: 1rem;
+      }
+      .form-alert.show { display: block; }
+      .form-alert.error { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+      .form-alert.ok { background: var(--green-soft); color: var(--green); border: 1px solid var(--green); }
+      @media (prefers-color-scheme: dark) { .form-alert.ok { color: var(--green-mid); } }
+
+      /* ---------- Sidebar ---------- */
+      aside { display: flex; flex-direction: column; gap: 1.2rem; }
+      .side-card { padding: 1.25rem 1.3rem; }
+      .side-card h2 { font-size: 1rem; margin: 0 0 0.7rem; font-weight: 800; }
+      .side-card p, .side-card li { font-size: 0.9rem; color: var(--ink-soft); }
+      .side-card ul { margin: 0; padding-left: 1.1rem; }
+      .side-card li { margin-bottom: 0.4rem; }
+      .side-card li b { color: var(--ink); }
+      .track-compare { display: grid; gap: 0.8rem; }
+      .track-mini {
+        border: 1.5px solid var(--line);
+        border-radius: 12px; padding: 0.9rem 1rem;
+      }
+      .track-mini.free { border-color: var(--gold); background: var(--gold-soft); }
+      .track-mini .tm-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+      .track-mini .tm-name { font-weight: 800; font-size: 0.95rem; }
+      .track-mini .tm-price { font-weight: 800; font-size: 1.15rem; color: var(--green); white-space: nowrap; }
+      @media (prefers-color-scheme: dark) { .track-mini .tm-price { color: var(--green-mid); } }
+      .track-mini ul { margin-top: 0.5rem; }
+      .wa-box {
+        background: linear-gradient(160deg, var(--green-soft), var(--paper));
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 1.25rem 1.3rem;
+      }
+      .wa-box h2 { font-size: 1rem; margin: 0 0 0.4rem; font-weight: 800; }
+      .wa-box p { font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 0.9rem; }
+      .btn-wa {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        background: #1faa55; color: #fff; text-decoration: none;
+        font-weight: 700; border-radius: 10px;
+        padding: 0.65rem 1.05rem; min-height: 46px; font-size: 0.93rem;
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        background: linear-gradient(180deg, var(--green-soft) 0%, var(--green-deep) 78%);
+        color: #dcebe2;
+        padding: 2.2rem 1.25rem 2rem;
+      }
+      @media (prefers-color-scheme: dark) { footer { background: var(--green-deep); } }
+      .footer-inner { max-width: 1120px; margin: 0 auto; }
+      .footer-inner .f-brand { font-weight: 800; font-size: 1.05rem; color: #fff; margin: 0 0 0.3rem; }
+      .footer-inner p { margin: 0.2rem 0; font-size: 0.9rem; }
+      .footer-inner a { color: var(--gold); }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-top: 0.9rem; }
+      .footer-links a { padding: 0.45rem 0; display: inline-block; min-height: 36px; }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="brand">Aksara Academy · PT Pilar Aksara Nusantara</p>
+        <h1>Form Pendaftaran <span class="gratis">Kelas Gratis</span></h1>
+        <p class="lead">
+          Daftar kelas Aksara Academy tanpa perlu membuat akun atau login. Ikuti langkah follow Instagram,
+          lengkapi data diri, lalu pilih program dan batch kelasmu — kelas ini <strong>gratis (Rp0)</strong>, tanpa jalur berbayar.
+        </p>
+        <div class="trust-row">
+          <span class="trust-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2.5 2.1L17.8 4.6l.7 3.2 3 1.4-1.5 3 1.5 3-3 1.4-.7 3.2-3.3-.5L12 21.4 9.5 19.3l-3.3.5-.7-3.2-3-1.4L4 12.2 2.5 9.2l3-1.4.7-3.2 3.3.5L12 3z" stroke="#a8861d" stroke-width="1.4"/><path d="M9 12.2l2 2 4-4.4" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span><b>66+</b>&nbsp;sertifikat diterbitkan</span>
+          </span>
+          <span class="trust-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#0e3b2e" stroke-width="1.6"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#a8861d" stroke-width="1.6"/></svg>
+            <span>Sertifikat resmi <b>berkode unik</b> &amp; terverifikasi</span>
+          </span>
+          <span class="trust-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.6" stroke="#0e3b2e" stroke-width="1.6"/><path d="M4.5 20c1.2-3.4 4-5 7.5-5s6.3 1.6 7.5 5" stroke="#a8861d" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>Tanpa login, tanpa buat akun</span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- ================= FORM ================= -->
+      <form class="card" id="regForm" novalidate>
+        <!-- Langkah 1: Follow Instagram -->
+        <section class="step" aria-labelledby="step1-title">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h2 id="step1-title">Follow Instagram Dulu</h2>
+          </div>
+          <p class="step-desc">Syarat pendaftaran di Aksara Academy: follow dua akun Instagram berikut, lalu centang konfirmasinya. Tombol kirim baru aktif setelah langkah ini selesai.</p>
+
+          <div class="follow-row">
+            <div class="ig-info">
+              <b>Aksara Academy</b>
+              <span>Akun resmi lembaga — info kelas, jadwal, dan pengumuman.</span>
+            </div>
+            <a class="btn-follow" href="https://www.instagram.com/aksaracademy" target="_blank" rel="noopener">Buka @aksaracademy</a>
+          </div>
+          <label class="check-line">
+            <input type="checkbox" id="followAksara" />
+            <span>Saya sudah follow <strong>@aksaracademy</strong></span>
+          </label>
+
+          <div class="follow-row">
+            <div class="ig-info">
+              <b>Muhammad Rehan Syah</b>
+              <span>Akun Direktur Aksara Academy.</span>
+            </div>
+            <a class="btn-follow" href="https://www.instagram.com/muhrehansyah_" target="_blank" rel="noopener">Buka @muhrehansyah_</a>
+          </div>
+          <label class="check-line">
+            <input type="checkbox" id="followDirektur" />
+            <span>Saya sudah follow <strong>@muhrehansyah_</strong></span>
+          </label>
+
+          <p class="follow-status" id="followStatus">Langkah 1 belum selesai — centang kedua konfirmasi follow di atas untuk melanjutkan.</p>
+        </section>
+
+        <!-- Langkah 2: Data Diri -->
+        <section class="step" aria-labelledby="step2-title">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h2 id="step2-title">Data Diri</h2>
+          </div>
+          <p class="step-desc">Isi sesuai identitasmu — nama di sini yang akan tercetak di sertifikat.</p>
+
+          <div class="field">
+            <label class="lbl" for="nama">Nama Lengkap <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="nama" name="nama" autocomplete="name" placeholder="Contoh: Siti Rahmawati" required />
+            <p class="err-msg" data-err="nama">Nama lengkap wajib diisi.</p>
+          </div>
+
+          <div class="grid-birth">
+            <div class="field">
+              <label class="lbl" for="tempatLahir">Tempat Lahir <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="tempatLahir" name="tempatLahir" placeholder="Contoh: Pekanbaru" required />
+              <p class="err-msg" data-err="tempatLahir">Tempat lahir wajib diisi.</p>
+            </div>
+            <div class="field">
+              <label class="lbl" for="tanggalLahir">Tanggal Lahir <span class="req" aria-hidden="true">*</span></label>
+              <input type="date" id="tanggalLahir" name="tanggalLahir" required />
+              <p class="err-msg" data-err="tanggalLahir">Tanggal lahir wajib diisi.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="lbl" for="alamat">Alamat Domisili <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="alamat" name="alamat" autocomplete="street-address" placeholder="Jalan, kelurahan/desa, kecamatan, kota/kabupaten" required></textarea>
+            <p class="err-msg" data-err="alamat">Alamat wajib diisi.</p>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label class="lbl" for="email">Email Aktif <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="nama@email.com" required />
+              <p class="hint">Kode unik sertifikat akan dikirim ke email ini.</p>
+              <p class="err-msg" data-err="email">Isi email yang valid.</p>
+            </div>
+            <div class="field">
+              <label class="lbl" for="whatsapp">Nomor WhatsApp <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx" required />
+              <p class="hint">Dipakai untuk info kelas dan grup peserta.</p>
+              <p class="err-msg" data-err="whatsapp">Isi nomor WhatsApp yang valid (10–15 digit).</p>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label class="lbl" for="medsos">Username Media Sosial <span class="opt">(opsional)</span></label>
+              <input type="text" id="medsos" name="medsos" placeholder="Contoh: @username Instagram kamu" />
+            </div>
+            <div class="field">
+              <label class="lbl" for="institusi">Asal Institusi <span class="req" aria-hidden="true">*</span></label>
+              <select id="institusi" name="institusi" required>
+                <option value="">— Pilih asal institusi —</option>
+                <option value="Individu">Individu</option>
+                <option value="Karya Salemba Empat">Karya Salemba Empat</option>
+                <option value="HIMAHI UIR">HIMAHI UIR</option>
+                <option value="HMPS IAT UIN SUSKA Riau">HMPS IAT UIN SUSKA Riau</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+              <p class="err-msg" data-err="institusi">Pilih asal institusi.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="lbl">Pas Foto <span class="req" aria-hidden="true">*</span></span>
+            <div class="photo-note">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" stroke="#0e3b2e" stroke-width="1.6"/><circle cx="12" cy="13" r="3.4" stroke="#a8861d" stroke-width="1.6"/><path d="M8.5 6l1.2-2h4.6L15.5 6" stroke="#0e3b2e" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <p>Siapkan <strong>pas foto formal terbaru</strong> untuk keperluan sertifikat. Berkasnya tidak diunggah di form ini — setelah menekan tombol kirim, <strong>lampirkan berkas pas fotomu di chat WhatsApp</strong> yang terbuka.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Langkah 3: Pilihan Kelas -->
+        <section class="step" aria-labelledby="step3-title">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h2 id="step3-title">Pilihan Kelas</h2>
+          </div>
+          <p class="step-desc">Pilih program dan batch yang kamu ikuti. Kelas ini gratis (Rp0) — tidak ada pilihan jalur berbayar.</p>
+
+          <div class="field">
+            <label class="lbl" for="program">Program yang Diikuti <span class="req" aria-hidden="true">*</span></label>
+            <select id="program" name="program" required>
+              <option value="">— Pilih program —</option>
+              <option value="Intensive Microsoft Office For Academic &amp; Career Readiness">Intensive Microsoft Office For Academic &amp; Career Readiness</option>
+              <option value="Transforming Skills into Productivity through Microsoft Excel">Transforming Skills into Productivity through Microsoft Excel</option>
+            </select>
+            <p class="err-msg" data-err="program">Pilih program yang diikuti.</p>
+          </div>
+
+          <div class="field">
+            <span class="lbl" id="jenisLabel">Jenis Kelas</span>
+            <div class="track-face track-single" aria-labelledby="jenisLabel">
+              <span class="t-name">Kelas Gratis <span class="badge-free">GRATIS!</span></span>
+              <span class="t-price">Rp0</span>
+              <p class="t-desc">Form ini khusus pendaftaran kelas gratis — tidak ada biaya dan tidak ada jalur berbayar. Sertifikat resmi berkode unik diterbitkan bagi peserta yang memenuhi syarat kelulusan di bawah.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="lbl" for="batch">Batch / Gelombang <span class="req" aria-hidden="true">*</span></label>
+            <select id="batch" name="batch" required>
+              <option value="">— Pilih batch —</option>
+              <option class="slot-opt" value="belum-ditentukan">[Diisi Bos: pilihan batch — contoh: Batch Desember 2026]</option>
+            </select>
+            <p class="hint">Pilihan batch resmi diumumkan setelah jadwal kelas ditetapkan.</p>
+            <p class="err-msg" data-err="batch">Pilih batch yang diikuti.</p>
+          </div>
+
+          <div class="terms-panel" id="syaratGratis">
+            <h3>Syarat Kelas Gratis — dibaca sebelum mendaftar</h3>
+            <ul>
+              <li><span class="fixed">Sertifikat resmi berkode unik dan terverifikasi</span> diterbitkan untuk peserta jalur gratis yang dinyatakan lulus.</li>
+              <li>Kehadiran: <span class="slot">[Diisi Bos: syarat absensi — misalnya wajib hadir di setiap pertemuan]</span></li>
+              <li>Tugas: <span class="slot">[Diisi Bos: aturan pengumpulan tugas — misalnya tugas dikumpulkan maksimal H+1 tiap sesi]</span></li>
+              <li>Nilai kuis: <span class="slot">[Diisi Bos: nilai minimum kuis untuk lulus — misalnya minimal 80]</span></li>
+              <li>Ketentuan lain: <span class="slot">[Diisi Bos: syarat tambahan kelas gratis, bila ada]</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Langkah 4: Persetujuan -->
+        <section class="step" aria-labelledby="step4-title">
+          <div class="step-head">
+            <span class="step-num" aria-hidden="true">4</span>
+            <h2 id="step4-title">Persetujuan</h2>
+          </div>
+          <p class="step-desc">Centang kedua pernyataan berikut untuk menyelesaikan pendaftaran.</p>
+
+          <label class="check-line">
+            <input type="checkbox" id="setujuSK" />
+            <span>Saya menyetujui <strong>Syarat &amp; Ketentuan</strong> Aksara Academy, termasuk syarat kelas gratis di atas. <span class="slot">[Diisi Bos: tautan halaman Syarat &amp; Ketentuan resmi]</span></span>
+          </label>
+          <label class="check-line">
+            <input type="checkbox" id="dataBenar" />
+            <span>Saya menyatakan data yang saya isi benar dan dapat dipertanggungjawabkan, dan nama yang tercantum akan dipakai pada sertifikat.</span>
+          </label>
+          <p class="err-msg" id="errSetuju">Kedua persetujuan wajib dicentang.</p>
+        </section>
+
+        <div class="submit-area">
+          <p class="form-alert" id="formAlert" role="alert"></p>
+          <button type="submit" class="btn-submit" id="btnSubmit" disabled>Daftar Sekarang via WhatsApp</button>
+          <p class="submit-note">
+            Tombol aktif setelah Langkah 1 (follow Instagram) selesai. Menekan tombol akan membuka WhatsApp
+            ke nomor resmi Aksara Academy dengan ringkasan pendaftaranmu yang sudah terisi — tinggal tekan kirim di sana.
+          </p>
+        </div>
+      </form>
+
+      <!-- ================= SIDEBAR ================= -->
+      <aside>
+        <div class="card side-card">
+          <h2>Kelas Gratis — Rp0</h2>
+          <div class="track-mini free">
+            <div class="tm-head">
+              <span class="tm-name">Kelas Gratis</span>
+              <span class="tm-price">Rp0</span>
+            </div>
+            <ul>
+              <li><b>Sertifikat resmi berkode unik</b> bila dinyatakan lulus</li>
+              <li>Syarat kelulusan: <span class="slot">[Diisi Bos: ringkasan syarat lulus kelas gratis]</span></li>
+              <li>Benefit lain: <span class="slot">[Diisi Bos: benefit kelas gratis]</span></li>
+            </ul>
+          </div>
+          <p style="margin:0.8rem 0 0;">Untuk saat ini pendaftaran hanya dibuka untuk kelas gratis — belum ada jalur berbayar.</p>
+        </div>
+
+        <div class="card side-card">
+          <h2>Yang Sudah Pasti di Aksara</h2>
+          <ul>
+            <li><b>66+ sertifikat</b> telah diterbitkan PT Pilar Aksara Nusantara.</li>
+            <li>Setiap sertifikat punya <b>kode unik</b> yang bisa diverifikasi keasliannya.</li>
+            <li>Pendaftaran <b>tanpa login</b> — cukup isi form ini.</li>
+            <li>Jadwal &amp; mentor kelas gratis: <span class="slot">[Diisi Bos: jadwal dan nama mentor kelas]</span></li>
+          </ul>
+        </div>
+
+        <div class="wa-box">
+          <h2>Masih Ragu atau Ada Pertanyaan?</h2>
+          <p>Tim Aksara Academy siap membantu lewat WhatsApp resmi di jam kerja.</p>
+          <a class="btn-wa" href="https://wa.me/6285179523129?text=Halo%20Aksara%20Academy%2C%20saya%20mau%20bertanya%20tentang%20kelas%20gratis." target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.86 9.86 0 0012.04 2zm0 18.13h-.01a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 018.24 8.24c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.13-1.47-.72-1.69-.81-.22-.08-.38-.12-.54.13-.16.24-.63.8-.77.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.73-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.54-1.32-.8-1.9-.21-.51-.43-.44-.59-.45h-.5c-.17 0-.45.06-.68.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.13.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.81-1.18.35-.58.35-1.07.24-1.18-.1-.1-.23-.16-.48-.29z"/></svg>
+            Chat WhatsApp Resmi
+          </a>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <p class="f-brand">Aksara Academy</p>
+        <p>PT Pilar Aksara Nusantara · Pekanbaru</p>
+        <p>Sertifikat resmi berkode unik — 66+ sertifikat telah diterbitkan.</p>
+        <nav class="footer-links" aria-label="Tautan Aksara Academy">
+          <a href="https://aksaraacademy.biz.id" target="_blank" rel="noopener">aksaraacademy.biz.id</a>
+          <a href="https://www.instagram.com/aksaracademy" target="_blank" rel="noopener">Instagram @aksaracademy</a>
+          <a href="https://wa.me/6285179523129" target="_blank" rel="noopener">WhatsApp +62 851-7952-3129</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var form = document.getElementById('regForm');
+        var followAksara = document.getElementById('followAksara');
+        var followDirektur = document.getElementById('followDirektur');
+        var followStatus = document.getElementById('followStatus');
+        var btnSubmit = document.getElementById('btnSubmit');
+        var formAlert = document.getElementById('formAlert');
+        var setujuSK = document.getElementById('setujuSK');
+        var dataBenar = document.getElementById('dataBenar');
+        var errSetuju = document.getElementById('errSetuju');
+
+        function followDone() {
+          return followAksara.checked && followDirektur.checked;
+        }
+        function refreshGate() {
+          var done = followDone();
+          btnSubmit.disabled = !done;
+          if (done) {
+            followStatus.textContent = 'Langkah 1 selesai — kedua akun sudah kamu follow. Silakan lengkapi data diri dan kirim pendaftaran.';
+            followStatus.classList.add('done');
+          } else {
+            followStatus.textContent = 'Langkah 1 belum selesai — centang kedua konfirmasi follow di atas untuk melanjutkan.';
+            followStatus.classList.remove('done');
+          }
+        }
+        followAksara.addEventListener('change', refreshGate);
+        followDirektur.addEventListener('change', refreshGate);
+
+        function setErr(id, bad) {
+          var input = document.getElementById(id);
+          var msg = document.querySelector('[data-err="' + id + '"]');
+          if (input) input.classList.toggle('invalid', bad);
+          if (msg) msg.classList.toggle('show', bad);
+          return !bad;
+        }
+        function val(id) {
+          var el = document.getElementById(id);
+          return el ? el.value.trim() : '';
+        }
+
+        form.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          formAlert.className = 'form-alert';
+          formAlert.textContent = '';
+
+          var ok = true;
+          ok = setErr('nama', val('nama').length < 3) && ok;
+          ok = setErr('tempatLahir', val('tempatLahir') === '') && ok;
+          ok = setErr('tanggalLahir', val('tanggalLahir') === '') && ok;
+          ok = setErr('alamat', val('alamat') === '') && ok;
+          ok = setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) && ok;
+          var waDigits = val('whatsapp').replace(/\D/g, '');
+          ok = setErr('whatsapp', waDigits.length < 10 || waDigits.length > 15) && ok;
+          ok = setErr('institusi', val('institusi') === '') && ok;
+          ok = setErr('program', val('program') === '') && ok;
+          ok = setErr('batch', val('batch') === '') && ok;
+
+          var agreeOk = setujuSK.checked && dataBenar.checked;
+          errSetuju.classList.toggle('show', !agreeOk);
+          ok = agreeOk && ok;
+
+          if (!followDone()) {
+            ok = false;
+          }
+
+          if (!ok) {
+            formAlert.className = 'form-alert show error';
+            formAlert.textContent = 'Masih ada isian yang belum lengkap atau belum dicentang. Periksa bagian yang ditandai merah, lalu coba lagi.';
+            var firstBad = form.querySelector('.invalid, .err-msg.show');
+            if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
+          var jenis = 'Kelas Gratis';
+          var batchEl = document.getElementById('batch');
+          var batchText = batchEl.options[batchEl.selectedIndex].text;
+
+          var lines = [
+            'Halo Aksara Academy, saya mau mendaftar kelas.',
+            '',
+            'Nama Lengkap: ' + val('nama'),
+            'Tempat, Tanggal Lahir: ' + val('tempatLahir') + ', ' + val('tanggalLahir'),
+            'Alamat: ' + val('alamat'),
+            'Email: ' + val('email'),
+            'WhatsApp: ' + val('whatsapp'),
+            'Media Sosial: ' + (val('medsos') || '-'),
+            'Asal Institusi: ' + val('institusi'),
+            'Program: ' + val('program'),
+            'Jenis Kelas: ' + jenis,
+            'Batch: ' + batchText,
+            'Pas Foto: saya lampirkan berkasnya di chat ini',
+            '',
+            'Saya sudah follow @aksaracademy dan @muhrehansyah_, serta menyetujui Syarat & Ketentuan yang berlaku.'
+          ];
+
+          formAlert.className = 'form-alert show ok';
+          formAlert.textContent = 'Data lengkap. Membuka WhatsApp — ringkasan pendaftaranmu sudah terisi otomatis, tinggal tekan kirim di aplikasi WhatsApp.';
+          window.open('https://wa.me/6285179523129?text=' + encodeURIComponent(lines.join('\n')), '_blank');
+        });
+
+        refreshGate();
+      })();
+    </script>
+  </body>
+</html>
