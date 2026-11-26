@@ -492,7 +492,25 @@
             <input id="fPpt" type="number" min="0" max="100" step="0.01" placeholder="0–100">
           </div>
         </div>
-        <p class="hint">Total di sertifikat dihitung otomatis dari rata-rata ketiga nilai, dan Grade tiap mata uji serta Grade total terisi otomatis mengikuti rentang penilaian.</p>
+        <div class="field-row3" style="margin-top:10px">
+          <label class="toggle" for="chkWord" style="padding:8px 10px;font-size:13px">
+            <input type="checkbox" id="chkWord" checked>
+            Tampilkan Word
+          </label>
+          <label class="toggle" for="chkExcel" style="padding:8px 10px;font-size:13px">
+            <input type="checkbox" id="chkExcel" checked>
+            Tampilkan Excel
+          </label>
+          <label class="toggle" for="chkPpt" style="padding:8px 10px;font-size:13px">
+            <input type="checkbox" id="chkPpt" checked>
+            Tampilkan PowerPoint
+          </label>
+        </div>
+        <div>
+          <button type="button" class="mini-btn retry-btn" id="btnShowAllScores" style="display:inline-block">Tampilkan semua</button>
+          <button type="button" class="mini-btn retry-btn" id="btnHideAllScores" style="display:inline-block">Sembunyikan semua</button>
+        </div>
+        <p class="hint">Total di sertifikat dihitung otomatis dari rata-rata nilai yang ditampilkan, dan Grade tiap mata uji serta Grade total terisi otomatis mengikuti rentang penilaian. Baris tanpa nilai otomatis disembunyikan — centang tiap baris untuk menampilkan atau menyembunyikannya satu per satu, atau pakai tombol di atas untuk sekaligus.</p>
 
         <label class="toggle" for="chkScores">
           <input type="checkbox" id="chkScores" checked>
@@ -692,17 +710,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr id="rowWord">
                     <td class="subj">Microsoft Word</td>
                     <td id="sWord">—</td>
                     <td id="gWord">—</td>
                   </tr>
-                  <tr>
+                  <tr id="rowExcel">
                     <td class="subj">Microsoft Excel</td>
                     <td id="sExcel">—</td>
                     <td id="gExcel">—</td>
                   </tr>
-                  <tr>
+                  <tr id="rowPpt">
                     <td class="subj">Microsoft Power Point</td>
                     <td id="sPpt">—</td>
                     <td id="gPpt">—</td>
@@ -1125,7 +1143,9 @@
     /* Tabel nilai hanya ada di template potret; di template
        landscape tidak ditampilkan sama sekali, apa pun keadaan
        kotak centang nilai dan isian kolom nilainya. */
-    $("scoresTable").style.display = isLand ? "none" : ($("chkScores").checked ? "" : "none");
+    /* Visibilitas tabel (termasuk baris per mata uji) diatur penuh
+       oleh syncScores, supaya satu aturan berlaku di semua jalur. */
+    syncScores();
     var pdfLabel = isLand ? "Unduh PDF (A4 Landscape)" : "Unduh PDF (A4 Potret)";
     if ($("btnPdfLabel")) $("btnPdfLabel").textContent = pdfLabel;
     if ($("btnPdfPLabel")) $("btnPdfPLabel").textContent = pdfLabel;
@@ -1196,6 +1216,11 @@
     $("fWord").value = p.word != null ? p.word : "";
     $("fExcel").value = p.excel != null ? p.excel : "";
     $("fPpt").value = p.ppt != null ? p.ppt : "";
+    /* Kotak tampil mengikuti data: baris yang nilainya kosong
+       langsung tidak dicentang (jadi tidak tampil di pratinjau). */
+    $("chkWord").checked = p.word != null;
+    $("chkExcel").checked = p.excel != null;
+    $("chkPpt").checked = p.ppt != null;
     if (p.certDate) {
       $("inPlaceDate").value = "Pekanbaru, " + p.certDate;
       $("inPlaceDate").dispatchEvent(new Event("input"));
@@ -1234,19 +1259,33 @@
   /* Total tampil sebagai bilangan bulat: rata-rata desimal dibulatkan
      half-up ke bilangan bulat terdekat (cth. 90,7 -> 91). */
   function fmtTotal(n){ return Math.round(n).toString(); }
+  /* Baris nilai bisa ditampilkan/disembunyikan satu per satu
+     (kotak centang di bawah tiap kolom nilai) atau sekaligus
+     (tombol Tampilkan/Sembunyikan semua). Aturan tampilnya: baris
+     tampil hanya bila kotaknya dicentang DAN nilainya terisi — jadi
+     baris yang kosong otomatis hilang dari sertifikat, dan total
+     dihitung dari rata-rata nilai yang DITAMPILKAN saja. */
+  var rowChkIds = ["chkWord","chkExcel","chkPpt"];
+  var rowIds = ["rowWord","rowExcel","rowPpt"];
   function syncScores(){
-    var vals = [], complete = true;
+    var vals = [], anyShown = false;
     scoreIds.forEach(function(id, i){
-      var raw = $(id).value, out = $(outIds[i]), gout = $(gradeIds[i]);
-      if (raw === "" || isNaN(parseFloat(raw))) { out.textContent = "—"; gout.textContent = "—"; complete = false; }
-      else {
-        var v = Math.min(100, Math.max(0, parseFloat(raw)));
-        vals.push(v); out.textContent = fmt(v); gout.textContent = gradeOf(v);
+      var raw = $(id).value, out = $(outIds[i]), gout = $(gradeIds[i]), row = $(rowIds[i]);
+      var hasVal = raw !== "" && !isNaN(parseFloat(raw));
+      var v = null;
+      if (hasVal) {
+        v = Math.min(100, Math.max(0, parseFloat(raw)));
+        out.textContent = fmt(v); gout.textContent = gradeOf(v);
+      } else {
+        out.textContent = "—"; gout.textContent = "—";
       }
+      var shown = hasVal && $(rowChkIds[i]).checked;
+      if (shown) { vals.push(v); anyShown = true; }
+      if (row) row.style.display = shown ? "" : "none";
     });
     if (vals.length > 0) {
-      /* Total = rata-rata nilai yang TERISI saja: sertifikat Word saja
-         totalnya = nilai Word itu sendiri; ketiganya terisi = rata-rata
+      /* Total = rata-rata nilai yang DITAMPILKAN saja: sertifikat Word saja
+         totalnya = nilai Word itu sendiri; ketiganya tampil = rata-rata
          ketiganya seperti sebelumnya. */
       var total = vals.reduce(function(a, b){ return a + b; }, 0) / vals.length;
       var totalRounded = Math.round(total);
@@ -1258,12 +1297,31 @@
       $("gTotal").textContent = "—";
       $("cTotalGrade").textContent = "—";
     }
+    /* Tabel hilang bila template landscape, kotak "Tampilkan nilai"
+       mati, atau tidak ada satu pun baris yang tampil. */
+    $("scoresTable").style.display = (currentTemplate !== "landscape" && $("chkScores").checked && anyShown) ? "" : "none";
   }
-  scoreIds.forEach(function(id){ $(id).addEventListener("input", syncScores); });
+  scoreIds.forEach(function(id, i){
+    $(id).addEventListener("input", function(){
+      /* Mengetik nilai otomatis mencentang barisnya (supaya langsung
+         tampil); mengosongkan nilai otomatis melepas centangnya. */
+      $(rowChkIds[i]).checked = this.value.trim() !== "";
+      syncScores();
+    });
+  });
+  rowChkIds.forEach(function(id){ $(id).addEventListener("change", syncScores); });
+  $("btnShowAllScores").addEventListener("click", function(){
+    rowChkIds.forEach(function(id){ $(id).checked = true; });
+    syncScores();
+  });
+  $("btnHideAllScores").addEventListener("click", function(){
+    rowChkIds.forEach(function(id){ $(id).checked = false; });
+    syncScores();
+  });
   $("chkScores").addEventListener("change", function(){
     /* Di template landscape tabel nilai tidak pernah tampil, apa pun
        keadaan kotak centang ini. */
-    $("scoresTable").style.display = (currentTemplate !== "landscape" && this.checked) ? "" : "none";
+    syncScores();
   });
 
   /* ================= Teks sertifikat ================= */
