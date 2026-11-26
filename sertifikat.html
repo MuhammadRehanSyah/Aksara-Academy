@@ -77,6 +77,8 @@
   .gate input:focus{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
   .gate .err{display:none;color:var(--danger);font-size:.85rem;font-weight:600;margin-top:.6rem}
   .gate .err.show{display:block}
+  .hint.save-ok{color:var(--green-dark);font-weight:600}
+  .hint.save-err{color:var(--danger);font-weight:600}
   .btn-gate{
     background:var(--green-dark);color:#fff;border:none;border-radius:10px;
     padding:12px 16px;font-weight:700;font-size:1rem;width:100%;margin-top:1rem;min-height:50px;
@@ -509,6 +511,10 @@
         <div>
           <button type="button" class="mini-btn retry-btn" id="btnShowAllScores" style="display:inline-block">Tampilkan semua</button>
           <button type="button" class="mini-btn retry-btn" id="btnHideAllScores" style="display:inline-block">Sembunyikan semua</button>
+        </div>
+        <div>
+          <button type="button" class="btn-primary" id="btnSaveScores" style="width:100%;margin-top:6px">Simpan perubahan nilai</button>
+          <p class="hint" id="saveScoresStatus" role="status"></p>
         </div>
         <p class="hint">Total di sertifikat dihitung otomatis dari rata-rata nilai yang ditampilkan, dan Grade tiap mata uji serta Grade total terisi otomatis mengikuti rentang penilaian. Baris tanpa nilai otomatis disembunyikan — centang tiap baris untuk menampilkan atau menyembunyikannya satu per satu, atau pakai tombol di atas untuk sekaligus.</p>
 
@@ -1317,6 +1323,47 @@
   $("btnHideAllScores").addEventListener("click", function(){
     rowChkIds.forEach(function(id){ $(id).checked = false; });
     syncScores();
+  });
+  $("btnSaveScores").addEventListener("click", function(){
+    /* Simpan nilai dari editor ke database: satu-satunya jalan nilai
+       yang diubah di editor ikut tersimpan — tanpa ini, ubahan di
+       editor hanya pratinjau. Kata sandi diambil dari kolom gerbang
+       (masih terisi selama editor terbuka); server memeriksa ulang
+       di setiap panggilan. */
+    var st = $("saveScoresStatus");
+    var no = fNomor.value.trim();
+    if (!no) { st.textContent = "Pilih nomor sertifikat dulu."; st.className = "hint save-err"; return; }
+    var pwVal = $("pw").value;
+    if (!pwVal) { st.textContent = "Sesi penyelenggara berakhir — kembali ke gerbang dan masukkan lagi kata sandinya."; st.className = "hint save-err"; return; }
+    var btn = $("btnSaveScores");
+    btn.disabled = true; btn.textContent = "Menyimpan…";
+    st.textContent = ""; st.className = "hint";
+    fetch(SUPABASE_URL + "/functions/v1/kelola-pendaftar", {
+      method: "POST",
+      headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON, "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "update_scores", password: pwVal, certificate_number: no, scores: { word: $("fWord").value, excel: $("fExcel").value, ppt: $("fPpt").value } })
+    })
+      .then(function(r){ return r.json().then(function(j){ return { status: r.status, body: j }; }); })
+      .then(function(res){
+        btn.disabled = false; btn.textContent = "Simpan perubahan nilai";
+        if (res.status === 401) { st.textContent = "Kata sandi salah atau sesi berakhir — kembali ke gerbang dan masukkan lagi kata sandinya."; st.className = "hint save-err"; return; }
+        if (res.status !== 200 || !res.body || !res.body.ok) { st.textContent = (res.body && res.body.error) || "Gagal menyimpan nilai."; st.className = "hint save-err"; return; }
+        st.textContent = "Nilai sertifikat " + no + " tersimpan ke database.";
+        st.className = "hint save-ok";
+        /* Samakan cache data editor supaya nomor yang sama bila dipilih
+           lagi langsung menampilkan nilai baru tanpa muat ulang. */
+        var p = findPeserta();
+        if (p) {
+          p.word = $("fWord").value === "" ? null : parseFloat($("fWord").value);
+          p.excel = $("fExcel").value === "" ? null : parseFloat($("fExcel").value);
+          p.ppt = $("fPpt").value === "" ? null : parseFloat($("fPpt").value);
+        }
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = "Simpan perubahan nilai";
+        st.textContent = "Gagal terhubung ke server. Coba lagi.";
+        st.className = "hint save-err";
+      });
   });
   $("chkScores").addEventListener("change", function(){
     /* Di template landscape tabel nilai tidak pernah tampil, apa pun
