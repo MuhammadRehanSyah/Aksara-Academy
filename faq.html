@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<title>FAQ &ndash; Aksara Academy</title>
+<meta name="description" content="Pertanyaan seputar program, pendaftaran, dan sertifikat Aksara Academy." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta property="og:title" content="FAQ &ndash; Aksara Academy" />
+<meta property="og:description" content="Pertanyaan seputar program, pendaftaran, dan sertifikat Aksara Academy." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aksaraacademy.biz.id/faq.html" />
+<style>
+
+      :root {
+        color-scheme: light;
+        --green: #0E3B2E;
+        --green-deep: #082A20;
+        --green-soft: #14532D;
+        --green-tint: #EAF3EE;
+        --gold: #D4AF37;
+        --gold-deep: #B8912A;
+        --gold-tint: #FBF3D9;
+        --ink: #12211B;
+        --ink-soft: #44544C;
+        --paper: #FFFFFF;
+        --paper-soft: #F6F8F6;
+        --line: #DCE5DE;
+        --card-shadow: 0 10px 30px rgba(14, 59, 46, 0.10);
+        --radius: 18px;
+      }
+      
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(180deg, #FFFFFF 0%, var(--paper-soft) 320px);
+        color: var(--ink);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
+      ul, ol { padding: 0; list-style: none; }
+      img { max-width: 100%; display: block; }
+      a { color: inherit; }
+      button, [role="button"], select, summary { min-height: 2.25rem; }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+      
+
+      /* ---------- Header ---------- */
+      header.site {
+        position: sticky; top: 0; z-index: 50;
+        background: linear-gradient(90deg, var(--paper) 0%, var(--green-tint) 140%);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav { display: flex; align-items: center; gap: 20px; min-height: 68px; }
+      .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+      .brand-logo { height: 46px; width: auto; flex: none; border-radius: 8px; background: #fff; }
+      .brand-name { font-weight: 800; font-size: 1.05rem; line-height: 1.15; color: var(--green); }
+      .brand-name small { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; color: var(--gold-deep); }
+      
+      .nav-links { display: flex; gap: 0; margin-left: auto; flex-wrap: nowrap; }
+      .nav-links a { text-decoration: none; font-weight: 600; font-size: 0.85rem; padding: 10px 7px; border-radius: 8px; color: var(--ink-soft); display: inline-flex; align-items: center; min-height: 2.25rem; white-space: nowrap; }
+      .nav-links a:hover { color: var(--green); background: var(--green-tint); }
+      
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+        font-weight: 700; font-size: 0.98rem; text-decoration: none;
+        padding: 12px 24px; border-radius: 12px; border: 2px solid transparent;
+        cursor: pointer; min-height: 3rem; transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      }
+      .btn:active { transform: scale(0.97); }
+      .btn-gold { background: var(--gold); color: #23190A; box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35); }
+      .btn-gold:hover { background: var(--gold-deep); color: #fff; }
+      .btn-green { background: var(--green); color: #fff; }
+      .btn-green:hover { background: var(--green-soft); }
+      .btn-outline { border-color: var(--green); color: var(--green); background: transparent; }
+      .btn-outline:hover { background: var(--green-tint); }
+      
+      .btn-nav { margin-left: 8px; padding: 9px 16px; min-height: 2.75rem; align-self: center; white-space: nowrap; }
+      .nav-toggle {
+        display: none; margin-left: auto;
+        background: var(--green-tint); border: 1px solid var(--line); border-radius: 10px;
+        width: 44px; height: 44px; cursor: pointer; padding: 10px;
+      }
+      .nav-toggle svg { width: 100%; height: 100%; stroke: var(--green); }
+      
+      @media (max-width: 1150px) {
+        .nav-links, .btn-nav { display: none; }
+        .nav-toggle { display: block; }
+        .nav-links.open {
+          display: flex; flex-direction: column; align-items: stretch;
+          position: absolute; top: 100%; left: 0; right: 0;
+          background: var(--paper); border-bottom: 1px solid var(--line);
+          padding: 10px 20px 18px; gap: 2px;
+          box-shadow: 0 18px 30px rgba(14,59,46,0.12);
+        }
+        header.site { position: sticky; }
+        .nav { position: relative; }
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        background:
+          radial-gradient(720px 340px at 88% -60px, rgba(212, 175, 55, 0.30), transparent 65%),
+          linear-gradient(155deg, #FFFFFF 0%, #F2F8F3 30%, #D8EBDD 54%, #7FAF92 82%, var(--green) 100%, var(--green-deep) 122%);
+        color: #12211B;
+        overflow: hidden;
+      }
+      .hero-inner { padding: 64px 0 0; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: center; }
+      .hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(184, 145, 42, 0.6);
+        color: var(--gold-deep); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em;
+        padding: 7px 14px; border-radius: 999px; text-transform: uppercase;
+      }
+      .hero h1 {
+        font-size: clamp(2.1rem, 5.2vw, 3.4rem);
+        line-height: 1.12; font-weight: 800; letter-spacing: -0.015em;
+        margin-top: 20px; color: var(--green);
+      }
+      .hero h1 .rotator { color: var(--gold-deep); display: inline-block; min-width: 5.5ch; }
+      .hero h1 .rotator.swap { animation: swapIn 0.45s ease; }
+      @keyframes swapIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      .hero-sub { margin-top: 18px; font-size: 1.08rem; color: #33503F; max-width: 34rem; }
+      .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+      .btn-ghostlight { border-color: var(--green); color: var(--green); background: rgba(255,255,255,0.65); }
+      .btn-ghostlight:hover { background: #FFFFFF; }
+      .hero-points { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 26px; font-size: 0.92rem; color: #2C4A3A; font-weight: 600; }
+      .hero-points li { display: inline-flex; align-items: center; gap: 8px; }
+      .hero-points svg { width: 17px; height: 17px; stroke: var(--gold-deep); flex: none; }
+      .hero-photo { position: relative; }
+      .hero-photo img {
+        border-radius: 20px 20px 0 0; width: 100%; height: 100%; min-height: 320px;
+        object-fit: cover; border: 1px solid rgba(212,175,55,0.4); border-bottom: none;
+      }
+      .hero-photo .float-card {
+        position: absolute; left: -18px; bottom: 26px;
+        background: #fff; color: var(--ink); border-radius: 14px;
+        padding: 12px 16px; box-shadow: 0 16px 34px rgba(0,0,0,0.28);
+        display: flex; align-items: center; gap: 12px; max-width: 270px;
+      }
+      .float-card .fc-num { font-size: 1.5rem; font-weight: 800; color: var(--green); line-height: 1; }
+      .float-card .fc-label { font-size: 0.8rem; font-weight: 600; color: #44544C; line-height: 1.35; }
+      .float-card .fc-badge {
+        width: 40px; height: 40px; flex: none; border-radius: 50%;
+        background: var(--gold-tint); display: grid; place-items: center;
+      }
+      .float-card .fc-badge svg { width: 21px; height: 21px; stroke: var(--gold-deep); }
+      
+      .stats-band { border-top: 1px solid rgba(255,255,255,0.65); background: linear-gradient(90deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.82) 60%, rgba(234,243,238,0.88) 100%); }
+      .stats {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      }
+      .stat { padding: 22px 18px; text-align: center; }
+      .stat + .stat { border-left: 1px solid var(--line); }
+      .stat .num { font-size: 1.7rem; font-weight: 800; color: var(--green); line-height: 1.1; }
+      .stat .lbl { font-size: 0.86rem; color: #44544C; font-weight: 600; margin-top: 4px; }
+      @media (max-width: 900px) {
+        .hero-inner { grid-template-columns: 1fr; padding-top: 44px; }
+        .hero-photo img { border-radius: 16px; border-bottom: 1px solid rgba(212,175,55,0.4); min-height: 240px; }
+        .hero-photo .float-card { left: 12px; bottom: 12px; }
+        .stats { grid-template-columns: 1fr 1fr; }
+        .stat:nth-child(3) { border-left: none; }
+        .stat { border-top: 1px solid var(--line); }
+        .stat:nth-child(-n+2) { border-top: none; }
+      }
+
+      /* ---------- Sections ---------- */
+      section.block { padding: 76px 0; }
+      section.block.alt { background: linear-gradient(180deg, #FFFFFF 0%, var(--paper) 34%, var(--green-tint) 100%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .sec-head { max-width: 640px; }
+      .sec-head.center { margin: 0 auto; text-align: center; }
+      .sec-kicker {
+        font-size: 0.8rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+        color: var(--gold-deep); display: inline-flex; align-items: center; gap: 10px;
+      }
+      .sec-kicker::before { content: ""; width: 26px; height: 2px; background: var(--gold); display: inline-block; }
+      .sec-head.center .sec-kicker::after { content: ""; width: 26px; height: 2px; background: var(--gold); display: inline-block; }
+      .sec-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; margin-top: 12px; color: var(--green); }
+      
+      .sec-head p { margin-top: 12px; color: var(--ink-soft); font-size: 1.02rem; }
+
+      /* Masalah & solusi */
+      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+      @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+      .problem-card {
+        background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+        padding: 28px 26px; box-shadow: var(--card-shadow);
+        display: flex; flex-direction: column; gap: 0;
+      }
+      .problem-card .p-icon {
+        width: 52px; height: 52px; border-radius: 14px; background: #FDECEA;
+        display: grid; place-items: center; margin-bottom: 18px;
+      }
+      .problem-card .p-icon svg { width: 26px; height: 26px; stroke: #B3402E; }
+      
+      .problem-card h3 { font-size: 1.14rem; font-weight: 800; line-height: 1.3; }
+      .problem-card .p-desc { color: var(--ink-soft); font-size: 0.95rem; margin-top: 8px; }
+      .problem-card .solution {
+        margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line);
+        display: flex; gap: 10px; align-items: flex-start;
+        font-size: 0.93rem; font-weight: 600; color: var(--green);
+      }
+      
+      .problem-card .solution svg { width: 19px; height: 19px; flex: none; stroke: var(--gold-deep); margin-top: 2px; }
+      .center-cta { text-align: center; margin-top: 36px; }
+
+      /* Tujuan */
+      .goals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+      @media (max-width: 900px) { .goals { grid-template-columns: 1fr; } }
+      .goal-card {
+        border-radius: var(--radius); padding: 30px 28px; cursor: pointer; text-align: left;
+        background: var(--green-tint); border: 2px solid transparent; width: 100%;
+        font-family: inherit; color: var(--ink);
+        transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+      }
+      .goal-card:hover { transform: translateY(-3px); }
+      .goal-card.active { border-color: var(--gold); background: var(--paper); box-shadow: var(--card-shadow); }
+      .goal-card .g-tag { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
+      .goal-card h3 { font-size: 1.3rem; font-weight: 800; margin-top: 8px; color: var(--green); }
+      
+      .goal-card p { margin-top: 8px; font-size: 0.95rem; color: var(--ink-soft); }
+      .goal-card .g-arrow { margin-top: 16px; font-weight: 700; font-size: 0.92rem; color: var(--green); display: inline-flex; gap: 7px; align-items: center; }
+      
+      .goal-result {
+        margin-top: 22px; background: linear-gradient(115deg, #FFFFFF 0%, var(--green-tint) 48%, #BFE0CC 100%);
+        border: 1px solid var(--line); color: var(--ink); border-radius: var(--radius);
+        padding: 24px 28px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between;
+      }
+      .goal-result p { font-size: 1.02rem; max-width: 44rem; }
+      .goal-result strong { color: var(--green); }
+      
+
+      /* Program */
+      .program-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 42px; }
+      @media (max-width: 900px) { .program-grid { grid-template-columns: 1fr; } }
+      .program-card {
+        background: var(--paper); border: 1px solid var(--line); border-radius: 20px;
+        overflow: hidden; box-shadow: var(--card-shadow); display: flex; flex-direction: column;
+      }
+      .program-media { position: relative; }
+      .program-media img { width: 100%; height: 250px; object-fit: cover; }
+      .badge {
+        position: absolute; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.05em;
+        padding: 7px 13px; border-radius: 999px; text-transform: uppercase;
+      }
+      .badge-type { top: 14px; left: 14px; background: var(--green); color: #fff; }
+      .badge-hot { top: 14px; right: 14px; background: var(--gold); color: #23190A; box-shadow: 0 6px 14px rgba(0,0,0,0.25); }
+      .program-body { padding: 26px 28px 28px; display: flex; flex-direction: column; flex: 1; }
+      .program-body h3 { font-size: 1.28rem; font-weight: 800; line-height: 1.3; color: var(--green); }
+      
+      .program-body .p-sub { margin-top: 10px; color: var(--ink-soft); font-size: 0.97rem; }
+      .program-points { margin-top: 16px; display: grid; gap: 9px; }
+      .program-points li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.94rem; font-weight: 600; }
+      .program-points svg { width: 18px; height: 18px; flex: none; stroke: var(--gold-deep); margin-top: 3px; }
+      .program-foot { margin-top: auto; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+      .program-meta { font-size: 0.88rem; font-weight: 700; color: var(--ink-soft); display: inline-flex; gap: 8px; align-items: center; }
+      .program-meta svg { width: 18px; height: 18px; stroke: var(--gold-deep); }
+      .program-note { margin-top: 26px; text-align: center; color: var(--ink-soft); font-size: 0.95rem; }
+      .program-note a { color: var(--green); font-weight: 700; }
+      
+
+      /* Kenapa Aksara */
+      .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 40px; }
+      @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; } }
+      .why-card { display: flex; gap: 18px; background: var(--paper-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+      
+      .why-card .w-icon { width: 54px; height: 54px; flex: none; border-radius: 14px; background: var(--green); display: grid; place-items: center; }
+      .why-card .w-icon svg { width: 27px; height: 27px; stroke: var(--gold); }
+      .why-card h3 { font-size: 1.08rem; font-weight: 800; }
+      .why-card p { margin-top: 6px; font-size: 0.94rem; color: var(--ink-soft); }
+
+      /* Promo */
+      .promo-band {
+        background: linear-gradient(140deg, #FFFFFF 0%, #F7FBF7 20%, var(--green-tint) 44%, #A9CBAF 78%, var(--green) 124%);
+        border: 1px solid var(--line);
+        border-radius: 24px; padding: 44px; color: var(--ink); position: relative; overflow: hidden;
+      }
+      .promo-band::after {
+        content: ""; position: absolute; right: -70px; top: -70px; width: 260px; height: 260px;
+        border-radius: 50%; border: 34px solid rgba(212,175,55,0.28);
+      }
+      .promo-band .sec-kicker { color: var(--gold-deep); }
+      .promo-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 36px; position: relative; z-index: 1; align-items: center; }
+      @media (max-width: 900px) { .promo-grid { grid-template-columns: 1fr; } .promo-band { padding: 32px 24px; } }
+      .promo-band h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; line-height: 1.25; color: var(--green); }
+      .promo-band h2 em { font-style: normal; color: var(--gold-deep); }
+      .promo-band p { margin-top: 12px; color: #33503F; max-width: 32rem; }
+      
+      .bundle-card { background: #fff; color: var(--ink); border-radius: 18px; padding: 26px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+      
+      .bundle-card .b-label { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-deep); }
+      .bundle-card h3 { font-size: 1.15rem; font-weight: 800; margin-top: 8px; line-height: 1.35; }
+      .bundle-card ul { margin-top: 14px; display: grid; gap: 8px; }
+      .bundle-card li { display: flex; gap: 9px; font-size: 0.93rem; font-weight: 600; align-items: flex-start; }
+      .bundle-card li svg { width: 17px; height: 17px; stroke: var(--gold-deep); flex: none; margin-top: 3px; }
+      .bundle-card .btn { display: flex; width: fit-content; margin: 20px auto 0; }
+
+      /* Corporate */
+      .corp-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 44px; align-items: center; }
+      @media (max-width: 900px) { .corp-grid { grid-template-columns: 1fr; } }
+      .corp-grid img { border-radius: 20px; width: 100%; height: 100%; min-height: 300px; object-fit: cover; box-shadow: var(--card-shadow); }
+      .corp-points { margin-top: 20px; display: grid; gap: 14px; }
+      .corp-points li { display: flex; gap: 12px; align-items: flex-start; }
+      .corp-points .n {
+        width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--gold);
+        color: #23190A; font-weight: 800; font-size: 0.9rem; display: grid; place-items: center;
+      }
+      .corp-points strong { display: block; font-size: 1rem; }
+      .corp-points span { color: var(--ink-soft); font-size: 0.94rem; }
+
+      /* Testimoni */
+      .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 42px; }
+      @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr; } }
+      .testi-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); }
+      .testi-card .stars { display: flex; gap: 3px; }
+      .testi-card .stars svg { width: 19px; height: 19px; fill: var(--gold); stroke: var(--gold-deep); }
+      .testi-card blockquote { margin-top: 16px; font-size: 1.05rem; line-height: 1.65; }
+      .testi-who { margin-top: 22px; display: flex; align-items: center; gap: 14px; }
+      .testi-who .avatar {
+        width: 50px; height: 50px; border-radius: 50%; flex: none;
+        background: var(--green); color: var(--gold); font-weight: 800; font-size: 1.15rem;
+        display: grid; place-items: center;
+      }
+      .testi-who .t-name { font-weight: 800; }
+      .testi-who .t-role { font-size: 0.88rem; color: var(--ink-soft); font-weight: 600; }
+      .testi-note { margin-top: 24px; text-align: center; color: var(--ink-soft); font-size: 0.94rem; }
+      .testi-note a { color: var(--green); font-weight: 700; }
+      
+
+      /* Blog */
+      .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+      @media (max-width: 900px) { .blog-grid { grid-template-columns: 1fr; } }
+      .blog-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--card-shadow); display: flex; flex-direction: column; }
+      .blog-card .b-cat {
+        align-self: flex-start; font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+        background: var(--gold-tint); color: var(--gold-deep); padding: 6px 12px; border-radius: 999px;
+      }
+      .blog-card h3 { font-size: 1.1rem; font-weight: 800; line-height: 1.35; margin-top: 14px; }
+      .blog-card p { margin-top: 8px; font-size: 0.94rem; color: var(--ink-soft); }
+      .blog-card .b-soon { margin-top: auto; padding-top: 18px; font-size: 0.86rem; font-weight: 700; color: var(--ink-soft); display: inline-flex; gap: 8px; align-items: center; }
+      .blog-card .b-soon svg { width: 17px; height: 17px; stroke: var(--gold-deep); }
+
+      /* FAQ */
+      .faq-list { max-width: 820px; margin: 38px auto 0; display: grid; gap: 12px; }
+      .faq-item { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+      .faq-item summary {
+        cursor: pointer; font-weight: 700; font-size: 1rem; padding: 18px 22px;
+        display: flex; justify-content: space-between; align-items: center; gap: 16px;
+        list-style: none; min-height: 3rem;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary .chev { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--green-tint); display: grid; place-items: center; transition: transform 0.2s ease; }
+      .faq-item summary .chev svg { width: 16px; height: 16px; stroke: var(--green); }
+      
+      .faq-item[open ] summary .chev { transform: rotate(180deg); }
+      .faq-item .faq-body { padding: 0 22px 20px; color: var(--ink-soft); font-size: 0.96rem; }
+      .faq-item .faq-body a { color: var(--green); font-weight: 700; }
+      
+
+      /* CTA penutup */
+      .final-cta {
+        background:
+          radial-gradient(620px 280px at 12% -40px, rgba(212,175,55,0.32), transparent 60%),
+          linear-gradient(150deg, #FFFFFF 0%, #F4FAF5 22%, var(--green-tint) 46%, #A9CBAF 80%, var(--green) 126%);
+        border: 1px solid var(--line);
+        border-radius: 26px; padding: 56px 40px; text-align: center; color: var(--ink);
+      }
+      .final-cta h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.2; color: var(--green); }
+      .final-cta h2 em { font-style: normal; color: var(--gold-deep); }
+      .final-cta p { margin: 16px auto 0; color: #33503F; max-width: 36rem; }
+      .final-cta .hero-ctas { justify-content: center; }
+      
+
+      /* Footer */
+      footer.site { background: linear-gradient(180deg, #FFFFFF 0%, #EFF7F1 26%, var(--green-tint) 52%, #C4DFCC 82%, #B7D8BF 100%); color: var(--ink-soft); margin-top: 76px; border-top: 1px solid var(--line); }
+      .foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 36px; padding: 52px 0 36px; }
+      @media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr; } }
+      footer.site h4 { color: var(--green); font-size: 1rem; font-weight: 800; margin-bottom: 14px; }
+      footer.site .f-brand { color: var(--green); font-size: 1.2rem; font-weight: 800; }
+      footer.site .f-brand small { display: block; font-size: 0.68rem; letter-spacing: 0.22em; color: var(--gold-deep); font-weight: 700; margin-top: 2px; }
+      footer.site p, footer.site li { font-size: 0.93rem; }
+      footer.site ul { display: grid; gap: 9px; }
+      footer.site a { text-decoration: none; display: inline-flex; align-items: center; min-height: 2rem; }
+      footer.site a:hover { color: var(--gold-deep); }
+      .foot-bottom { border-top: 1px solid var(--line); padding: 18px 0 24px; font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+      @media (max-width: 560px) {
+        .hero h1 { font-size: 2rem; }
+        .hero-eyebrow { font-size: 0.72rem; padding: 6px 12px; }
+      }
+
+      /* Mode gelap: sentuhan gradasi putih di permukaan besar, hijau tetap dominan */
+      
+
+      .reveal { opacity: 1; }
+      .reveal.in { animation: riseIn 0.55s ease; }
+      @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal.in { animation: none; }
+        .hero h1 .rotator.swap { animation: none; }
+        .btn:active { transform: none; }
+      }
+
+      /* ---------- Tambahan dari website live (disesuaikan ke palet preview) ---------- */
+      .soon-tag { display: inline-block; background: var(--gold-tint); color: var(--gold-deep); border: 1px solid var(--gold); font-size: 0.55em; font-weight: 800; vertical-align: middle; padding: 3px 12px; border-radius: 999px; letter-spacing: 0.02em; margin-left: 12px; white-space: nowrap; }
+      .testi-feature { display: flex; align-items: stretch; max-width: 840px; margin: 0 auto; }
+      .testi-feature + .testi-feature { margin-top: 28px; }
+      .testi-feature .photo { flex: 0 0 auto; width: 170px; margin-right: -20px; position: relative; z-index: 2; }
+      .testi-feature .photo img { width: 100%; height: auto; display: block; filter: drop-shadow(0 18px 22px rgba(14, 59, 46, 0.35)); -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%); mask-image: linear-gradient(to bottom, #000 65%, transparent 100%); }
+      .testi-feature .bubble { flex: 1; display: flex; flex-direction: column; justify-content: center; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--card-shadow); padding: 28px 28px 28px 48px; position: relative; z-index: 1; }
+      .testi-feature blockquote { margin: 0 0 14px; font-style: italic; font-size: 17px; }
+      .testi-feature blockquote::before { content: "\201C"; color: var(--gold); font-size: 32px; line-height: 0; margin-right: 2px; }
+      .testi-feature b { display: block; font-size: 17px; }
+      .testi-feature span { font-size: 13px; color: var(--ink-soft); }
+      @media (max-width: 820px) { .testi-feature { flex-direction: column; align-items: center; text-align: center; } .testi-feature .photo { width: 140px; margin: 0 0 16px; } .testi-feature .bubble { padding: 24px 22px; } }
+      .cta-band { background: linear-gradient(160deg, #0E3B2E, #082A20); color: #fff; border-radius: 24px; padding: 44px 28px; box-shadow: var(--card-shadow); text-align: center; }
+      .cta-band h2 { color: #fff; }
+      .cta-band p { color: rgba(255, 255, 255, 0.88); margin: 0 0 24px; }
+      .cta-band .hero-ctas { justify-content: center; }
+      .btn-white { border-color: #fff; color: #fff; background: transparent; }
+      .wa { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+      .wa .fab { width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3); animation: pulse 2.2s infinite; }
+      .wa .pop { width: min(310px, calc(100vw - 32px)); background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3); opacity: 0; transform: translateY(12px); pointer-events: none; animation: in 0.4s ease 2.5s forwards; }
+      .wa .pop.x { display: none; }
+      .wa .top { background: #128c7e; color: #fff; padding: 14px 16px; font-weight: 700; position: relative; }
+      .wa .top small { display: block; font-weight: 400; opacity: 0.9; }
+      .wa .cl { position: absolute; right: 10px; top: 8px; background: none; border: 0; color: #fff; font-size: 22px; cursor: pointer; line-height: 1; }
+      .wa .body { padding: 16px; }
+      .wa .body p { margin: 0 0 12px; font-size: 14px; color: var(--ink-soft); }
+      .wa .body a { display: block; text-align: center; background: #25d366; color: #07290f; font-weight: 700; text-decoration: none; padding: 11px; border-radius: 12px; }
+      @keyframes in { to { opacity: 1; transform: none; pointer-events: auto; } }
+      @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+    </style>
+</head>
+<body>
+<header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="index.html" aria-label="Aksara Academy — beranda">
+          <img class="brand-logo" src="data:image/webp;base64,UklGRnA0AABXRUJQVlA4IGQ0AAAQ0gCdASqkAWwBPmEulEakIqIhJnP6YIAMCU3cLXJiZZ92eM/33aVaV8//efSasH+D/tn3A+479cPArrP9gPTq82/cP0H7R/79/6f65/kvgz+i//R/iPgD/Y/1xf8X1I+Yf+sf8b1dP9v+7Pu0/qXqKf3//h+uP6rfoOfvL6d/tIf2b/r+lT//9YK9Jf3vti/wv93/cH0X/IPrP8x+XvM56z/7/ox/JvvB+w/uf7j/F/+6/4niP8xNQv8y/ov+y/M3+/cc8AH6uf7//D+ql8N/xv8B6wfXz/p/2v4Av6P/Y/+L5Z/iE/b/+D+zHwDfzH++f+r/Ue8B/j+UL6t/bT4Gv55/hOtwUuPv8fZ0N+JV/4+/x9/j7/H3+Pv8ff495jfmQjOxXcL/sUg1GfAxkGW/j7/H3iqyGeJCrdcHF1kHtlAmebuxxEICYf7i9hRIeiQ9EmxEh3XfXRg3zQmFIkIp9iWD6z0j4rrGiazU85tGRhrCYA38ff4+/wty37VUz6UNEroVrT8sH5hTB7vlaVXLjEFEiBTe74xkGcDHhwKlOuyczWO2RN1S5MFXPX7E7nUxFfmAN/IcRkh6JGL/w/wz2EHqAJN5tWcZxLJ49ypiu4JFP2qomAN/IcRkh6JD0SDhnxploOra/rBTsyj87cgI0LftLIoxkGXBJ7CiQmADWnbMq8SpVx6fM2pD2FhLUJsXDbrtf4tAkC+h+10eDL8gGt20RWHdZMwkPRkh3m3EjX5BQVc3FWEPryUns29pSB8f38Vc3eJ2cCKPPzvvYRVYyfBlvOaQjVWiiCS+D91Qmxc+THlZQS4/qWuPC5yW68++jFv4gDu5VnFy1UKKZlr/Z1uSR0xc+2PgNoKqtqp3xKDh3gVWEbUVf/Z8qYniUfJI1Na2Q5mD+h3JgR/j10H/yw+nsSFohiR32iXC4WgQTd28vrq4fnzXHmOtU1JQs2JPjBmURdnVVQriTSI58aQ91dkf/xwTVyw2N/yfjXYD8DElK6L/zPGWf1CT47vYPGAuVReIXCTbkE4/dBS/7g8z7YuaGFh8jtpu8dXRZD1HxbODcZnxrXdtLdxwz/U/LqvZP+9WR//Zw80nvOz/dyNXhxrhmwgWykgADN7vbyOIyQ9Eh6WkM0HSmxl+KijTPPSNjrmdNpHp8d1LTlYyEh6MkPRIeizpl2sqQT2KicDSjGQaARgRhp9xV6GUWJaMIrdl4RghOd0+4e7kg5qokp649tVtFvis8RVUDut4DYxZXdf9NzqDKONwWODQG1PdXJKTtPASJGleyJ0Jnre8SG86VBVaynucL5EW2zZYdrRiEtwhhwCg6IhSjlWBss8+Un0XTk72ZZvSCYi5Ga+IGpGekcg/8ppZNfTPKQKQL4XHCuaDqXHi5WvY36NxFP70gBFzVlMJCQrdmcssnszSLRyRlW6K/CMslkjpFPi5hq3rF6vQ9KxE3+nwJB6HJUxinkUDiPGYRS7mXUR3NpFWMFEVgAuA2rLt4BA1bt0R8sis2LyqH4WTaytp+0sXcB7OW8KOz6C4VWy7YVU0FI0/4NVPZkau+o/flgZhNBQvDc9Vkcmsal+1OlnW1BHXmSxAq/vIzSD+/NoX+fzUtSFhG55K0zskkBqA6XSv+ERMBMUe2C0KDtRS0kw8UQ9rxjfnmtFI9oDZkr57JullBqme7F/rBUdAL5Klk7L8UYvDrrM6K/HtGC11/Q4AtrP7vFULJpgH4bTt4ijYr4bM1hsqEZPZ19QDNFixoL3ORw6TZ2Dkc8M7rNwXP4aXiB7Pcdf8hZEJ7say0cqNzI7tDDkfMAPUV4P4LsjApuP/K94FkQu81yTNRTOGpdAM2uLAW7xTOLimis38OE9AXsLV/INmIZ9/FTOKPJ18QUp0ZkjwG+qZw8Tj5/2gsVay5y1LKy5xe5Zg9VQQYCBAoQ7NxRN5HcBk/ZcottNySnUkgYe3yRj/9H9ErYQ3SXVI2Ux/RnArgufJOk2ws+FO6L6jdcP2DPiC+JNC3nLQnO4F37qsh3Le7vcmCaqy9WDl55NRiiHcwSD8E0xCVuboHSXWXrfSGLwlTHj0ozrqgxsbceRt17PY6YycafyW+Yk7aNZs3nHC2uNY+3BrtDt65oo/OBXDwgNCr1tLa+PnxvrU4BCdVn9QRTRwIE9I0cg6h1f4SNAv0LCiQ7xOXsy/SjxtpjDg2Q78LQV6RTrOEffsgAXdbl9OvRu2RBhqWeo7di+hVz45uz9FPkRJFY0WocAA/v7AYAry6Yc8yVJ8X7wASEaznXDysDexq0nhFdI9lhVTPB8KGg6TGUt9EWeSVmZk/sjUH22tSjxf30X+7tMLkpF/CnpEZHGc2CvPmMA3cU2Q1nMfhOo5ca+m+wiJE07rQT4Iuu3nvRzk5RnacEmzWSR1hNja0qo5RbrEpDH7rLqw4UnvA33dwx9MxZovAnqPUz3NF+/cZAAABiFzICYZp319/1sMr1T65e8BzLAiiRNYiVAof4RQvVKxRQ1f59/JC4/LPwXsut+z647NDjAohcmE7wzCSw9O0LLmuTblrEqomSLRp4MLHLW2zRJGGucn7JSkEGmnBinfFPWxlbzGBuuVyFzVLPYCvHJAwgGPtVKj1Pm1DXIolMeHwwMJmtCGAHtJ02pSKycjJZdUXdHVAzHVxxD7X82Fxp3to5VZEwR8b5UONQG8YH1+z0lgAXj1tKps2/5Ud4qBBkBKZQe5Pz7U0MnYYhGB8CooeJF0oNme11my+HhpuxZR2uAw5Pn/34lcnZi+KTQeHgR8qkmms33oK7sWteL9BRNhlwqpH8WT+C0SpEHjv8KZVjk8I42TIB1ex1Sj27jg4AZrYTFU4SXv6BV9TuanwV5hWmNzCkBRk1B7sPgRsOaNpqkhU0HQYw0vNK6YUOrjiFEfcqsIKPg3cwci7Qzs2K+yDL3EnVdL1zbzt1MtNqJFPr38LFsSTZNrzeLeTeD9HqvekBkqLcom1iv6SSD7+E37jbTtCFEYIBZL6qmg2qxId5ynqXOMFAHTxbT5O/DL3MX3BQFKwE9sMLIwYRy8Vtx/R+3AIAR0+E9z6DC0sdSl315uYTI8+GPDtHMDREOvljAPFNqcZ74mUJE1rYi6/gnsBgok3vFRGZVD6VW6OLG67bZ1oyt+Iutvwyw4WHhzqqPixSi8QFMZBXW7BaIK93ZXaDsUuxw1pzoi9Oc92qNB9WDoUyDW7YdcB2xwH8kFMUCBa1DdzJGJ29mYUAFgObFC8CZiiEmqjORvOsaMnfVrZhlAAv7OzHYf40OBFiFm7DjX0Q0vOqUj3aRwqCyGcYL2/rkbRcOTz7vm3elYwiqH7jX5co5cP8dck02doaGqrMZBGHNY0nhBs9duKB7jZ91CzdPiwUHOpVIWHOipIkOr27Cr7fTPOkM6DaSzasBvDIljNpIuq47XVptwPCLsi6gB2j/gccWaYUXH7R0CTcAXlyHLCJ7p5Yz24O9uZ19FnDnkvF9byzy1AsVJXYrgvudHmYCfvYu0yTk3fnjTZDG6RGtn27KuCTG5A/ZQEDD1AkLgZ7M8PjMGa6Gm1rTLHzhgyKwOv0BOMWZzmQJ+U9IXh0XrfibHwjdgwaGdIk8rl384VxaEBq9A+gvaVkGyyWTwl9X/WFSAmGo+vZovyHxwAZF69/MiI9RKA8AgvJKwDay9vqZSHuxt8X0e3vtVzrCE4Jnd924XCieidH17iYsPBSOLH9Fs/PayYdL08O/dTEtlgC3tLYfQ6vtRLQ1bePuor1Ou41Gxlu0Pujku9rpjkbsypoDipjy2Uya8hNloFkf5HSzId0KJfzl1kqCvYC5p21xGzO2p3A17diT3Zu4/jxGtH8eUWlda3+k6h0MJSW9qausOGQfjUyIa+L+h3fbaw33R+4BsRmFTvAViMj2JiUZLnjibJqg3CyGfJPwfXTuDuGGCDMbv0Dhfgtik46hiywERqE02jZizLTLD9zmk3EN+NkyXtt/GVzJkRbT0PWbuwYT/LIVDFGXZk9kBo3GALHVK5TAJHZ7DbUNRlQ0E0sEnFI0ccxdI02JqEjInAHdYYv6hBLkciic0AcIkPtZED5KO1OGj26dMH77ZM3HjKYz2T+DZLhrvHBY1F9F72ksqVoAE9JM2IyWWPGt0YHKw0i5N0aFRiNglzRAq22ujmN7sJHwaA6MvVXUlAyW8P41lFIskTba89UuwHSGYl41gPQHrPkHCRPQlbszr54sh8bzTvreyftLtMJ+sLnHsiXalqKKzzmcuPc5BRt2XfU4avuIgcckQPk7/wzmGIH6AYOAUX1mQDm6RlOYhW9iO9Wq7S2NIbhYB5Tokn5V0E/4i2NZDGDvH927Cvi7e146sbOvxGWW86IoLC5Dj3FGWfigNhd80T/h64bnYZiVYd39L+FNYqMh4HmwKJCA94Hk7JK2gxJOGUYEz/4SRbEmsDHvofqOQIiMmPsgAufnzdxI2XwvbJqyS/tyxIGBgxoOvycoAjCEo+VdplVPqVptcPixM4tlb/w5iz1Qofiy5QzxgOKAIOdG6s8oA+vLH6uqBNO6EhYpDOGpM8NOIxFZXLAbzq3yXPMw0PxJmyqBwJUQ6iV1DQmnSgUE0ohDOAYm1rVuqrFpiB6mRBdWbqneiqQP41dVnhzHnbWvJmLDwkH5KHxOrHzfawGpdDjylDp4q9Y76RaTUlFznujkTQrqaMhnh/58HIwlt2e0X/UttOfKRnoklXpOr+tiOKx1lF7JhuL0nCPbvKDU1KsgHV3u1o2UPQXUEdOnrp5BM3Bktog1LbVALh0BkRukQJ4fxx5B35YGjD3UAa4AScxXP4SbyTYQYmNtjBNAL33RAsGg8z/+LiZ1D4uQ/29wd8ehw9mjzoP9T9NHlbN4VjaDN67+hA6RvfBTLXbLdYuBBtHWD83xTxuPZGybSEGQv22M0FTP2FvNYfeBGBxS+pOpZc+uZFJqhHWnfdtKPvR0h2WqMjMJhYAqTPmzoChvfbu62PZoOcITC1FsuaRsyhyR5iUed5jJu7ks11tsUvblnVibCgGfytmeomVVhZk49W/NXXnCieMDiEP44v5Hm3Q4/ye0FJxDX3/7ZYPO5ZjuA0b0PRWP5x7GSNqNjJkTzlqrkalFffipyrtrxWkGQq02U5MntqInGwX5PZL8MJo6rfB/KjohVcYlslKyowB48Ew7wmLdeqNlgRElvp9GosxOoOvb3wRuda1u5da2OyG8SHDusyG9sRVGw9+4INLMWKpqo2NlvcxX4PBM/B1FhopDcXI8XJ/4bjcbfXjBhOMRdTGvDnR5M/wLhF4jGY4Pzzvd9TX/pe/D7VOcnsHeLYlwP87lYD57Rqq5YUrnnD+Cl4LMkOM5oHK+gZ2l4QjLQViuY+oyGqRNU4BB/ATT94Uh85zszcpYzaje9VkcidD7FeTXx6/aBnsYa1ncZL1S72lftdi2c2JHCxpzACuxn4S0T84WR+Kv36OMhH3KEaXVYenbi+UScq6PCK99dO7w71SasxF8ZWVA3i5FaRn2VNjLQCUg6gZGheaU9X2zN7UKmRPqgsWN2YTT6lM79vaYUZBcZdWGXKhVsX9azlzHylBwEbYuSFBxS5xGg10xVIgEGzSgr8AEsUJBNZ2YD5tgk2B3CheJxZsrcf9oIcfl23vkvlqPaeZkOBkgrbeDRXDx1tAoQLNVuZIQNyjeYO/UuP9jhXwfWBPrBgdsy5CRfUjK+lPAD+6fQfETgL3r6XGwBY8pCgSdPvj95ldR2eY06BBbKwObe4rsC+oinaqLjPntzBTlEVCoBX7WtG6yDeaisekyiStK87Ywwgr9dQTRDAPxcmQdjKOYWsH9T+ULfJXJBZdPzqoFT2LExbsEkTOaju2tdoiVVFspzsvrDckO6FOiDog3udkAgDQHSLs8z5xDtvePdaA5bpyATqd0Bg8vZqBSNXvEUkY4S/3QHCUy49vMbBU6kAQjYydyeAoTQLfedBSWw/CWVfpR+dZGAUx3rdY5LfvYA2Gd/qSzEnvtIXhEP936CYRCZrw3R8iMNaWAZCbQxzGvFUJ6fJX0VjDWGXKsBSyCM4hYz0/dCdv4qSgYRTo22o3soyn91Qn+hffT1LbmXxcwENPaL970uApWd66RcBV304xze4EhW5vXaREz9P6lVrSmga3dLDtGe689lgXKy3cMyjNTkkThiOMmjYY8yMcL5WASX1punCP38oaBedonqxRQ7XIpc6jMXSUyQ3IIkvYInDG4p9+h4lRsI/Us/B2zaXK0eRinal3FEZ4r1JD024jMWdkn38Og13WIPOD/O+ltDCt7D3QzOOhNVp0/SwPRCFdHHO+T55AEdQF4U9Lhe3Wv7iiU9eu+ZbAgiOylHOEev0BeC+z+jzoLWhkXL5CRSX+9Uz8MRpTMMDZjuG6e1ZSKdOsq2mbOCdRjZUUGzahjEdBEirR4nS1un4XRUAtQKK03V0aLinzuXZWraSbUviWO4tcdDGxY0uGkLuIBBtgYgeeiP8YTDHe//dY19EmDeCADNcCJWwzCFykYb1LGORj0BCBr+P/IIn1x6CUZIg4ltHIz4+L7iwIHHUr4q9UedukxeJBJln8xgoZPtr/Zf2HFk1Yenu3M4mYDui+CqVcRPwX+XtqgUUs/YkVZHseqaFWX60QklccLJ6/HboMYcRJAV/rsn0uE6MJS7GpCCPEvVyy+uNfiYErxKusM1czM9UlnJmgu6R7dfA0x/e3Y2wKt5tto394Nvhi5hf0n9NVuTH/WEjHT10f2G+oPL+rhJ1N2woJDDL9Z5t3BPZog5cPvagA4ez9eXv/qg6kOXcJIoFWowdnl1xzaKn621bgg3baIyKxTIyrnSLToYPNhUQMA6FJm+38m97148qiq+4qbkWsiZf6+V/jEDQlrWev3ojaJydZZzrm+2H5k3NJKilXav5MrVoUON43bHqUqeUlxtwO3JQ9Fp7athXQfi6nOfXyL73JySxrfz1i/w/ysg2YYysR5v1PTLN0lJ3GQT8KrtgAH8C6OMwQ4RPMF0ivK6CULgT1WLtkKUJz7xxJ7E+KMD+Ymc5lPBHSRoBnDoDPxR1wUi9vPOeT6YUN84T/FDIfRgtYvSFMbq+lMFZpilw7tAW8yDuM8ty5aScSKtdbCLNOe/9vhVC0ymzw7ugw3IFO5LUIpiIQXHAvAf/fHjT4vtB6ZgETNJL5MgyVnLMSYOJ6SsvCsvVW4444j3xW75hYPX9N8gUmXxrajeCT0/G+iahB67Y8GSjbKquDwsQpJzbV3vSuhBBrJgUnaRt9LbsYoZCvr3uzJtowZSB1roLk/P+/aafRHPpYldWv/DL1hS3YShZTz5diCSm+5XqIFyJkBSQIqTOLmqFqH7vTJNgp+4BC+cBECL85IJk+5zE/ULOYr9fTIiMjhsUb4ukDmHpTQRPjVX1dduKbwIMAoO5blE+CvwGFMzkxWiAx9v6+bqWUJXl6V0u+C0EXf8AUJBV1SeSlxPDxzfuOp1UBMkBcNY5Ox2D5Fxoyz52ZO/OGF50LEYEW8WAirZYFseevrBK4xq380QR0BaAEsdUWk3+OcppJITHTtTS1bmDblAyHKHvSfz0HHXR+cjLp9RVLl0+8Qhd2ABW8j/VELl1BXIU1d0PxfJ9Lk23f/B1TNcbD0zB6JjBBohCVLJ7OGqFMD+fQVgdHhRkvmVqHfglqBSQYIAsnmAoMk7QgB28DUmYqRXb+CFSN2iOsMcW1EXJEN3EZ6oFUIgKizgJrmIQDk+kOcMtKIZ/ENegvq/x0me1bNLA5WKepg4VTTrNi3y7BynfOB9+6uoPNww0/mPICuLY/l8KSodbzD26qg5Pp1H4nZFeSqp+8H63Vk7r2PccQ+yXmr94p6GxVk/rYWnnvfCURanOw2AuVGSXENDGhyc9+sDhUMSIgn6aKzC6FMh8yk94E0YBSP0f5/f818AFS84tUAAXD7TUROc9mVa9JEXUTODnF67qc1VaFi4jHU5u1CSmlmefzHLhgAXAOvDMfDtQ0rM2Vhx/kxCy/e5uQw+vLCF+Bo3vy2vBacVRQGY3LFlhyf/mUhrwfe7ikAy4gbYHRLq6+4C/fbsrK6wRaKddHULe9wjvukWl7qF2dk8OvhguYBXat/90DAB9RQJMqkQvFDV7mtorxUh9ajNMbMyLC0iHgsWcnZ9a7i+UhaVYpR/iH8OjiKd3TiTTVCTnfR2zMw8n/+oOmYImFpVw50bQfEB3qQ45d+y9+NY/0ZjuryNz8iVmSRAebiNrikUv2dTcE7wwY7bZXH/DeYHnebB9bpeOMDvgJ07C3gd6CZC7ZI1eN+AWLSJ2Eo3pIzyftAWlHmHlZl6EDAKsMACZGYsyAh8+E/d/KNfPTmrqMLJl4ZZIgMFUtuab51kcjVnYRq3UmnlUTCEKtanTRbaLqB/G5XuMLLZ1qqGVRJVBW8sfH6hRMJTKIVC/BENOR7hSMQYI5+GuFIoQx9F0pRIXEfsjyID5S1MxehuzEmQUa/LgFFpOLTB+9DGORZQ6w06V8W229FHKqv4gkTFYPYEUEMKC2EJ5uut7nOrrXqIUO2xzQl9o3/e03AaLu27oGpeFT1z8jH+DZGAMcZ5c3J8oXSf7ZZKmRu1a17P75QDItR/q/qihKddtj3PjZqEgaNRGpvJ4N3JV0mNw7bss7C9k8gz87LRms+9k9AA/wcheXjNLyh/irN9NXJVRkqi36bHqAKzGyjjMfx5erWHVUGUW+HT82L351j46LQiaZKtREiiNZMzevdG9cr5bJPiq41Mv4Tzp4OqkA9OVLP9Tap2sPW1f/0soKXi6bKT/CpwN6+2wlmmrX9ahP9+hXpX5Kxyw+P7/d8RIO2YMm7IFsD4ZfQQ+t3fawfw7YjqZPLp8GHlL8zv6nyAuobxWdn4B9Ritn324fnNjBdT1zfmBEcdrR2dRS20bttR6Bbv6V4dWXO+F6Mw6h2/m3+5Yxv6yf6QXRuWYG/8018NCTOvC0bv+eEwlCvkdX37q/oVwEh3LGl+FvtNmTnSiGA9QHrnJItb0tSpYYdCotTo/auZfizufNIbb5Dtgh/42T9OhovZqdcyyQfzwwc5U9sPM+JdDIgSeCQGpbiJi6Y0DehuqsESawjG7Mn/i31LF//Te1urjaOKyPGRBmRKbz+1axTDOF3HNefq2bW4eNkbXn5w/oxEM1oONlkZ8h5OfPmVZGlq9fEuJMproscrG24SXnZJW7okATBbO0U0Oa0gUttxQJWFGZy94T/rHL600GMyHKL8oG1bsr3NifIQJeSIamgTNdnX5ZoiT/8S5pe7nZG8ZL7qTZ0epPOkU2Uj3KldJ/S9FNPMIIzqm50cHBEbCY+wcIwhon/g54xsEqP0mLKGPLluGs2CjHcIvwc01NocFKqpheRsZzJjDuj64wIvzJCqvJMe19EfVlMG5ygjTy1wEOu+c4lPJ3E17ksGR9yeTW1mSZCIJu7JPnYHkWhe3bP8YNZcg+MzEcTPjx+aG6LYfX29jM+Oq9y8bPevQHyL/p7eCnyK4AE2KWWUPo9Wtxpg0hgTcqSa2bt3x5YD7AGYyHWcdw3pZZAbjDp2v4DC43kcef9uenkYbTot/V9y59OOao7N2HlSPzQamtMX7OdnMq5s7q4R+lwt3eNItNIzG1whk0o1u4pr2qGfNX3uB/DdShsN195oJUc4EX+9ojmlSM0lonOgU+f2ueQ1oSWlGVXa29ZDGJgXPG0cHYt0Wgkpwaqra+VerRdNdCEDyLKw2y493yeHQUaA3ByfL13rx6yNFGXy0gRAfFhVafU3d+ml9cQXSVwqExef5myyUy/b9bzDWghZHzzn5ztC0cDVhjGFIA+daHcchjn9+iGCqBuB4xHVzSVyZl1gYaxwHksECwI4a+A2U01oAWieZGwu4K4pi/1yhY6IqBd8uOW89PVcfww7fqXxXoFE7MH4XRhbC50LSrbDoHiAWzbYT5qL3l7Z6ao4hVdTGTLBo+RNz8nPon+OLXmsRjthxpwPFZFcyCRdL8KK1MNubnbmWkwsGa75vx/G3xmOrma9NpMGHyThn90p3Fi5GV8DRu7VQVMWK3pVDPoGEWfEZGCQu5n6VSXRllIoXlxeLGOTD3X5hhGjsJQQzT+Qs/jN5/NrQ3yvJ/0h33i1SvqL2rYlnZaPBsOO892PaZQUWa5Xpm3l4FCG/40glnXJdxuaoA/JR82h2f8pRJNK1iA5o2KSzwKj3YuOl0t0tOBTYSd8RID3O+uphr7doDKEUq9leDwpYt6+VSx93RFtyauL8HIsKWJw9ggY5o9J+znS/wQlw3eukRbITO+FwkEU55bqPu7KjfP61HSOHkckg5k0cBtO4r60qREmEzkP9rxGzImdK2G+powIB8n/kiBNn3NplFy0cX+DLbGVc4l2/4pm+cYmM4Qo+izbApVM4KOxhZI/kh0HQ4dqr0HNOyI3pj0Ks9dda1401yRDa3YU6MPNylF2Hah1yByPzyGDRSYDdlfSoj0ulIpPSGpswUMW4vtbUuUwszQr1EuIlVcLIkvi99wilbxMtlr4awsnFDf3hwD0cZKk2l3FcZagDhSqDBJWHLH2J5sm/VLF44jyecm7qp+jENhnDPj9MxwSIQR1CLlE7feMYdB89f3PwmBxKcQaoOX+konaMptBf1W6HWAJ/I2AItI451vNubAsKlGKC+s8LFuMlbvWIPhDryrJtm+SUYx7FUzHyp2WtbLLbzCfkufQRaEfRvM9WJFemJMpxKtcUaNxaJoaB+f1WXHZgQLV+T+uE8uE/RGvgLxrhzKLjUDvcQ1QRS12JQumyUmxDlRvO8pIKignYBBQhHcbyBQaXm0OvswKCDfgozGMn/ZS2yNIld1HqRbb9bBdn4mBXjmI7H9wsfPBfrO73Q4Cr+1wLuQLxwLOJaRnv/XDzQMSuzQST3y7yTvKvfK3BLtxhdFxm7zAf/US/NV0b0RY7cJ91mbKKsi0I+Ywzt3humM6ysFCZCtvmt24dGSNh6RqTlfph7Nh85Aes+yHATkzLXK/j5jZWmofPKkXJkd31LwoVPIRH0BjkrUbDOXvP8ee8VTdekH72eHKRtPFW2FqgQqUGjm3t4KP/TnjmQxI1Ak/08w8eJiVTgbC5W2Zy4aWUOihKbHj+5/XHKvvcU3QmMr7BS1yHjQUXXop4Lt9fFgGFVyaaS0boUZ+NRKza87/AdFdIocYUQ/A3BezO5ng0+hHB2wMZ/oza9yhANSxSTg+XgXRf5Q4NNpeEoFEOgMpp6iGzGnt3xZ8X2ICAmAWE1h4jlRwYkBP8AMqv8b9o13gVdCZxszE3fh3Bd/PtqTkVMwHOPeziW/JWXsdgf1KRBltzIe22Dx2ATqYI50YyIjd5fIKsZgRZIabA83PKrmYZleKIos9R5JC4fVU1YSvXSC8F0MQYV9XGDzu7zv3i25XXnFTzgnGE4UAPnyXqXqR0IWpI+pmvzCzr/g0JpbxgiH985m9jBmczYzb4UJS3ysGhqWy+CaFncAPaAPJ+D9jZCoEUrVxSTH0hI220YvkpG6zQlIM7Ke+yEkEhhlT2frp5UcOx6YxerF6wiYy+cf/5b1xQSGhCKwTpiWT9TzrlmcVwlb1xPnSGaujPTNd66PHie8c2yhpWvAP2z8u7NcMKKRB/2ZJCX9gwaKdK35UBiuV3Jt8D4F8StTCx8PRkX+CnyS61e19Kq4eufZy/tzMTbSFFG9bPQoNaQPvhTvkugge1wqfuWDlwTpH72okclf4c9z56/4RJ7gxgzirzw+3YjAZDPxS9R4y1DFUNoP+n36+fsgKyInB/xvOJd6Gs9rIOUAMw2oNLGP9Iftpa7VGI1QXm/r1boBB+qJbtfa1spcr5aX3HLuGqYwiH3bjJs3Yqb0nUT2hopxHpzg48VebpS8Ks9IMO7NIuktIYZSnTeF+FvyZN1v0ybx8tiIT2EkL9a7VDqsT1ciXQjG/h85i+ZSM46/jcIFVrznVGxtYLCNg3SYwAb3cpCN/WasK9Ywap1XviEccPhh5G5m2AAuu29Jz5HVXof+k8SknKeZ1bP/XYE056hjEaR2gFuZTYnmJuHzcWHsCPqgzENabb6i/SXhprH10VaZrcmvms+dVlANgfpUTPzs1FDRB3upi9v874uK4djpHLs4zDsh10Adqe6YMeIbGRx8ojWW/ojTs+xYbabdz/n+XStw4AlohDjnXe7tjkw3SqV0x9ZhVpLVNPEiHWqlBenscR5GX9y6oXjTU9v0PHWTMVnXba5d9s4ZRb0bh7F49L6ABTJq005uMaPV9+kDU3ThF0IpgO1m8lnns4lNDU0lJDniKH+8/Oryd9YH2hINkrxc95TyGcPCV02gV86BfgIHwJuZwevRBO/6bwgYykU2Ren+Sp8Yq9/fWSjSi4ztcpWkI6DML9o11XINqiZwmjsjhizRZfOU1TQvC6Vf5+rFOsGl5zimKxOCr1/TuGS78O3F6jSe0jXOk5vEyQ0EJwLxiWV+yKtOJB0X1iQ+V/+hEeNpbrLR8lcBzKvZBVz11jTZ8L4tMZNhq/VhC1ckExP3Z43cdnIEJGZvA/uKPsOAsQYK5iOGJe4baTpcO38/x9hr6f2/wtNXHtzV+wuhbvA+mOI6Khuwiuu704GbkQ8UIWOETfOJ59dXTMCxlZM8YxtsI7pGQt3v/cqruOynt7iDfa4Gpx8n6rDpyTNePLcfESywEiROWfFbYKqm5Z+LNG7YVSyoQnD1uIXhPujHFvGK+RBdf8LlPkf6MKJR3XIN25YKEkE4wnuL6oBiGjrQ4rGNxADv8nfapowPzF0UUHvgIF0kfz5/94OT2PFW2x+NGD5TiTV94j3W1cn32kcAe4hnlh3f21yhc7XAWjXeeAbrcF/QJFrO0BGBUSoXz7cHhEquTZ41CvE0KC1TKObQxoJrfnMItjlHlYSHR4YqRud3XUguz1ZXGkjmNQrDqnCKMgcvPX5BGu9P6Lk8tAl6QXPlG9TcDeZzInl3Ll/Lg88yBf+YFHW3RVl2tanCH/nDrpx71nsBxg8Odnu5Co1DxQ+IbmzCPVGAZNlJtcVRpYsl0u9BFbveoYLGPbtJ1LQsfr6RG2ZgiWtld04J13IZs7D3wx30CoQxRVVXl0em6+5uQQvV1yH8qM8v9TlqqDZJ50e0XfM+T+Rtrpg6ZAOWdY5L0HejXtHrWxn0WWV29Azmqyw37V6X9XTcUeHP6rDDOXsdxb90eOs258WQ3/3hsoGye+SWw6Ur9b08ey8XNwYJFsMGCRtMj1ZGThYYNZi9lGKrsppBdaC6IY703RZTguGyYoiFIcr983tQMWd2OOl53tUeSD5S6oO6ueLQmhz3ki73/FPvNzxm7oW3WUWbNevMEjDS5dgvz/jgPb7QBc3s04spkvoenOcuMm+fymiQjBIHJIMrbz1xt7F4BsIFO5UAB/TzSl/USepcQ9Y4w0CDaA027FkraLseljTC7sWafXRnjuALNyBiwNuMzRzj4QtwinW1QsxZ8QWNCflGgBcjv23QD61TNbstesjnX5UmOeqWoMddAmzmJ3BSP+Kj8ngluCWYu3922RdaD/cw/tEb1XwA6R5dZU9k2dK2+tcELbVgknV7k1ZpfVj9D8iYN8opVumRClX9w4ybwPrCRZ980/J832LQWQ5X6lHT011VLV+L0Np4H8mPJwWqYKeSJk286GM7cZWIgkVvMp/DQW/kJQIbL6zbA7kjyp/fFsU/gdG7rHO2sBad1Zf5c/yYLHZlS4ObDDVMwjNscJ3eXuziouAMg4wtFLosgG9NDzINivXzj8sz2NeRvTl++tElwWfpNCQnHoSv9wA7ogBDXJjySSqm8eQWQfIG79QgtLdo5X7j3cbnHxErh38BChj89TDdGfneKb3le4XpeeM/RP4p0hogyUxJJIEF+rU6RRGOLgv6XkP5ucqIsynQcPJ/PG72JGBqFOYiB8NTfS3Gm5CDFzUKY0l2N1lsLXxcvNSmcEJz9I+xOvXjvg3OgGOzbAweOh/dUGOpkWFOvfZNdiBMt6rw6FDzFVtPi0Wwz0JEAQEUU3MkZ2xxfbWFlu54VwxOttNubv1KpmZsQGSnBbKWe6VO/38dXLmITZYq6kLaCbR6BPDtODYhz/WANPKIkgM+TEJHtuA2EEZER5nyGU2vfvLBz1jlGwp7nuHSdFkUm2swoH5PtMwrFPbIzJGTnrx/cL0eSmATF2nxy579iRyf9JL21t3FrnBImGLg6KGLiA0qR3lL+e6YRM4sXFH38xg03Ys+9ahQ/067u0XNtA5mif6xwJ6AshStD6QANTT+LLPzLDjDngYegW7kwaYlOFLB9bBzZBY9PdYEhzPhQHrDQmjFLEcaRoyN5z/jtv9slZdeMmy8ByShVxyJAE1uWdz/pPIUpafrP91pRcmaMNkQ3VNS9993T9cSI57afB2Zl18dZbnm9K3FG4Jei0VFSllduy0i5eQjkX05i6kjweMR/7/fCBculBVFR62moP4qYdzasafwwMPX0w7vA6QcwAux2W1gu/vt3xkxhFoTEWIDGFiQYzm1lakdXwxUAGNYSYQcV92649jfliFovh1uNRwpPF5g1lbmLaLdHduyPqGDCEcD3YaO5OtTaz9vgvtdzj3321q7Z2E02NaSnsnqS2oMhRldV2KdIk0NXrCQl+VmcIozW/JV6Z0pz5o4q2Au8sqjYczpte5JiAcUNZ7lxw3dw2WMA6jSK5dQyVbTlbz4Fk16nauXWBjSvmzMhK8sczIAuoiTvCodHtQ0prdXEMHH8sb9HjYSqDzscPxfo9eUzaThJ0EEf3icZ5/K0UeUDJzF7ot/Esmeel+qDfzJtBCNeInHBrzDSBbvJoEXlx9jg/gMesaZQgXEHTugZn4C0s7aSbmeptNrcB8mV5B9+MLAheqAK7/2zYSDzUezVy92geRLyAVhgazCAtGK+VL5JqGJFAdPjnMdv/C+PU49PVazFb/05/w0U4rScD9tGIvF3qNV9HQ0EKZ/YYW/F4fUXGGheZYLIXaNUONtkh8pEtxmgmpYu5VUqkFW84Jec7FF6G9etudb7rFCYbzpLqzTxnALswxrBOSvgDahjh8q1Fnm7ok1BEaNpsHCvf+ayaovM5SXstII3/m2GA086PdVAZ23g2VkI2hn6JG+QxBDdOeC5v3QBTVsy2ZZVWZvfyjWB1yhztLVM+19gpkcBhwHtbJyeUH+Kmtx9gtCUafyeD31feQK4u3gpktBkPLFlSiN6RONDlwHuVeEAVKiL1xlWlcOXbjmZN+K3Rd4j/48zlH4knvk2zGHJ3P9L6qvFfqaekY83DsIrUBbzvfyLMRXeXXLLQCtEGweP7/A8Hdbvv4QGP9cOgOJOHEAJOe5qW+MU/yD57FO0Ud66VuSHlRHO51uzleN8JB2QBjJ/oVK3MhTLYnFgHXRCHiU5LbvSezCS7B1cA89rWsChK/HTrLWEe/pCZ6RdYmaPgnbS9WkfySd/SzWS+qLv2MQirnB8eRP+08pPLU7vxka40qILa7jxVxIJh6WzaRw4NGxJzoNT2w8jFpLH7nCpAyNmA+32ORfS/2rGoAP2qh7fVo/OJIyW680EJTyExVspiwc56GIxnMaYnWeItNU6BQVFY9hiIK02/GPvRxuGHntbu1dBwWO9at0B6xd4+hH345K/vjKHTQdbICCb9Zw+buBlPauG+NnRzeIgZow7OJJoFiHmxAiYltBZ3RoWpkfWaPXSI/7W4C6upUqp20GaDgUaOQ/c9K4UgLKBp57l28gPHjDAXwka7bh8Byr99FPqz2vHaX9I/QJfmDxPoRK/4t5HKCki5f2upafbcTjN9lOX7foeOiaqQJFTdmmBljZ30Bn/Tz+4kDW0BXLXLEWJtHf6y1nHmmKHsUFRQ71P6qPoqKBq52uaCXzgtqGFW/xMCElUEG6TXHyqwnIuLg7XHPWVAnCIpM1usuU+Zcz0+3T49j2ib8daYYMQI8cAl0J5UScNPfh76R2puUbQiq63GpB8q91a+DpS3Q/KNwH3Yf6bT1WPV7zPhACI46gJSNXLf10JFjTCRPNUi9q3UxcokEkA02n/s+7goqlplylH9YbwiQA/euA/2o3LshJ4YIVAccr/IPKsC6BXcdRoq1Hc/0BCLLt1jNfvaBkyw975sbDUi93PDP6fi5rOk7j/nSzqnBzQghdWgnth1ROc/ZugDdlBO+H/GSTn1vAYE+KE+tRU0rShPzmp8ilASjqAEsl5AWSpnMMiVCsjWHse7aFW1Vr5kdN4RY7/D9iOSyGsH2XBeOvR/Tnd2cbVZEi/HivEEXfQi3x6C/0yXiTsnyShKCIGd6hgS7OaSz9DZcsmfN1sC1f7ayhBZGvxvbRwohwYXnDvBktNvrDaS2xOwvVPvFHOg5U+a8YWvitou+bEpyay9N5McOpS00+OldP7cMlR2FpkkjWA8CKC9kmBb+yPtcAK3P1OY/7hkdo3f6RJ/FI/rsg2rfzil++ObUZrL5r4JoXUZjZ76Z4HtkjwNn5p7TBPnJv/Mv2pllR9mjC3btHXVFOmtxxIKBjsSDAO5BiqCvtuNBzI1A1il/MprJ1l3/nRq9TJex6cz5kNu3RfheOehLjZjL7f9lw5Tn9KPGcnSOCjCFJeXXWuv+46h/7bP2I/mxEzQjr/V0/D2MO1DB7u4uLP8MmYbau9qLsmJxSm+36WZtv5DugJNHTX90oFFJ3q5Adgie12/KCwCT6tGVwMb642LIF72FFCBFrmog22Wu7qofTm07AZXE7FMRZMtkhtPTmZxRmYlLl/w+kWbpIzLqXoynaYB/kAAlbzDdtgYue1PjxCkZj3At8F4rUH6QuwZmXmlLmXR9wTGhSVZ3k1M1cGTGawxced2jMBiu4NVBoBlg9XZP0cZpky3RM5tSsmocWsVpbfKy8ieand7MnvnGcUwtJWAumCB/EEcGm0MEQPgx5pxlRzsSqBzML7KWnxVlq1MChbf9Jb0neYGxuQVh5HHY30N/Qa60YstXfT1QvGtOVWZb+pFq2YVdnoywweiD+RW90oGPlTzUsSU5f3wCPyIlcuQdsCLKvST/l5Jv9aK1IkUuGqSOqPRR7omDdQXvOa7TVAtKXbLlZdFD8Zuv5cXq0KV+It6jqlF2YBDK0SOkGjzpvb4oS4wBQixJ43n5vUHh18C0aZOCZu8xN79V8+h6tIgiLfvnY0rIPbZH1GW2zm3CWQx6uhV4qNbR4Wd5csn17JvjQ+AlNy/or0zq7LvZmPoPv31Zk56RKJNe5KJFQgHwpACkNVsxTpFfyeRkLucoyMhbbQPtMUmRhTqh06lZWS+x7PsTgaT3nVRA4xIp51aq21LG0l0DixdrR1gR0MQnK7AQgUu+dzkzxfDc0mnfbvcemr73joDcKtGeZILC0CrP4VLkEtgxUadJjAod233vhrWGuEybmLfWJFt+cNRl+aB3EUIHMY1VjnukkO9MZh2KRk0DL9L1+SI0pIFYf7JUxwiHEGG70Gl3+CJJ3WnZHflqztbbyrPvOba6rzh11UmVmtWiQxffaaS+/uELTqF5w+HCkJ8Rv4wgSg5E2cJr8zrCJEIW0+sJ/zhytSCSMRjOBBH0a52QSGrdys9w693QytZDqSVsNK6Y8qjia56ZQFAhK7x64c8waDiyyXD1woXMFzPhzd/kIAYc6DvyjeewXNov/azPHYtISQFwvxoGVisEnY370WoTuzZ5MNKxFeKDsdxB9RbNfCS9nvNvyXsyEOuRZXC4irGiYmg/iiMv8acgoc9QMwW8gASTSDOtOq1zRCCxTsfDey5HnJwvKejsAnIMAKIl27GHA3zyhqh+Jr3TA4EYHAEFjrX4CGXTweUuFkbIlb/0hBHSMdpqmzVMrmUemhnAD4E8iVXBtW2q6SAuxLgAAAAA==" alt="Logo Pilar Aksara Nusantara">
+          <span class="brand-name">Aksara Academy<small>PT PILAR AKSARA NUSANTARA</small></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
+          <a href="index.html#program">Program</a>
+          
+          <a href="profil.html">Profil</a>
+          <a href="kenapa.html">Kenapa Aksara</a>
+          <a href="promo.html">Promo</a>
+          <a href="corporate.html">Corporate Training</a>
+          <a href="testimoni.html">Testimoni</a>
+          <a href="blog.html">Blog</a>
+          <a href="faq.html">FAQ</a>
+          <a href="sertifikat.html" target="_blank" rel="noopener">Sertifikat</a>
+        </nav>
+        <a class="btn btn-gold btn-nav" href="daftar.html" target="_blank" rel="noopener">Daftar</a>
+      </div>
+    </header>
+
+    <main>
+<section class="block" id="faq">
+        <div class="wrap">
+          <div class="sec-head center reveal">
+            <span class="sec-kicker">Sering Ditanyakan</span>
+            <h2>Pertanyaan seputar Aksara Academy</h2>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item reveal">
+              <summary>Apakah materi video gratis?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Ya, video tutorial dasar dapat ditonton gratis di <a href="https://www.instagram.com/aksaracademy/reels/" target="_blank" rel="noopener">Reels Instagram Aksara Academy</a>.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Perlu pengalaman sebelumnya?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Tidak. Materi dimulai dari nol dan bertahap.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Apakah peserta mendapat sertifikat?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Ya, peserta yang menyelesaikan program mendapatkan sertifikat dari Aksara Academy. Sertifikat bisa dicek di halaman <a href="sertifikat.html" target="_blank" rel="noopener">Sertifikat</a>.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Ada pertanyaan lain?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Klik tombol WhatsApp hijau di pojok kanan bawah.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Apa itu Aksara Academy?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Aksara Academy adalah lembaga pelatihan di bawah PT Pilar Aksara Nusantara yang berfokus pada keterampilan Microsoft Office dan Excel untuk kebutuhan akademik dan karier. Informasi resmi tersedia di aksaraacademy.biz.id.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Program apa saja yang tersedia?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Dua program unggulan: <strong>Intensive Microsoft Office For Academic &amp; Career Readiness</strong> (paket Word, Excel, PowerPoint) dan <strong>Transforming Skills into Productivity through Microsoft Excel</strong> (pendalaman Excel). Keduanya juga bisa diambil sebagai paket bundel.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Siapa saja yang bisa ikut?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Program dirancang untuk mahasiswa, fresh graduate, dan profesional yang ingin memperkuat skill Microsoft Office dan Excel — baik untuk tugas akademik, melamar kerja, maupun produktivitas di kantor.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Bisakah kampus atau perusahaan mengadakan pelatihan khusus?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Bisa. Melalui layanan Corporate Training, materi pelatihan dapat disesuaikan untuk kelas, komunitas, organisasi, maupun tim perusahaan. Ajukan kebutuhanmu melalui website resmi Aksara Academy.</div>
+            </details>
+            <details class="faq-item reveal">
+              <summary>Bagaimana cara mendaftar program?<span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+              <div class="faq-body">Pendaftaran resmi dan pengumuman jadwal batch berikutnya dilakukan melalui aksaraacademy.biz.id.</div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+<footer class="site">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div>
+            <p class="f-brand">Aksara Academy<small>PT PILAR AKSARA NUSANTARA</small></p>
+            <p style="margin-top: 14px; max-width: 22rem;">Lembaga pelatihan keterampilan digital untuk kesiapan akademik dan karier — belajar berbasis praktik, dibuktikan dengan sertifikat resmi.</p>
+          </div>
+          <nav aria-label="Tautan halaman">
+            <h4>Jelajahi</h4>
+            <ul>
+              <li><a href="index.html#program">Program Unggulan</a></li>
+              <li><a href="promo.html">Promo &amp; Bundling</a></li>
+              <li><a href="corporate.html">Corporate Training</a></li>
+              <li><a href="blog.html">Blog &amp; Info</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+            </ul>
+          </nav>
+          <div>
+            <h4>Resmi</h4>
+            <ul>
+              <li><a href="sertifikat.html" target="_blank" rel="noopener">Sertifikat</a></li>
+              <li><a href="testimoni.html">Testimoni Alumni</a></li>
+              <li><a href="kenapa.html">Tentang Lembaga</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>© 2026 Aksara Academy · Pilar Aksara Nusantara · <a href="pendaftar.html">Penyelenggara</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="wa">
+<div class="pop" id="pop"><div class="top"><button class="cl" id="cl" aria-label="Tutup">×</button>Aksara Academy<small>Tanya langsung via WhatsApp</small></div>
+<div class="body"><p>Halo! Ada yang ingin ditanyakan seputar program? Chat kami langsung.</p><a target="_blank" rel="noopener" href="https://wa.me/6285179523129?text=Halo%20Aksara%20Academy%2C%20saya%20ingin%20bertanya.">Mulai Chat WhatsApp</a></div></div>
+<a class="fab" target="_blank" rel="noopener" href="https://wa.me/6285179523129?text=Halo%20Aksara%20Academy%2C%20saya%20ingin%20bertanya." aria-label="Tanya via WhatsApp"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg></a></div>
+
+
+    <script>
+      (function () {
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var toggle = document.getElementById("navToggle");
+        var links = document.getElementById("navLinks");
+        toggle.addEventListener("click", function () {
+          var open = links.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        links.addEventListener("click", function (e) {
+          if (e.target.tagName === "A") {
+            links.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+          }
+        });
+        if ("IntersectionObserver" in window && !reduceMotion) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+            });
+          }, { threshold: 0.12 });
+          document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+        } else {
+          document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+        }
+      })();
+    </script>
+  </body>
+</html>
