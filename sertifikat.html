@@ -1290,8 +1290,8 @@
       if (row) row.style.display = shown ? "" : "none";
     });
     if (vals.length > 0) {
-      /* Total = rata-rata nilai yang DITAMPILKAN saja: sertifikat Word saja
-         totalnya = nilai Word itu sendiri; ketiganya tampil = rata-rata
+      /* Total = rata-rata nilai yang DITAMPILKAN saja: satu nilai tampil
+         totalnya = nilai itu sendiri; ketiganya tampil = rata-rata
          ketiganya seperti sebelumnya. */
       var total = vals.reduce(function(a, b){ return a + b; }, 0) / vals.length;
       var totalRounded = Math.round(total);
